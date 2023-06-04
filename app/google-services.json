@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "299384460601",
+    "firebase_url": "https://test1-84d99-default-rtdb.firebaseio.com",
+    "project_id": "test1-84d99",
+    "storage_bucket": "test1-84d99.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:299384460601:android:3c20a5396e9a55b83c84e8",
+        "android_client_info": {
+          "package_name": "com.example.joinn"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "299384460601-72otoplhqv82fqq270pm7b8860r24npn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAhE2KtrXGddzRvMpmTX4Z3Cu4vHEJGHps"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "299384460601-72otoplhqv82fqq270pm7b8860r24npn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
