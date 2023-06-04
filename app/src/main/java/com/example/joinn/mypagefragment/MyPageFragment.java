@@ -57,8 +57,6 @@ import java.io.ByteArrayOutputStream;
 
 public class MyPageFragment extends Fragment {
 
-    //내가 이창세한테 푸쉬 날린다.^^햣
-
     private static final int PICK_IMAGE_REQUEST = 1;
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int REQUEST_IMAGE_PICK = 2;
