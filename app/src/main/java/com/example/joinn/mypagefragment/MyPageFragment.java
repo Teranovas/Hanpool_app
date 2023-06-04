@@ -1,7 +1,4 @@
 package com.example.joinn.mypagefragment;
-
-import static com.google.android.gms.auth.api.signin.GoogleSignIn.getClient;
-
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -25,6 +22,9 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.storage.FirebaseStorage;
 
 import com.bumptech.glide.Glide;
@@ -52,9 +52,11 @@ import android.content.DialogInterface;
 import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
-// 이창세
+
 
 public class MyPageFragment extends Fragment {
+
+    //내가 이창세한테 푸쉬 날린다.^^햣
 
     private static final int PICK_IMAGE_REQUEST = 1;
     private static final int REQUEST_IMAGE_CAPTURE = 1;
@@ -69,7 +71,6 @@ public class MyPageFragment extends Fragment {
     // 현재 로그인한 사용자의 uid를 가져옵니다.
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-    Button logoutBtn,editBtn;
     private String mNickname;
     private int mProfileImageResId;
     private Uri mImageUri;
@@ -81,7 +82,15 @@ public class MyPageFragment extends Fragment {
 
         mProfileImageView = view.findViewById(R.id.imguser);
         packageManager = requireActivity().getPackageManager();
+        Button logoutBtn = view.findViewById(R.id.logoutBtn);
 
+        logoutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 구글 로그아웃 수행
+                signOutFromGoogle();
+            }
+        });
         mProfileImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -141,6 +150,25 @@ public class MyPageFragment extends Fragment {
 
         return view;
 
+    }
+
+    private void signOutFromGoogle() {
+        // GoogleSignInClient 객체 생성
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+        GoogleSignInClient signInClient = GoogleSignIn.getClient(requireContext(), gso);
+        // 로그아웃 수행
+        signInClient.signOut()
+                .addOnCompleteListener(requireActivity(), new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Intent intent = new Intent(requireContext(), MainActivity.class);
+                        startActivity(intent);
+                        requireActivity().finish();  // 현재 액티비티 종료
+                    }
+                });
     }
 
     private void showImagePicker() {

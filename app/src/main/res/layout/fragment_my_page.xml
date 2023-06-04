@@ -159,7 +159,7 @@
                 android:layout_alignLeft="@+id/view2"
                 android:layout_alignParentRight="true"
                 android:layout_marginLeft="48dp"
-                android:layout_marginTop="112dp"
+                android:layout_marginTop="110dp"
                 android:layout_marginRight="-48dp"
                 android:text="프로필 설정"
                 android:textColor="#000000"
@@ -184,6 +184,18 @@
                 android:textSize="16sp"
                 android:layout_below="@+id/view5"
                 android:layout_centerHorizontal="true"/>
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/lottieAnimationView"
+                android:layout_width="200dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="120dp"
+                android:layout_below="@+id/calendertxt"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/intro_splash" />
 
         </RelativeLayout>
 
