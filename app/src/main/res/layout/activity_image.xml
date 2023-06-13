@@ -49,4 +49,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imguser" />
 
+    <Button
+        android:id="@+id/StartBtn2"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="시작하기2"
+        android:textColor="@android:color/black"
+        android:background="@android:color/transparent"
+        android:textStyle="bold"
+        android:layout_marginTop="160dp"
+        android:onClick="btnclick2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imguser" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
