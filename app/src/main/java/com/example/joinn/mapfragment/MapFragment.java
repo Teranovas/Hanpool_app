@@ -35,8 +35,8 @@ public class MapFragment extends Fragment {
 
         // Get the MapView and initialize it
         mapView = view.findViewById(R.id.map_container);
-        mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(37.537229, 127.005515), true); // 초기 위치를 서울로 설정
-        mapView.setZoomLevel(4, true); // 초기 줌 레벨 설정
+        mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(37.194002, 127.023045), true); // 초기 위치를 서울로 설정
+        mapView.setZoomLevel(0, true); // 초기 줌 레벨 설정, 낮을수록 고도 낮게
 
         // Get the button view and set the click listener
         Button button = view.findViewById(R.id.search_button);
