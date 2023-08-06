@@ -101,4 +101,6 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(MainActivity.this, "Google 로그인 실패", Toast.LENGTH_SHORT).show();
         }
     }
+
+
 }

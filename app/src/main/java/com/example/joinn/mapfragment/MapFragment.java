@@ -9,22 +9,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.example.joinn.R;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapView;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
+
+import net.daum.mf.map.api.MapPOIItem;
+import net.daum.mf.map.api.MapPoint;
+import net.daum.mf.map.api.MapView;
 
 import java.io.IOException;
 import java.util.List;
 
-public class MapFragment extends Fragment implements OnMapReadyCallback {
+public class MapFragment extends Fragment {
 
-    private GoogleMap mMap;
+    private MapView mapView;
     private EditText mEditTextLocation;
 
     @Override
@@ -36,11 +33,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         // Get the EditText view for entering the location
         mEditTextLocation = view.findViewById(R.id.location_edit_text);
 
-        // Get the MapView and request for the map asynchronously
-        MapView mapView = view.findViewById(R.id.map_container);
-        mapView.onCreate(savedInstanceState);
-        mapView.onResume();
-        mapView.getMapAsync(this);
+        // Get the MapView and initialize it
+        mapView = view.findViewById(R.id.map_container);
+        mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(37.537229, 127.005515), true); // 초기 위치를 서울로 설정
+        mapView.setZoomLevel(4, true); // 초기 줌 레벨 설정
 
         // Get the button view and set the click listener
         Button button = view.findViewById(R.id.search_button);
@@ -55,49 +51,40 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                     return;
                 }
 
-                // Call onMapReady to show the location on the map
-                onMapReady(mMap);
+                // Convert the location to latitude and longitude using Geocoder
+                Geocoder geocoder = new Geocoder(getActivity());
+                List<Address> addressList = null;
+                try {
+                    addressList = geocoder.getFromLocationName(location, 1);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                if (addressList == null || addressList.isEmpty()) {
+                    // No address found, show an error message or return
+                    return;
+                }
+
+                // Get the latitude and longitude from the first address in the list
+                Address address = addressList.get(0);
+                double latitude = address.getLatitude();
+                double longitude = address.getLongitude();
+
+                // Move the camera to the location
+                MapPoint mapPoint = MapPoint.mapPointWithGeoCoord(latitude, longitude);
+                mapView.setMapCenterPoint(mapPoint, true);
+
+                // Add a marker on the map
+                mapView.removeAllPOIItems(); // 기존의 마커들을 모두 제거합니다.
+                MapPOIItem marker = new MapPOIItem();
+                marker.setItemName(location);
+                marker.setTag(0);
+                marker.setMapPoint(mapPoint);
+                marker.setMarkerType(MapPOIItem.MarkerType.BluePin); // 마커의 색상을 파란색으로 설정합니다.
+                mapView.addPOIItem(marker);
             }
         });
 
         return view;
     }
-
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-
-        // Get the location entered by the user
-        String location = mEditTextLocation.getText().toString().trim();
-
-        if (location.isEmpty()) {
-            // EditText is empty, show an error message or return
-            return;
-        }
-
-        // Create a Geocoder object to convert the location into latitude and longitude
-        Geocoder geocoder = new Geocoder(getActivity());
-        List<Address> addresses = null;
-        try {
-            addresses = geocoder.getFromLocationName(location, 1);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        if (addresses == null || addresses.isEmpty()) {
-            // No address found, show an error message or return
-            return;
-        }
-
-        // Get the latitude and longitude from the first address in the list
-        Address address = addresses.get(0);
-        LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
-
-        // Add a marker on the map
-        mMap.addMarker(new MarkerOptions().position(latLng).title(location));
-
-        // Move the camera to the location
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
-    }
 }
-

@@ -7,6 +7,27 @@
     tools:context=".communityfragment.CommunityFragment">
 
     <Button
+        android:id="@+id/time_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_margin="8dp"
+        android:background="#C62828"
+        android:textColor="#FFFFFF"
+        android:text="시간 순 정렬" />
+
+
+    <Button
+        android:id="@+id/distance_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/time_button"
+        android:layout_margin="8dp"
+        android:background="#C62828"
+        android:textColor="#FFFFFF"
+        android:text="거리 순 정렬" />
+
+    <Button
         android:id="@+id/reg_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
