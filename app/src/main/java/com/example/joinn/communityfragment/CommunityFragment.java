@@ -24,6 +24,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class CommunityFragment extends Fragment {
@@ -46,6 +48,24 @@ public class CommunityFragment extends Fragment {
         regButton = view.findViewById(R.id.reg_button);
 
         postList = new ArrayList<>();
+
+        Button timeButton = view.findViewById(R.id.time_button);
+        timeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // postList를 시간 순으로 정렬합니다.
+                Collections.sort(postList, new Comparator<Post>() {
+                    @Override
+                    public int compare(Post post1, Post post2) {
+                        // 시간 정보를 기준으로 정렬하도록 compare 메서드를 구현합니다.
+                        return Long.compare(post2.getTimestamp(), post1.getTimestamp());
+                    }
+                });
+
+                // 리스트뷰에 변경된 순서를 반영합니다.
+                postAdapter.notifyDataSetChanged();
+            }
+        });
 
         regButton.setOnClickListener(new View.OnClickListener() {
             @Override
