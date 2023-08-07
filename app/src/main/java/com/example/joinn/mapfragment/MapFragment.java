@@ -1,5 +1,6 @@
 package com.example.joinn.mapfragment;
 
+import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
@@ -24,6 +25,9 @@ public class MapFragment extends Fragment {
     private MapView mapView;
     private EditText mEditTextLocation;
 
+    private Button button;
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -39,7 +43,10 @@ public class MapFragment extends Fragment {
         mapView.setZoomLevel(0, true); // 초기 줌 레벨 설정, 낮을수록 고도 낮게
 
         // Get the button view and set the click listener
-        Button button = view.findViewById(R.id.search_button);
+        button = view.findViewById(R.id.search_button);
+
+
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

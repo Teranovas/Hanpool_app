@@ -53,7 +53,7 @@ public class RegisterFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_register, container, false);
 
         titleEditText = view.findViewById(R.id.title_et);
-        contentEditText = view.findViewById(R.id.content_et);
+        contentEditText = view.findViewById(R.id.content_et1);
 
         submitButton = view.findViewById(R.id.reg_button);
 
