@@ -27,6 +27,8 @@ public class MapFragment extends Fragment {
 
     private Button button;
 
+    private Button button2;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
