@@ -4,13 +4,17 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.joinn.R;
+import com.example.joinn.mypagefragment.DriverRegistrationFragment;
 
 import net.daum.mf.map.api.MapPOIItem;
 import net.daum.mf.map.api.MapPoint;
@@ -23,6 +27,7 @@ public class MapFragment extends Fragment {
 
     private MapView mapView;
     private EditText mEditTextLocation;
+    private Button locationBtn;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -38,6 +43,20 @@ public class MapFragment extends Fragment {
         mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(37.194002, 127.023045), true); // 초기 위치를 서울로 설정
         mapView.setZoomLevel(0, true); // 초기 줌 레벨 설정, 낮을수록 고도 낮게
 
+        locationBtn = view.findViewById(R.id.location_search_btn);
+        locationBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                Fragment newFragment = new AddSearchFragment();
+
+                transaction.replace(R.id.container, newFragment);
+
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
         // Get the button view and set the click listener
         Button button = view.findViewById(R.id.search_button);
         button.setOnClickListener(new View.OnClickListener() {
