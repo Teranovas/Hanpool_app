@@ -25,5 +25,12 @@
         android:layout_below="@+id/location_edit_text"
         android:layout_alignParentEnd="true"
         android:text="Search" />
+    <Button
+        android:id="@+id/location_search_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/search_button"
+        android:layout_alignParentEnd="true"
+        android:text="도로명주소" />
 
 </RelativeLayout>
