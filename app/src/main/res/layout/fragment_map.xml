@@ -12,8 +12,8 @@
     <!-- 텍스트 입력란 -->
     <EditText
         android:id="@+id/location_edit_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="400dp"
+        android:layout_height="45dp"
         android:layout_margin="16dp"
         android:hint="Enter location" />
 
