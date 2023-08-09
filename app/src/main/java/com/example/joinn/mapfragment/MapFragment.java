@@ -1,8 +1,14 @@
 package com.example.joinn.mapfragment;
 
+import static android.app.Activity.RESULT_OK;
+
+import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
+
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -48,13 +54,14 @@ public class MapFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 Fragment newFragment = new AddSearchFragment();
-
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 transaction.replace(R.id.container, newFragment);
-
                 transaction.addToBackStack(null);
                 transaction.commit();
+                // AddSearchFragment에서 결과 처리를 위해 실행될 람다 함수
+                //getSearchResult.launch(new Intent(getActivity(), AddSearchFragment.class));
+
             }
         });
         // Get the button view and set the click listener
@@ -106,4 +113,17 @@ public class MapFragment extends Fragment {
 
         return view;
     }
+    //AddSearchFragment에서 주소를 가져와 여기서 처리.
+    private final ActivityResultLauncher<Intent> getSearchResult = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                // AddSearchFragment로부터의 결과값이 이곳으로 전달된다.(setResult에 의해)
+                if(result.getResultCode() == RESULT_OK){
+                    if(result.getData() != null){
+                        String data = result.getData().getStringExtra("data");
+                        mEditTextLocation.setText(data);
+                    }
+                }
+            }
+    );
 }
