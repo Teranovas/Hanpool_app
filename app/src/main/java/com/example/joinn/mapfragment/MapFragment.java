@@ -1,6 +1,7 @@
 package com.example.joinn.mapfragment;
 
 import static android.app.Activity.RESULT_OK;
+import static android.content.ContentValues.TAG;
 
 import android.content.Intent;
 import android.location.Address;
@@ -12,6 +13,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,9 +61,10 @@ public class MapFragment extends Fragment {
                 transaction.replace(R.id.container, newFragment);
                 transaction.addToBackStack(null);
                 transaction.commit();
-                // AddSearchFragment에서 결과 처리를 위해 실행될 람다 함수
-                //getSearchResult.launch(new Intent(getActivity(), AddSearchFragment.class));
 
+                // AddSearchFragment에서 결과를 받기 위한 함수를 실행
+                // 이거 주석풀면 값을 받아와야하는데 버튼누르면 앱이 꺼짐..
+//                getSearchResult.launch(new Intent(getActivity(), AddSearchFragment.class));
             }
         });
         // Get the button view and set the click listener
@@ -126,4 +129,5 @@ public class MapFragment extends Fragment {
                 }
             }
     );
+
 }

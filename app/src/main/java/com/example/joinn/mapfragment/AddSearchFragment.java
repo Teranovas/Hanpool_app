@@ -25,7 +25,7 @@ public class AddSearchFragment extends Fragment {
         WebView webview = rootView.findViewById(R.id.webView);
         webview.getSettings().setJavaScriptEnabled(true);
         webview.addJavascriptInterface(new BridgeInterface(), "Android");
-        webview.setWebViewClient(new WebViewClient(){
+        webview.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageFinished(WebView view, String url) {
                 // Android->Javascript 함수 호출
@@ -39,14 +39,15 @@ public class AddSearchFragment extends Fragment {
         return rootView;
 
     }
-    private class BridgeInterface {
+
+        private class BridgeInterface {
         @JavascriptInterface
         public void processDATA(String data){
             //카카오 주소 검색 API의 결과값이 브릿지 통로를 통해 전달받는다.(from Javascript)
             Intent intent = new Intent();
             intent.putExtra("data", data);
             getActivity().setResult(RESULT_OK, intent);
-//            getActivity().finish();
+            getActivity().getSupportFragmentManager().popBackStack(); // AddSearchFragment를 스택에서 제거
         }
     }
 
