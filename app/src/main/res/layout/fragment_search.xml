@@ -4,7 +4,6 @@
     android:layout_height="match_parent"
     tools:context=".homefragment.SearchFragment">
 
-
     <EditText
         android:layout_marginTop="90dp"
         android:id="@+id/departureEditText"
@@ -30,11 +29,19 @@
         android:layout_below="@+id/destinationEditText"
         android:text="확인" />
 
-    <fragment
-        android:id="@+id/mapFragment"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
+<!--    google map 사용시 -->
+<!--    <fragment-->
+<!--        android:id="@+id/mapFragment"-->
+<!--        android:name="com.google.android.gms.maps.SupportMapFragment"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_below="@+id/confirmButton"-->
+<!--        android:layout_height="400dp" />-->
+
+    <net.daum.mf.map.api.MapView
+        android:id="@+id/search_container"
         android:layout_width="match_parent"
+        android:layout_height="400dp"
         android:layout_below="@+id/confirmButton"
-        android:layout_height="400dp" />
+        android:layout_marginTop="0dp" />
 
 </RelativeLayout>

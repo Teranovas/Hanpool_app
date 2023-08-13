@@ -31,17 +31,21 @@ import com.google.maps.model.DirectionsResult;
 import com.google.maps.model.TravelMode;
 import com.google.maps.model.Unit;
 
+import net.daum.mf.map.api.MapPOIItem;
+import net.daum.mf.map.api.MapPoint;
+import net.daum.mf.map.api.MapView;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SearchFragment extends Fragment implements OnMapReadyCallback {
+public class SearchFragment extends Fragment{
 
     private EditText departureEditText;
     private EditText destinationEditText;
     private Button confirmButton;
-    private GoogleMap mMap;
-    private Polyline routePolyline;
+//    private GoogleMap mMap;
+    private MapView mapView;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
@@ -50,114 +54,118 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback {
         destinationEditText = view.findViewById(R.id.destinationEditText);
         confirmButton = view.findViewById(R.id.confirmButton);
 
+        mapView = view.findViewById(R.id.search_container);
+        mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(37.194002, 127.023045), true); // 초기 위치를 서울로 설정
+        mapView.setZoomLevel(0, true); // 초기 줌 레벨 설정, 낮을수록 고도 낮게
+
+
         confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String departure = departureEditText.getText().toString();
                 String destination = destinationEditText.getText().toString();
-                // 출발지와 목적지를 이용하여 경로를 처리하는 코드를 추가하세요.
-                calculateRoute(departure, destination);
+
+                searchAndDisplayLocation(departure, destination);
             }
         });
 
-        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.mapFragment);
-        if (mapFragment != null) {
-            mapFragment.getMapAsync(this);
-        }
-
         return view;
     }
-    private LatLng convertAddressToLatLng(String address) {
-        Geocoder geocoder = new Geocoder(getContext());
-        List<Address> addressList;
-        LatLng latLng = null;
+
+    // 출발지와 목적지를 이용하여 경로를 처리하는 코드
+    private void searchAndDisplayLocation(String departureAddress, String destinationAddress) {
+        Geocoder geocoder = new Geocoder(requireContext());
 
         try {
-            addressList = geocoder.getFromLocationName(address, 1);
-            if (!addressList.isEmpty()) {
-                Address location = addressList.get(0);
-                latLng = new LatLng(location.getLatitude(), location.getLongitude());
-            }else{
-                //주소를 찾지 못한경우
+            // 출발지 주소로부터 좌표 검색
+            List<Address> departureAddresses = geocoder.getFromLocationName(departureAddress, 1);
+            if (!departureAddresses.isEmpty()) {
+                Address departureAddressObj = departureAddresses.get(0);
+                MapPoint departurePoint = MapPoint.mapPointWithGeoCoord(
+                        departureAddressObj.getLatitude(), departureAddressObj.getLongitude()
+                );
+
+                // 출발지 마커 추가
+                MapPOIItem departureMarker = createMarker(departurePoint, "Departure");
+                mapView.addPOIItem(departureMarker);
+
+                // 목적지 주소로부터 좌표 검색
+                List<Address> destinationAddresses = geocoder.getFromLocationName(destinationAddress, 1);
+                if (!destinationAddresses.isEmpty()) {
+                    Address destinationAddressObj = destinationAddresses.get(0);
+                    MapPoint destinationPoint = MapPoint.mapPointWithGeoCoord(
+                            destinationAddressObj.getLatitude(), destinationAddressObj.getLongitude()
+                    );
+
+                    // 목적지 마커 추가
+                    MapPOIItem destinationMarker = createMarker(destinationPoint, "Destination");
+                    mapView.addPOIItem(destinationMarker);
+
+                    // 경로 표시 함수 호출
+                    calculateAndDisplayRoute(departurePoint, destinationPoint);
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        return latLng;
     }
 
-    private void calculateRoute(String departure, String destination) {
-        if (TextUtils.isEmpty(departure) || TextUtils.isEmpty(destination)) {
-            // 출발지 또는 목적지가 비어있는 경우 처리할 내용을 여기에 추가하세요.
-            return;
-        }
-        String route = departure + " -> " + destination;
-
-        // 출발지와 목적지 좌표로 변환하여 drawRoute 메서드에 전달
-        LatLng departureLatLng = convertAddressToLatLng(departure);
-        LatLng destinationLatLng = convertAddressToLatLng(destination);
-        if (departureLatLng == null || destinationLatLng == null) {
-            // 좌표를 찾을 수 없는 경우 처리할 내용을 여기에 추가하세요.
-            return;
-        }
-        // Directions API 요청을 생성하고 실행
-        GeoApiContext context = new GeoApiContext.Builder()
-                .apiKey("AIzaSyDoZiB_HmXnhyP1fDfhHY2e6J8frs9Ue2I")
-                .build();
-        DirectionsApiRequest request = DirectionsApi.newRequest(context)
-                .mode(TravelMode.DRIVING)
-                .units(Unit.METRIC)
-                .origin(new com.google.maps.model.LatLng(departureLatLng.latitude, departureLatLng.longitude))
-                .destination(new com.google.maps.model.LatLng(destinationLatLng.latitude, destinationLatLng.longitude));
-
-        try {
-            DirectionsResult result = request.await();
-            if (result.routes.length > 0) {
-                // 경로가 반환되었을 때 처리할 내용을 여기에 추가하세요.
-                // 예를 들어, 경로 정보를 가져와서 drawRoute 메서드에 전달할 수 있습니다.
-                String polyline = result.routes[0].overviewPolyline.getEncodedPath();
-                drawRoute(polyline);
-            } else {
-                // 경로가 없는 경우 처리할 내용을 여기에 추가하세요.
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            // 경로 계산 중에 예외가 발생한 경우 처리할 내용을 여기에 추가
-            // 경로를 Google 지도에 그리고 표시하는 코드를 작성하세요.
-//        drawRoute(departureLatLng, destinationLatLng);
-        }
+    //출발지와 도착지에 마커추가하기
+    private MapPOIItem createMarker(MapPoint mapPoint, String title) {
+        MapPOIItem marker = new MapPOIItem();
+        marker.setItemName(title);
+        marker.setTag(0);
+        marker.setMapPoint(mapPoint);
+        marker.setMarkerType(MapPOIItem.MarkerType.RedPin);
+        marker.setSelectedMarkerType(MapPOIItem.MarkerType.BluePin);
+        return marker;
     }
 
-    private void drawRoute(String polyline) {
-        // PolylineOptions 대신에 Directions API에서 반환된 polyline을 사용하여 경로를 그립니다.
-        List<LatLng> decodedPath = PolyUtil.decode(polyline);
 
-        // PolylineOptions 생성 및 설정
-        PolylineOptions polylineOptions = new PolylineOptions();
-        polylineOptions.addAll(decodedPath);
-        polylineOptions.width(8f);
-        polylineOptions.color(Color.BLUE);
+    private void calculateAndDisplayRoute(MapPoint departurePoint, MapPoint destinationPoint) {
+        // 이전의 마커와 폴리라인을 모두 제거
+//        mapView.removeAllPOIItems();
+//        mapView.removeAllPolylines();
+//
+//        // 출발지와 목적지에 마커를 추가합니다.
+//        MapPOIItem departureMarker = createMarker(departurePoint, "Departure");
+//        mapView.addPOIItem(departureMarker);
+//
+//        MapPOIItem destinationMarker = createMarker(destinationPoint, "Destination");
+//        mapView.addPOIItem(destinationMarker);
 
-        // Polyline 추가하여 지도에 경로 표시
-        if (mMap != null) {
-            if (routePolyline != null) {
-                routePolyline.remove(); // 기존 경로 제거
-            }
-            routePolyline = mMap.addPolyline(polylineOptions);
-
-            // 경로가 표시되는 영역에 맞추어 카메라 이동
-            LatLngBounds.Builder boundsBuilder = new LatLngBounds.Builder();
-            for (LatLng point : decodedPath) {
-                boundsBuilder.include(point);
-            }
-            LatLngBounds bounds = boundsBuilder.build();
-            mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 100));
-        }
-    }
-
-    @Override
-    public void onMapReady(@NonNull GoogleMap googleMap) {
-        mMap = googleMap;
+//        // 경로 계산 요청을 위한 GeoApiContext 생성
+//        GeoApiContext geoApiContext = new GeoApiContext.Builder()
+//                .apiKey("a89f1daaf052c0cf2d6beb70f8e672ca") // 여기에 카카오 API에서 javascript키 넣기.
+//                .build();
+//
+//        // 경로 요청 생성
+//        DirectionsApiRequest directionsApiRequest = DirectionsApi.newRequest(geoApiContext)
+//                .origin(new com.google.maps.model.LatLng(departurePoint.getMapPointGeoCoord().latitude, departurePoint.getMapPointGeoCoord().longitude))
+//                .destination(new com.google.maps.model.LatLng(destinationPoint.getMapPointGeoCoord().latitude, destinationPoint.getMapPointGeoCoord().longitude))
+//                .mode(TravelMode.DRIVING) // 운전 경로로 설정 (도보나 대중교통으로도 설정 가능)
+//                .units(Unit.METRIC)
+//                .region("kr");
+//
+//        // 경로 요청 결과 받기
+//        DirectionsResult directionsResult;
+//        try {
+//            directionsResult = directionsApiRequest.await();
+//            if (directionsResult.routes != null && directionsResult.routes.length > 0) {
+//                // 첫 번째 경로를 가져와서 폴리라인을 그립니다.
+//                com.google.maps.model.LatLng[] path = directionsResult.routes[0].overviewPolyline.decodePath();
+//                List<LatLng> latLngs = new ArrayList<>();
+//                for (com.google.maps.model.LatLng latLng : path) {
+//                    latLngs.add(new LatLng(latLng.lat, latLng.lng));
+//                }
+//                PolylineOptions polylineOptions = new PolylineOptions()
+//                        .addAll(latLngs)
+//                        .width(10)
+//                        .color(Color.BLUE);
+//                Polyline polyline = mapView.addPolyline(polylineOptions);
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
 }
