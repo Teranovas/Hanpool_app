@@ -12,9 +12,12 @@
     <!-- 텍스트 입력란 -->
     <EditText
         android:id="@+id/location_edit_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_width="400dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
         android:hint="Enter location" />
 
     <!-- 지도 검색 버튼 -->
@@ -25,6 +28,13 @@
         android:layout_below="@+id/location_edit_text"
         android:layout_alignParentEnd="true"
         android:text="Search" />
+    <Button
+        android:id="@+id/location_search_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/search_button"
+        android:layout_alignParentEnd="true"
+        android:text="도로명주소" />
 
 
 </RelativeLayout>
