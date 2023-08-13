@@ -12,6 +12,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.joinn.R;
 
@@ -40,14 +41,24 @@ public class AddSearchFragment extends Fragment {
 
     }
 
-        private class BridgeInterface {
+    private class BridgeInterface {
         @JavascriptInterface
         public void processDATA(String data){
             //카카오 주소 검색 API의 결과값이 브릿지 통로를 통해 전달받는다.(from Javascript)
-            Intent intent = new Intent();
-            intent.putExtra("data", data);
-            getActivity().setResult(RESULT_OK, intent);
-            getActivity().getSupportFragmentManager().popBackStack(); // AddSearchFragment를 스택에서 제거
+//            Intent intent = new Intent();
+//            intent.putExtra("data", data);
+//            getActivity().setResult(RESULT_OK, intent);
+//            getActivity().getSupportFragmentManager().popBackStack(); // AddSearchFragment를 스택에서
+
+            Bundle bundle = new Bundle();
+            bundle.putString("data",data);
+            Fragment newFragment = new MapFragment();
+            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+            newFragment.setArguments(bundle);
+            transaction.replace(R.id.container, newFragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
+
         }
     }
 
