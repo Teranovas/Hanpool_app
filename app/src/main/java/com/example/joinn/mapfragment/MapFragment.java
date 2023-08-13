@@ -64,7 +64,7 @@ public class MapFragment extends Fragment {
 
                 // AddSearchFragment에서 결과를 받기 위한 함수를 실행
                 // 이거 주석풀면 값을 받아와야하는데 버튼누르면 앱이 꺼짐..
-//                getSearchResult.launch(new Intent(getActivity(), AddSearchFragment.class));
+//                getSearchResult.launch(new Intent(getActivity(), AddSearchFragment.class);
             }
         });
         // Get the button view and set the click listener
