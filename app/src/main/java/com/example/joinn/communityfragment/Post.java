@@ -8,7 +8,9 @@ import java.io.Serializable;
 public class Post implements Serializable, Parcelable {
     private String key;
     private String title;
-    private String content;
+    private String startpoint;
+
+    private String arrivepoint;
     private String writer;
     private String imageUrl;
     private long timestamp;
@@ -17,10 +19,12 @@ public class Post implements Serializable, Parcelable {
         // Firebase Realtime Database에서 객체를 deserialize할 때 필요한 빈 생성자
     }
 
-    public Post(String key, String title, String content, String writer, String imageUrl, long timestamp) {
+    public Post(String key, String title, String startpoint, String arrivepoint
+                ,String writer, String imageUrl, long timestamp) {
         this.key = key;
         this.title = title;
-        this.content = content;
+        this.startpoint = startpoint;
+        this.arrivepoint = arrivepoint;
         this.writer = writer;
         this.imageUrl = imageUrl;
         this.timestamp = timestamp;
@@ -43,12 +47,20 @@ public class Post implements Serializable, Parcelable {
         this.title = title;
     }
 
-    public String getContent() {
-        return content;
+    public String getStartpoint() {
+        return startpoint;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setStartpoint(String startpoint) {
+        this.startpoint = startpoint;
+    }
+
+    public String getArrivepoint() {
+        return arrivepoint;
+    }
+
+    public void setArrivepoint(String arrivepoint) {
+        this.arrivepoint = arrivepoint;
     }
 
     public String getWriter() {
@@ -83,7 +95,8 @@ public class Post implements Serializable, Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(key);
         dest.writeString(title);
-        dest.writeString(content);
+        dest.writeString(startpoint);
+        dest.writeString(arrivepoint);
         dest.writeString(writer);
         dest.writeString(imageUrl);
         dest.writeLong(timestamp);
@@ -92,7 +105,8 @@ public class Post implements Serializable, Parcelable {
     protected Post(Parcel in) {
         key = in.readString();
         title = in.readString();
-        content = in.readString();
+        startpoint = in.readString();
+        arrivepoint = in.readString();
         writer = in.readString();
         imageUrl = in.readString();
         timestamp = in.readLong();

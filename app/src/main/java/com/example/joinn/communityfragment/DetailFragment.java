@@ -10,11 +10,13 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.joinn.R;
 import com.example.joinn.chatfragment.ChatFragment;
+import com.example.joinn.mapfragment.AddSearchFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -32,15 +34,16 @@ import java.util.Locale;
 public class DetailFragment extends Fragment {
 
     private TextView titleTextView;
-    private TextView contentTextView;
-    private TextView dateTextView;
-    private RecyclerView commentsRecyclerView;
-    private CommentAdapter commentAdapter;
-    private ArrayList<Comment> commentList;
-    private EditText commentEditText;
-    private Button addCommentButton;
+    private TextView  startTextView;
+    private TextView arriveTextView;
 
-    private Button SaveBtn;
+    private String data1;
+
+    private String data2;
+
+
+
+    private Button saveBtn;
 
     private DatabaseReference usersRef;
     private FirebaseAuth mAuth;
@@ -58,14 +61,29 @@ public class DetailFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_detail, container, false);
 
         titleTextView = view.findViewById(R.id.title_tv);
-        contentTextView = view.findViewById(R.id.content_tv);
-        dateTextView = view.findViewById(R.id.date_tv);
-        commentsRecyclerView = view.findViewById(R.id.comments_recycler_view);
-        commentEditText = view.findViewById(R.id.comment_et);
-        addCommentButton = view.findViewById(R.id.reg_button);
+        startTextView = view.findViewById(R.id.start);
+        arriveTextView = view.findViewById(R.id.arrive);
+        saveBtn = view.findViewById(R.id.SaveBtn);
 
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
+
+        startTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment newFragment = new AddSearchFragment();
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.container, newFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
+
+        if(getArguments() != null){
+            data1 = getArguments().getString("data");
+            startTextView.setText(data1);
+        }
+
         if (currentUser != null) {
             currentUserId = currentUser.getUid();
             usersRef = FirebaseDatabase.getInstance().getReference().child("users");
@@ -84,8 +102,8 @@ public class DetailFragment extends Fragment {
             });
         }
         
-        SaveBtn = view.findViewById(R.id.saveBtn);
-        SaveBtn.setOnClickListener(new View.OnClickListener() {
+
+        saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 saveButtonClicked();
@@ -113,55 +131,35 @@ public class DetailFragment extends Fragment {
         });
 
         Bundle bundle = getArguments();
-        if (bundle != null) {
-            String title = bundle.getString("title");
-            String content = bundle.getString("content");
-            long timestamp = bundle.getLong("timestamp");
-
-            titleTextView.setText(title);
-            contentTextView.setText(content);
-            dateTextView.setText(getFormattedDate(timestamp));
-        }
-
-        // RecyclerView 설정
-        commentList = new ArrayList<>();
-        commentAdapter = new CommentAdapter(commentList);
-        commentsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        commentsRecyclerView.setAdapter(commentAdapter);
-
-        addCommentButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addCommentButtonClicked();
-            }
-        });
+//        if (bundle != null) {
+//            String title = bundle.getString("title");
+//            String content = bundle.getString("content");
+//            long timestamp = bundle.getLong("timestamp");
+//
+//            titleTextView.setText(title);
+//            contentTextView.setText(content);
+//            dateTextView.setText(getFormattedDate(timestamp));
+//        }
+//
+//        // RecyclerView 설정
+//        commentList = new ArrayList<>();
+//        commentAdapter = new CommentAdapter(commentList);
+//        commentsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+//        commentsRecyclerView.setAdapter(commentAdapter);
+//
+//        addCommentButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                addCommentButtonClicked();
+//            }
+//        });
 
         return view;
     }
 
-    private String getFormattedDate(long timestamp) {
-        Date date = new Date(timestamp);
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault());
-        return sdf.format(date);
-    }
 
-    // 댓글을 추가하는 메서드
-    private void addComment(String userId, String userName, String content, long timestamp) {
-        Comment comment = new Comment(userId, userName, content, timestamp);
-        commentList.add(comment);
-        commentAdapter.notifyDataSetChanged();
-    }
 
-    private void addCommentButtonClicked() {
-        String content = commentEditText.getText().toString().trim();
-        if (!content.isEmpty()) {
-            if (currentUserName != null) {
-                long timestamp = System.currentTimeMillis();
-                addComment(currentUserId, currentUserName, content, timestamp);
-                commentEditText.setText("");
-            }
-        }
-    }
+
     
     
 }

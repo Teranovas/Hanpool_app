@@ -2,12 +2,6 @@ package com.example.joinn.communityfragment;
 
 import static android.content.ContentValues.TAG;
 
-import com.google.android.gms.maps.MapView;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.gson.Gson;
-
-import android.location.Location;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -18,7 +12,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -34,27 +27,29 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class CommunityFragment extends Fragment {
+
+public class AfterFragment extends Fragment {
 
     private List<Post> postList;
     private ListView listView;
     private PostAdapter postAdapter;
     private Button regButton;
 
-    private Button distanceBtn;
-    private Button afterBtn;
+    private Button beforeBtn;
+
     private Button timebtn;
-
-
-
-    public CommunityFragment() {
+    public AfterFragment() {
         // Required empty public constructor
     }
+
+
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_community, container, false);
+        View view = inflater.inflate(R.layout.fragment_after, container, false);
 
         listView = view.findViewById(R.id.listView);
         regButton = view.findViewById(R.id.reg_button);
@@ -62,34 +57,21 @@ public class CommunityFragment extends Fragment {
 
         postList = new ArrayList<>();
 
-        afterBtn = view.findViewById(R.id.after_button);
-
-        distanceBtn = view.findViewById(R.id.distance_button);
+        beforeBtn = view.findViewById(R.id.before_button);
 
         postAdapter = new PostAdapter(getActivity(), R.layout.post_item, postList);
         listView.setAdapter(postAdapter);
 
-
-
-        afterBtn.setOnClickListener(new View.OnClickListener() {
+        beforeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-                transaction.replace(R.id.container, new AfterFragment());
+                transaction.replace(R.id.container, new CommunityFragment());
                 transaction.addToBackStack(null);
                 transaction.commit();
 
             }
         });
-
-        distanceBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-
-
 
         // onDataChange() 메서드에서 로딩 시에 시간순으로 정렬되도록 변경
         DatabaseReference postsRef = FirebaseDatabase.getInstance().getReference().child("posts");
@@ -99,7 +81,7 @@ public class CommunityFragment extends Fragment {
                 postList.clear();
                 for (DataSnapshot postSnapshot : snapshot.getChildren()) {
                     Post post = postSnapshot.getValue(Post.class);
-                    if ("한신대학교".equals(post.getArrivepoint())) { // 도착지가 "한신대학교"인 경우만 추가
+                    if ("한신대학교".equals(post.getStartpoint())) { // 도착지가 "한신대학교"인 경우만 추가
                         postList.add(post);
                     }
                 }
@@ -132,7 +114,6 @@ public class CommunityFragment extends Fragment {
 
             }
         });
-
         regButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -144,29 +125,6 @@ public class CommunityFragment extends Fragment {
             }
         });
 
-        // 리스트뷰 항목 클릭 이벤트 처리
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // 클릭한 항목의 정보 가져오기
-                Post selectedPost = postList.get(position);
-
-                // DetailFragment로 전환하며 선택한 항목 정보 전달
-                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-                DetailFragment detailFragment = new DetailFragment();
-                Bundle bundle = new Bundle();
-                bundle.putString("title", selectedPost.getTitle());
-//                bundle.putString("content", selectedPost.getContent());
-                bundle.putLong("timestamp", selectedPost.getTimestamp()); // 작성일 정보 전달
-                detailFragment.setArguments(bundle);
-                transaction.replace(R.id.container, detailFragment);
-                transaction.addToBackStack(null);
-                transaction.commit();
-            }
-        });
-
         return view;
     }
-
-
 }

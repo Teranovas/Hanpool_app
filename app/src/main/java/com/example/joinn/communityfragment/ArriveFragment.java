@@ -1,9 +1,10 @@
-package com.example.joinn.mapfragment;
+package com.example.joinn.communityfragment;
 
-import static android.app.Activity.RESULT_OK;
-
-import android.content.Intent;
 import android.os.Bundle;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,21 +12,20 @@ import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-
 import com.example.joinn.R;
 
-public class AddSearchFragment extends Fragment {
+
+public class ArriveFragment extends Fragment {
+
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.search, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_arrive, container, false);
 
-        WebView webview = rootView.findViewById(R.id.webView);
+        WebView webview = rootView.findViewById(R.id.webView2);
         webview.getSettings().setJavaScriptEnabled(true);
-        webview.addJavascriptInterface(new BridgeInterface(), "Android");
+        webview.addJavascriptInterface(new ArriveFragment.BridgeInterface(), "Android");
         webview.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageFinished(WebView view, String url) {
@@ -46,9 +46,9 @@ public class AddSearchFragment extends Fragment {
         public void processDATA(String data){
             //카카오 주소 검색 API의 결과값이 브릿지 통로를 통해 전달받는다.(from Javascript)
 
-            Bundle bundle = new Bundle();
-            bundle.putString("data",data);
-            Fragment newFragment = new MapFragment();
+            Bundle bundle = getArguments();
+            bundle.putString("arrivedata",data);
+            Fragment newFragment = new ArriveRegisterFragment();
             FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
             newFragment.setArguments(bundle);
             transaction.replace(R.id.container, newFragment);
@@ -57,5 +57,4 @@ public class AddSearchFragment extends Fragment {
 
         }
     }
-
 }

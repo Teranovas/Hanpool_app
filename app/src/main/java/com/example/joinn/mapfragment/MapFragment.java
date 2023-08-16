@@ -125,18 +125,5 @@ public class MapFragment extends Fragment {
 
         return view;
     }
-    //AddSearchFragment에서 주소를 가져와 여기서 처리.
-//    private final ActivityResultLauncher<Intent> getSearchResult = registerForActivityResult(
-//            new ActivityResultContracts.StartActivityForResult(),
-//            result -> {
-//                // AddSearchFragment로부터의 결과값이 이곳으로 전달된다.(setResult에 의해)
-//                if(result.getResultCode() == RESULT_OK){
-//                    if(result.getData() != null){
-//                        String data = result.getData().getStringExtra("data");
-//                        mEditTextLocation.setText(data);
-//                    }
-//                }
-//            }
-//    );
 
 }

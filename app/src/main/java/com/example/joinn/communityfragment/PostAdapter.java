@@ -35,12 +35,14 @@ public class PostAdapter extends ArrayAdapter<Post> {
         Post post = postList.get(position);
 
         TextView titleTextView = convertView.findViewById(R.id.titleTextView);
-        TextView contentTextView = convertView.findViewById(R.id.contentTextView);
+        TextView startTextView = convertView.findViewById(R.id.startTextView);
+        TextView arriveTextView = convertView.findViewById(R.id.arriveTextView);
         TextView writerTextView = convertView.findViewById(R.id.writerTextView);
         ImageView imageView = convertView.findViewById(R.id.imageView);
 
         titleTextView.setText(post.getTitle());
-        contentTextView.setText(post.getContent());
+        startTextView.setText("출발지: " + post.getStartpoint()); // 출발지 정보를 추가하여 표시
+        arriveTextView.setText("도착지: " + post.getArrivepoint());
         writerTextView.setText(post.getWriter());
 
         // 이미지를 Glide를 사용하여 로드하고 ImageView에 표시

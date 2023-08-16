@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".communityfragment.CommunityFragment">
+    tools:context=".communityfragment.AfterFragment">
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -44,13 +44,13 @@
             android:textColor="#FFFFFF" />
 
         <Button
-            android:id="@+id/after_button"
+            android:id="@+id/before_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/reg_button"
             android:layout_margin="3dp"
             android:background="#C62828"
-            android:text="-> 집"
+            android:text="-> 학교"
             android:textColor="#FFFFFF" />
     </RelativeLayout>
 
