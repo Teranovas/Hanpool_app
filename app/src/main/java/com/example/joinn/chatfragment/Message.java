@@ -3,32 +3,34 @@ package com.example.joinn.chatfragment;
 public class Message {
 
     private String message;
-    private String senderId;
-
-    private boolean isSelf;
+    private String sendId;
+    private String time;
+    private String name;
 
     public Message() {
         // Default constructor required for Firebase
     }
 
-    public Message(String message, String senderId) {
+    public Message(String message, String sendId, String time, String name) {
         this.message = message;
-        this.senderId = senderId;
+        this.sendId = sendId;
+        this.time = time;
+        this.name = name;
     }
 
     public String getMessage() {
         return message;
     }
 
-    public String getSenderId() {
-        return senderId;
+    public String getSendId() {
+        return sendId;
     }
 
-    public boolean isSelf() {
-        return isSelf;
+    public String getTime() {
+        return time;
     }
 
-    public void setSelf(boolean self) {
-        isSelf = self;
+    public String getName() {
+        return name;
     }
 }

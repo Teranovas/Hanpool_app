@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -64,6 +65,8 @@ public class DetailFragment extends Fragment {
     private String currentUserId;
     private String currentUserName;
 
+    private String writer;
+
     String imageURL;
 
     @Override
@@ -106,7 +109,7 @@ public class DetailFragment extends Fragment {
             String timestamp = arguments.getString("timestamp");
             timestampTextView.setText(timestamp);
 
-            String writer =  arguments.getString("writer");
+            writer =  arguments.getString("writer");
             writerTextView.setText(writer);
 
             imageURL = arguments.getString("image");
@@ -124,12 +127,32 @@ public class DetailFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if (currentUser != null) {
-                    String currentUserName= currentUser.getUid();
+                    String currentUserName = currentUser.getUid();
                     String writer = writerTextView.getText().toString();
 
                     if (!currentUserName.equals(writer)) {
                         // 현재 로그인한 사용자와 게시물 작성자가 다른 경우에만 채팅 화면으로 이동
                         Toast.makeText(getContext(), "게시물이 등록되었습니다.", Toast.LENGTH_SHORT).show();
+
+                        // 현재 사용자의 UID로 users 레퍼런스에 접근하여 닉네임 가져오기
+                        usersRef.child(currentUserName).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                if (dataSnapshot.exists()) {
+                                    String userNickname = dataSnapshot.child("닉네임").getValue(String.class);
+
+                                    // userNickname을 chatListRef에 저장하는 로직 추가
+                                    DatabaseReference chatListRef = FirebaseDatabase.getInstance().getReference().child("chatList").child(userNickname);
+//                                    User user = new User(writer, imageURL); // 상대방 닉네임과 이미지 저장
+                                    chatListRef.setValue(writer,imageURL);
+                                }
+                            }
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                // 처리 중 오류 발생 시
+                            }
+                        });
+
                         FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
                         ChatFragment chatFragment = new ChatFragment();
                         Bundle bundle = new Bundle();
@@ -147,16 +170,12 @@ public class DetailFragment extends Fragment {
             }
         });
 
-
-
-
-
         return view;
     }
 
 
 
 
-    
-    
+
+
 }
