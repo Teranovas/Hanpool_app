@@ -41,6 +41,7 @@ public class CommunityFragment extends Fragment {
     private PostAdapter postAdapter;
     private Button regButton;
 
+
     private Button distanceBtn;
     private Button afterBtn;
     private Button timebtn;
@@ -156,8 +157,11 @@ public class CommunityFragment extends Fragment {
                 DetailFragment detailFragment = new DetailFragment();
                 Bundle bundle = new Bundle();
                 bundle.putString("title", selectedPost.getTitle());
-//                bundle.putString("content", selectedPost.getContent());
-                bundle.putLong("timestamp", selectedPost.getTimestamp()); // 작성일 정보 전달
+                bundle.putString("start", selectedPost.getStartpoint());
+                bundle.putString("arrive", selectedPost.getArrivepoint());
+                bundle.putString("writer", selectedPost.getWriter());
+                bundle.putLong("timestamp", selectedPost.getTimestamp());
+                bundle.putString("image", selectedPost.getImageUrl());// 작성일 정보 전달
                 detailFragment.setArguments(bundle);
                 transaction.replace(R.id.container, detailFragment);
                 transaction.addToBackStack(null);

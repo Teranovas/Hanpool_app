@@ -39,9 +39,6 @@ public class RegisterFragment extends Fragment {
 
     private Button beforeButton;
 
-    private String startData;
-
-    private String arriveData;
     private DatabaseReference postsRef;
     private StorageReference storageRef;
     private DatabaseReference usersRef;

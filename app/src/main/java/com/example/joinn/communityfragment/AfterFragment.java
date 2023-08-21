@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -120,6 +121,28 @@ public class AfterFragment extends Fragment {
                 // RegisterFragment로 전환
                 FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
                 transaction.replace(R.id.container, new RegisterFragment());
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // 클릭한 항목의 정보 가져오기
+                Post selectedPost = postList.get(position);
+
+                // DetailFragment로 전환하며 선택한 항목 정보 전달
+                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                DetailFragment detailFragment = new DetailFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("title", selectedPost.getTitle());
+                bundle.putString("start", selectedPost.getStartpoint());
+                bundle.putString("arrive", selectedPost.getArrivepoint());
+                bundle.putString("writer", selectedPost.getWriter());
+                bundle.putLong("timestamp", selectedPost.getTimestamp()); // 작성일 정보 전달
+                detailFragment.setArguments(bundle);
+                transaction.replace(R.id.container, detailFragment);
                 transaction.addToBackStack(null);
                 transaction.commit();
             }

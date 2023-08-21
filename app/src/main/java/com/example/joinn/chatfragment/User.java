@@ -1,27 +1,75 @@
 package com.example.joinn.chatfragment;
 
-public class User {
-    private String nickname;
-    private String profileImage;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-    public User(String nickname, String profileImage) {
-        this.nickname = nickname;
-        this.profileImage = profileImage;
+import java.io.Serializable;
+
+public class User  {
+
+    private String key;
+
+    private String writer;
+    private String imageUrl;
+
+////    private long timestamp;
+
+    public User() {
+        // Firebase Realtime Database에서 객체를 deserialize할 때 필요한 빈 생성자
     }
 
-    public String getNickname() {
-        return nickname;
+    public User(String key, String writer, String imageUrl){
+        this.key = key;
+        this.writer = writer;
+        this.imageUrl = imageUrl;
+//        this.timestamp = timestamp;
     }
 
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
+    public String getKey() {
+        return key;
     }
 
-    public String getProfileImage() {
-        return profileImage;
+    public void setKey(String key) {
+        this.key = key;
     }
 
-    public void setProfileImage(String profileImage) {
-        this.profileImage = profileImage;
+    public String getWriter() {
+        return writer;
     }
+
+    public void setWriter(String writer) {
+        this.writer = writer;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+//    public long getTimestamp() {
+//        return timestamp;
+//    }
+//
+//    public void setTimestamp(long timestamp) {
+//        this.timestamp = timestamp;
+//    }
+
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(key);
+
+        dest.writeString(writer);
+        dest.writeString(imageUrl);
+//        dest.writeLong(timestamp);
+    }
+
+    protected User(Parcel in) {
+        key = in.readString();
+        writer = in.readString();
+        imageUrl = in.readString();
+//        timestamp = in.readLong();
+    }
+
 }

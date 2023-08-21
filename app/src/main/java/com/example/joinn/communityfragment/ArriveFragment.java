@@ -46,8 +46,16 @@ public class ArriveFragment extends Fragment {
         public void processDATA(String data){
             //카카오 주소 검색 API의 결과값이 브릿지 통로를 통해 전달받는다.(from Javascript)
 
+            String addressData = data;
+
+            // 주소를 이용하여 위도와 경도를 얻어옴
+            double[] coordinates = getCoordinatesFromAddress(addressData);
+
             Bundle bundle = getArguments();
             bundle.putString("arrivedata",data);
+            bundle.putDouble("arriveLatitude", coordinates[0]);
+            bundle.putDouble("arriveLongitude", coordinates[1]);
+
             Fragment newFragment = new ArriveRegisterFragment();
             FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
             newFragment.setArguments(bundle);
@@ -56,5 +64,13 @@ public class ArriveFragment extends Fragment {
             transaction.commit();
 
         }
+    }
+    private double[] getCoordinatesFromAddress(String address) {
+        double[] coordinates = new double[2];
+
+        // 주소를 이용하여 위도와 경도를 얻어오는 작업
+        // 이 부분은 이전에 설명한 Geocoding API 사용 방법과 비슷합니다.
+
+        return coordinates;
     }
 }
