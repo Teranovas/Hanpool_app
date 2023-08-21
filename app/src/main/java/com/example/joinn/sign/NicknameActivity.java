@@ -1,5 +1,6 @@
 package com.example.joinn.sign;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -12,8 +13,11 @@ import android.widget.Toast;
 import com.example.joinn.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 
@@ -35,31 +39,53 @@ public class NicknameActivity extends AppCompatActivity {
         savebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String nickname = NicknameText.getText().toString().trim();
-                FirebaseUser user = firebaseAuth.getCurrentUser();  // 현재 로그인한 사용자 정보 firebaseAuth이용하여 가져옴.
-                String uid = user.getUid();
-                String level = "1";
+                final String nickname = NicknameText.getText().toString().trim();
 
-                HashMap<Object, String> hashMap = new HashMap<>();
-                // 이전 Activity에서 전달된 데이터를 HashMap 형태로 가져옴
+                // 닉네임 중복 검사를 위한 레퍼런스 설정
+                DatabaseReference nicknameReference = FirebaseDatabase.getInstance().getReference("nicknames");
 
-                hashMap.put("uid", uid);
-                hashMap.put("닉네임",nickname);
-                hashMap.put("드라이버 레벨", level);
+                // 입력한 닉네임으로 쿼리하여 해당 닉네임이 이미 존재하는지 확인
+                nicknameReference.orderByValue().equalTo(true).addListenerForSingleValueEvent(new ValueEventListener() {
 
-                FirebaseDatabase database = FirebaseDatabase.getInstance();
-                // Firebase 데이터베이스 인스턴스를 가져옴.
-                DatabaseReference reference = database.getReference("users");
-                // DatabaseReference 객체를 가져와 "users"라는 레퍼런스를 가진 노드를 참조
-                reference.child(uid).setValue(hashMap);
-                // Firebase 데이터베이스에 현재 사용자의 uid에 hashMap을 저장
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.hasChild(nickname)) {
+                            // 중복된 닉네임이 이미 존재하는 경우
+                            Toast.makeText(NicknameActivity.this, "이미 사용 중인 닉네임입니다.", Toast.LENGTH_SHORT).show();
+                        } else {
+                            // 중복되지 않은 닉네임인 경우 Firebase에 저장
+                            FirebaseUser user = firebaseAuth.getCurrentUser();
+                            String uid = user.getUid();
+                            String level = "1";
 
-                Toast.makeText(NicknameActivity.this, "다음", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(NicknameActivity.this, ImageActivity.class);
-                intent.putExtra("userData", hashMap);
-                startActivity(intent);
-                finish();
+                            HashMap<Object, String> hashMap = new HashMap<>();
+                            hashMap.put("uid", uid);
+                            hashMap.put("닉네임", nickname);
+                            hashMap.put("드라이버 레벨", level);
+
+                            DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users");
+                            reference.child(uid).setValue(hashMap);
+
+                            // 중복 닉네임 저장 방지를 위해 사용한 닉네임을 레퍼런스에 저장
+                            DatabaseReference nicknameReference = FirebaseDatabase.getInstance().getReference("nicknames");
+                            nicknameReference.child(nickname).setValue(true);
+
+                            Toast.makeText(NicknameActivity.this, "다음", Toast.LENGTH_LONG).show();
+                            Intent intent = new Intent(NicknameActivity.this, ImageActivity.class);
+                            intent.putExtra("userData", hashMap);
+                            startActivity(intent);
+                            finish();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        // 에러 처리
+                    }
+                });
             }
         });
+
+
     }
 }

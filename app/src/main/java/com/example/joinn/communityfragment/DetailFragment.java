@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -123,21 +124,51 @@ public class DetailFragment extends Fragment {
         submmitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (currentUser != null) {
+                    DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("users");
+                    String currentUserId = currentUser.getUid();
+
+                    usersRef.child(currentUserId).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if (snapshot.exists()) {
+                                String currentUserName = snapshot.child("닉네임").getValue(String.class);
+                                String writer = writerTextView.getText().toString();
+
+                                if (!currentUserName.equals(writer)) {
+                                    // 현재 로그인한 사용자와 게시물 작성자가 다른 경우에만 채팅 화면으로 이동
+                                    Toast.makeText(getContext(), "게시물이 등록되었습니다.", Toast.LENGTH_SHORT).show();
+                                    FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                                    ChatFragment chatFragment = new ChatFragment();
+                                    Bundle bundle = new Bundle();
+                                    bundle.putString("chatOpponent", writer);
+                                    bundle.putString("image", imageURL);
+                                    bundle.putString("my",currentUserName);
+                                    chatFragment.setArguments(bundle);
+                                    transaction.replace(R.id.container, chatFragment);
+                                    transaction.addToBackStack(null);
+                                    transaction.commit();
 
 
-                Toast.makeText(getContext(), "게시물이 등록되었습니다.", Toast.LENGTH_SHORT).show();
-                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-                ChatFragment chatFragment = new ChatFragment();
-                Bundle bundle = new Bundle();
-                bundle.putString("chatOpponent", writerTextView.getText().toString());
-                bundle.putString("image",imageURL);
-                chatFragment.setArguments(bundle);
-                transaction.replace(R.id.container, chatFragment);
-                transaction.addToBackStack(null);
-                transaction.commit();
+                                } else {
+                                    // 현재 로그인한 사용자가 게시물 작성자인 경우 처리할 내용 추가
+                                    Toast.makeText(getContext(), "자기 자신한테는 신청할 수 없습니다.", Toast.LENGTH_SHORT).show();
+                                }
+                            } else {
+                                // 사용자 데이터가 없는 경우 처리
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            // 에러 처리
+                        }
+                    });
+                }
             }
         });
-        
+
+
 
 
 
