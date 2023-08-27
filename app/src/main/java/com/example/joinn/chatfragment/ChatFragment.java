@@ -1,9 +1,14 @@
 package com.example.joinn.chatfragment;
 
+import static android.content.ContentValues.TAG;
+
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +20,9 @@ import com.example.joinn.chatfragment.User;
 import com.example.joinn.chatfragment.UserAdapter;
 import com.example.joinn.communityfragment.DetailFragment;
 import com.example.joinn.communityfragment.Post;
+import com.example.joinn.communityfragment.PostAdapter;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -23,7 +31,11 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ChatFragment extends Fragment {
 
@@ -32,38 +44,211 @@ public class ChatFragment extends Fragment {
     private UserAdapter userAdapter;
     private DatabaseReference chatListRef; // 채팅방 리스트 데이터를 저장하는 레퍼런스
 
+    private FirebaseUser currentUser;
+
+    private FirebaseAuth mAuth;
+
+
+    private DatabaseReference usersRef;
+
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        userList = new ArrayList<>();
-        chatListRef = FirebaseDatabase.getInstance().getReference().child("chatList");
+
+        usersRef = FirebaseDatabase.getInstance().getReference().child("users");
+
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
+
+        if (currentUser != null) {
+            String currentUserName = currentUser.getUid();
+
+            usersRef.child(currentUserName).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        String userNickname = dataSnapshot.child("닉네임").getValue(String.class);
+
+                        DatabaseReference chatListRef = FirebaseDatabase.getInstance().getReference().child("chatList").child(userNickname);
+                        chatListRef.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                userList.clear();
+                                for (DataSnapshot userSnapshot : snapshot.getChildren()) {
+                                    User user = userSnapshot.getValue(User.class);
+                                    userList.add(user);
+                                }
+                                // 시간순으로 정렬
+                                Collections.sort(userList, new Comparator<User>() {
+                                    @Override
+                                    public int compare(User user1, User user2) {
+                                        return Long.compare(user1.getTimestamp(), user2.getTimestamp());
+                                    }
+                                });
+                                userAdapter.notifyDataSetChanged();
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                                Log.e(TAG, "Failed to read post data.", error.toException());
+                            }
+                        });
+                    }
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    // 처리 중 오류 발생 시
+                }
+            });
+        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_chat, container, false);
-
         listView = view.findViewById(R.id.chatlistView);
+        userList = new ArrayList<>();
 
-        Bundle arguments = getArguments();
-        if (arguments != null) {
-            String chatOpponent = arguments.getString("chatOpponent");
-            String imageUrl = arguments.getString("image");
+        userAdapter = new UserAdapter(getActivity(), R.layout.user_item, userList);
 
-            User user = new User();
-            user.setWriter(chatOpponent);
-            user.setImageUrl(imageUrl);
-            userList.add(user);
+        listView.setAdapter(userAdapter);
 
 
-            userAdapter = new UserAdapter(getActivity(), R.layout.user_item, userList);
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
 
 
-            listView.setAdapter(userAdapter);
+        if (currentUser != null) {
+            String currentUserName = currentUser.getUid();
 
+            usersRef.child(currentUserName).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        String userNickname = dataSnapshot.child("닉네임").getValue(String.class);
 
+                        DatabaseReference chatListRef = FirebaseDatabase.getInstance().getReference().child("chatList").child(userNickname);
+                        chatListRef.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                userList.clear();
+                                Set<String> uniqueNicknames = new HashSet<>(); // 중복을 제거하기 위한 Set
+
+                                for (DataSnapshot userSnapshot : snapshot.getChildren()) {
+                                    User user = userSnapshot.getValue(User.class);
+                                    if (!uniqueNicknames.contains(user.getWriter())) {
+                                        userList.add(user);
+                                        uniqueNicknames.add(user.getWriter());
+                                    }
+                                }
+                                // 시간순으로 정렬
+                                Collections.sort(userList, new Comparator<User>() {
+                                    @Override
+                                    public int compare(User user1, User user2) {
+                                        return Long.compare(user1.getTimestamp(), user2.getTimestamp());
+                                    }
+                                });
+                                userAdapter.notifyDataSetChanged();
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                                Log.e(TAG, "Failed to read post data.", error.toException());
+                            }
+                        });
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    // 처리 중 오류 발생 시
+                }
+            });
         }
+
+
+//        String currentUserName = currentUser.getUid();
+//
+//        usersRef.child(currentUserName).addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                if (dataSnapshot.exists()) {
+//                    String userNickname = dataSnapshot.child("닉네임").getValue(String.class);
+//
+//                    DatabaseReference chatListRef = FirebaseDatabase.getInstance().getReference().child("chatList").child(userNickname);
+//                    chatListRef.addValueEventListener(new ValueEventListener() {
+//
+//                        @Override
+//                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                            userList.clear();
+//                            for (DataSnapshot userSnapshot : snapshot.getChildren()) {
+//                                User user = userSnapshot.getValue(User.class);
+//
+//                                userList.add(user);
+//
+//                            }
+//                            // 시간순으로 정렬
+//                            Collections.sort(userList, new Comparator<User>() {
+//                                @Override
+//                                public int compare(User user1, User user2) {
+//                                    return Long.compare(user1.getTimestamp(), user2.getTimestamp());
+//                                }
+//                            });
+//                            userAdapter.notifyDataSetChanged();
+//                        }
+//
+//                        @Override
+//                        public void onCancelled(@NonNull DatabaseError error) {
+//                            Log.e(TAG, "Failed to read post data.", error.toException());
+//                        }
+//                    });
+//
+//                }
+//            }
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//                // 처리 중 오류 발생 시
+//            }
+//        });
+
+
+
+//        DatabaseReference chatListRef = FirebaseDatabase.getInstance().getReference().child("chatList");
+//
+//        chatListRef.addValueEventListener(new ValueEventListener() {
+//
+//
+//
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                userList.clear();
+//                for (DataSnapshot userSnapshot : snapshot.getChildren()) {
+//                    User user = userSnapshot.getValue(User.class);
+//
+//                    userList.add(user);
+//
+//                }
+//                // 시간순으로 정렬
+//                Collections.sort(userList, new Comparator<User>() {
+//                    @Override
+//                    public int compare(User user1, User user2) {
+//                        return Long.compare(user1.getTimestamp(), user2.getTimestamp());
+//                    }
+//                });
+//                userAdapter.notifyDataSetChanged();
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//                Log.e(TAG, "Failed to read post data.", error.toException());
+//            }
+//        });
+
+
+
 
 
 

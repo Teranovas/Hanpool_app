@@ -14,7 +14,7 @@ public class User  {
 
     private String uid;
 
-////    private long timestamp;
+    private long timestamp;
 
     public User() {
         // Firebase Realtime Database에서 객체를 deserialize할 때 필요한 빈 생성자
@@ -59,13 +59,13 @@ public class User  {
         this.uid = uid;
     }
 
-//    public long getTimestamp() {
-//        return timestamp;
-//    }
-//
-//    public void setTimestamp(long timestamp) {
-//        this.timestamp = timestamp;
-//    }
+    public long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
+    }
 
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(key);

@@ -52,27 +52,29 @@ public class DetailFragment extends Fragment {
 
     private ImageView detailProfileImageView;
 
+    private String writer;
+
 
     private Button submmitBtn;
 
     private DatabaseReference usersRef;
 
-    private DatabaseReference chatsRef;
+    private DatabaseReference chatlistRef;
+
+    private DatabaseReference opponentChatListRef;
 
     private StorageReference storageRef;
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
-    private String currentUserId;
-    private String currentUserName;
 
-    private String writer;
 
     String imageURL;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        chatsRef = FirebaseDatabase.getInstance().getReference().child("chats");
+        chatlistRef = FirebaseDatabase.getInstance().getReference().child("chatlist");
+        opponentChatListRef = FirebaseDatabase.getInstance().getReference().child("chatlist");
         storageRef = FirebaseStorage.getInstance().getReference();
         usersRef = FirebaseDatabase.getInstance().getReference().child("users");
     }
@@ -94,6 +96,8 @@ public class DetailFragment extends Fragment {
 
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
+
+
 
         Bundle arguments = getArguments();
         if(arguments != null) {
@@ -128,7 +132,9 @@ public class DetailFragment extends Fragment {
             public void onClick(View view) {
                 if (currentUser != null) {
                     String currentUserName = currentUser.getUid();
-                    String writer = writerTextView.getText().toString();
+                    writer = writerTextView.getText().toString();
+                    String postId = chatlistRef.push().getKey();
+
 
                     if (!currentUserName.equals(writer)) {
                         // 현재 로그인한 사용자와 게시물 작성자가 다른 경우에만 채팅 화면으로 이동
@@ -141,10 +147,22 @@ public class DetailFragment extends Fragment {
                                 if (dataSnapshot.exists()) {
                                     String userNickname = dataSnapshot.child("닉네임").getValue(String.class);
 
-                                    // userNickname을 chatListRef에 저장하는 로직 추가
-                                    DatabaseReference chatListRef = FirebaseDatabase.getInstance().getReference().child("chatList").child(userNickname);
-//                                    User user = new User(writer, imageURL); // 상대방 닉네임과 이미지 저장
-                                    chatListRef.setValue(writer,imageURL);
+                                    DatabaseReference chatListRef = FirebaseDatabase.getInstance().getReference().child("chatList").child(writer); // 상대방의 chatList 레퍼런스
+
+                                    User user = new User(postId, userNickname, imageURL); // 현재 사용자의 닉네임과 이미지 저장
+                                    chatListRef.child(postId).setValue(user); // 상대방의 chatList에 저장
+
+                                    // 상대방도 채팅 목록에 현재 사용자 정보 추가
+                                    DatabaseReference opponentChatListRef = FirebaseDatabase.getInstance().getReference().child("chatList").child(userNickname);
+                                    User opponentUser = new User(postId, writer, imageURL); // 상대방의 닉네임과 이미지 저장
+                                    opponentChatListRef.child(postId).setValue(opponentUser);
+
+//
+//
+//                                    // userNickname을 chatListRef에 저장하는 로직 추가
+//                                    DatabaseReference chatListRef = FirebaseDatabase.getInstance().getReference().child("chatList").child(userNickname);
+//                                    User user = new User(postId, writer, imageURL); // 상대방 닉네임과 이미지 저장
+//                                    chatListRef.setValue(user);
                                 }
                             }
                             @Override
@@ -155,10 +173,12 @@ public class DetailFragment extends Fragment {
 
                         FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
                         ChatFragment chatFragment = new ChatFragment();
-                        Bundle bundle = new Bundle();
-                        bundle.putString("chatOpponent", writer);
-                        bundle.putString("image", imageURL);
-                        chatFragment.setArguments(bundle);
+
+
+//                        Bundle bundle = new Bundle();
+//                        bundle.putString("chatOpponent", writer);
+//                        bundle.putString("image", imageURL);
+//                        chatFragment.setArguments(bundle);
                         transaction.replace(R.id.container, chatFragment);
                         transaction.addToBackStack(null);
                         transaction.commit();
