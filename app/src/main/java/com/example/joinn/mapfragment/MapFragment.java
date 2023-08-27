@@ -37,7 +37,7 @@ public class MapFragment extends Fragment {
     private EditText mEditTextLocation;
     private Button locationBtn;
 
-    private Button aBtn;
+    private Button bBtn;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
