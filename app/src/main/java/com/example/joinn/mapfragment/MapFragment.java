@@ -37,7 +37,7 @@ public class MapFragment extends Fragment {
     private EditText mEditTextLocation;
     private Button locationBtn;
 
-    private Button bBtn;
+    private String data;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -67,6 +67,8 @@ public class MapFragment extends Fragment {
                 // AddSearchFragment에서 결과를 받기 위한 함수를 실행
                 // 이거 주석풀면 값을 받아와야하는데 버튼누르면 앱이 꺼짐..
 //                getSearchResult.launch(new Intent(getActivity(), AddSearchFragment.class));
+
+
             }
         });
         // Get the button view and set the click listener
@@ -116,20 +118,12 @@ public class MapFragment extends Fragment {
             }
         });
 
+        if(getArguments() != null){
+            data = getArguments().getString("data");
+            mEditTextLocation.setText(data);
+        }
+
         return view;
     }
-    //AddSearchFragment에서 주소를 가져와 여기서 처리.
-    private final ActivityResultLauncher<Intent> getSearchResult = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            result -> {
-                // AddSearchFragment로부터의 결과값이 이곳으로 전달된다.(setResult에 의해)
-                if(result.getResultCode() == RESULT_OK){
-                    if(result.getData() != null){
-                        String data = result.getData().getStringExtra("data");
-                        mEditTextLocation.setText(data);
-                    }
-                }
-            }
-    );
 
 }

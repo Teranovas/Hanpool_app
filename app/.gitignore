@@ -1,1 +1,2 @@
-/build
+# Ignore local.properties file
+local.properties
