@@ -223,24 +223,6 @@ public class MapFragment extends Fragment {
             public void onMapViewMoveFinished(MapView mapView, MapPoint mapPoint) {}
         });
 
-//        mapView.setPOIItemEventListener(new MapView.POIItemEventListener() {
-//            @Override
-//            public void onPOIItemSelected(MapView mapView, MapPOIItem mapPOIItem) {
-//                String itemName = mapPOIItem.getItemName();
-//                // 예시로 토스트 메시지를 띄움
-//            }
-//
-//            @Override
-//            public void onCalloutBalloonOfPOIItemTouched(MapView mapView, MapPOIItem mapPOIItem) {}
-//
-//            @Override
-//            public void onCalloutBalloonOfPOIItemTouched(MapView mapView, MapPOIItem mapPOIItem,
-//                                                         MapPOIItem.CalloutBalloonButtonType calloutBalloonButtonType) {}
-//
-//            @Override
-//            public void onDraggablePOIItemMoved(MapView mapView, MapPOIItem mapPOIItem, MapPoint mapPoint) {}
-//        });
-
         return view;
     }
 }

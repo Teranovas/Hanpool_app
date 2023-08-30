@@ -67,7 +67,9 @@ public class MyPageFragment extends Fragment {
     private TextView txtNickname, leveltxt;
     private DatabaseReference databaseRef;
 
-    private ImageView view2;
+    private ImageView License;
+
+    private ImageView date;
 
     // 현재 로그인한 사용자의 uid를 가져옵니다.
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -84,7 +86,8 @@ public class MyPageFragment extends Fragment {
         mProfileImageView = view.findViewById(R.id.imguser);
         packageManager = requireActivity().getPackageManager();
 
-        view2 = view.findViewById(R.id.view2);
+        License = view.findViewById(R.id.license);
+        date = view.findViewById(R.id.date);
         Button logoutBtn = view.findViewById(R.id.logoutBtn);
 
         logoutBtn.setOnClickListener(new View.OnClickListener() {
@@ -150,7 +153,7 @@ public class MyPageFragment extends Fragment {
                 // 데이터 로드에 실패했을 경우 처리할 내용을 여기에 작성합니다.
             }
         });
-        view2.setOnClickListener(new View.OnClickListener() {
+        License.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getActivity(), "성공", Toast.LENGTH_LONG).show();
@@ -160,6 +163,20 @@ public class MyPageFragment extends Fragment {
 
                 transaction.replace(R.id.container, newFragment);
 
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
+
+        date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getActivity(),"일정", Toast.LENGTH_LONG).show();
+
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                Fragment newFragment = new DateFragment();
+
+                transaction.replace(R.id.container, newFragment);
                 transaction.addToBackStack(null);
                 transaction.commit();
             }
