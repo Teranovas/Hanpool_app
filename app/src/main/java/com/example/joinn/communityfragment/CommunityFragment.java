@@ -2,6 +2,8 @@ package com.example.joinn.communityfragment;
 
 import static android.content.ContentValues.TAG;
 
+
+import com.example.joinn.mapfragment.MapFragment;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -11,6 +13,7 @@ import android.location.Location;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -48,8 +51,10 @@ public class CommunityFragment extends Fragment {
 
 
 
-    public CommunityFragment() {
-        // Required empty public constructor
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
     }
 
     @Override
@@ -67,8 +72,12 @@ public class CommunityFragment extends Fragment {
 
         distanceBtn = view.findViewById(R.id.distance_button);
 
+
         postAdapter = new PostAdapter(getActivity(), R.layout.post_item, postList);
         listView.setAdapter(postAdapter);
+
+
+
 
 
 
@@ -112,6 +121,8 @@ public class CommunityFragment extends Fragment {
                     }
                 });
                 postAdapter.notifyDataSetChanged();
+
+
             }
 
             @Override
@@ -171,6 +182,8 @@ public class CommunityFragment extends Fragment {
 
         return view;
     }
+
+
 
 
 }
