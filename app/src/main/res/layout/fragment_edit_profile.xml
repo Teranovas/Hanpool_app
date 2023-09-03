@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".mypagefragment.EditProfileFragment">
+
+    <TextView
+        android:id="@+id/NickText"
+        android:layout_width="300dp"
+        android:layout_height="80dp"
+        android:text="프로필 설정"
+        android:layout_marginTop="120dp"
+        android:textAlignment="center"
+        android:textSize="43sp"
+        android:textStyle="bold"
+        android:typeface="normal"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.518"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.011" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imguser"
+        android:src="@drawable/user"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:background="@android:color/transparent"
+        app:civ_border_overlay="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/NickText"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="40dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imguser">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/nickArea"
+            android:hint="닉네임"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/editBtn"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="수정하기"
+        android:textColor="@android:color/black"
+        android:background="@android:color/transparent"
+        android:textStyle="bold"
+        android:layout_marginTop="160dp"
+        android:onClick="btnclick"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imguser" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+
+
+
+
+
