@@ -33,6 +33,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -57,15 +58,20 @@ public class DriverRegistrationFragment extends Fragment {
 
     private FirebaseStorage mStorage;
 
+    private DatabaseReference licenseRef;
+
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     //FirebaseAuth.getInstance() 메서드를 호출하여 FirebaseAuth 객체를 얻은 다음,
     // 해당 객체의 getCurrentUser() 메서드를 호출하여 현재 로그인한 사용자(FirebaseUser) 객체를 가져옴
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_driver_registration, container, false);
+
+        licenseRef = FirebaseDatabase.getInstance().getReference().child("license");
         // Inflate the layout for this fragment
 
         Button nextBtn = view.findViewById(R.id.nextBtn);
@@ -121,9 +127,10 @@ public class DriverRegistrationFragment extends Fragment {
         if (driverRegistrationImgView.getDrawable() != null) {
 
             String fileName = user.getUid() + "LicenseImage" + ".jpg";
+
             // Firebase Storage에 업로드할 파일 이름을 생성
 
-            StorageReference storageRef = mStorage.getReference().child("users").child(fileName);
+            StorageReference storageRef = mStorage.getReference().child("license").child(fileName);
             // Firebase Storage에 업로드할 파일 경로를 생성
 
             driverRegistrationImgView.setDrawingCacheEnabled(true);
@@ -147,7 +154,7 @@ public class DriverRegistrationFragment extends Fragment {
                         @Override
                         public void onSuccess(Uri uri) {
                             // Firebase Database에 이미지 다운로드 URL을 저장
-                            FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid()).child("photoUrl").setValue(uri.toString());
+                            FirebaseDatabase.getInstance().getReference().child("license").child(user.getUid()).child("photoUrl").setValue(uri.toString());
                             // 이미지 업로드 완료 메시지를 표시
                             Toast.makeText(context, "이미지 업로드가 완료되었습니다.", Toast.LENGTH_SHORT).show();
                         }

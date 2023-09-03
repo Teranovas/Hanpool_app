@@ -57,11 +57,13 @@ public class NicknameActivity extends AppCompatActivity {
                             FirebaseUser user = firebaseAuth.getCurrentUser();
                             String uid = user.getUid();
                             String level = "1";
+                            String as = "라이더";
 
                             HashMap<Object, String> hashMap = new HashMap<>();
                             hashMap.put("uid", uid);
                             hashMap.put("닉네임", nickname);
                             hashMap.put("드라이버 레벨", level);
+                            hashMap.put("직위",as);
 
                             DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users");
                             reference.child(uid).setValue(hashMap);

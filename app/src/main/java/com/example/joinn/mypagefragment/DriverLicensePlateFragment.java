@@ -72,7 +72,7 @@ public class DriverLicensePlateFragment extends Fragment {
 
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                 // Firebase 데이터베이스 인스턴스를 가져옴.
-                DatabaseReference reference = database.getReference("users");
+                DatabaseReference reference = database.getReference("license");
                 // DatabaseReference 객체를 가져와 "users"라는 레퍼런스를 가진 노드를 참조
 
                 // Firebase 데이터베이스에 현재 사용자의 uid에 hashMap 저장

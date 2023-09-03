@@ -141,7 +141,7 @@ public class DriverCarImgFragment extends Fragment {
             // Firebase Storage에 업로드할 파일 이름을 생성
             num++;
 
-            StorageReference storageRef = mStorage.getReference().child("users").child(fileName);
+            StorageReference storageRef = mStorage.getReference().child("license").child(fileName);
             // Firebase Storage에 업로드할 파일 경로를 생성
 
             // Imageview 에서 데이터를 바이트로 가져오기
@@ -166,7 +166,7 @@ public class DriverCarImgFragment extends Fragment {
                         @Override
                         public void onSuccess(Uri uri) {
                             // Firebase Database에 이미지 다운로드 URL을 저장
-                            FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid()).child("photoUrl").setValue(uri.toString());
+                            FirebaseDatabase.getInstance().getReference().child("license").child(user.getUid()).child("photoUrl").setValue(uri.toString());
                             // 이미지 업로드 완료 메시지를 표시
                             Toast.makeText(context, "이미지 업로드가 완료되었습니다.", Toast.LENGTH_SHORT).show();
                         }
