@@ -7,6 +7,8 @@ import com.example.joinn.mapfragment.MapFragment;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.gson.Gson;
 
 import android.location.Location;
@@ -24,6 +26,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.joinn.R;
 import com.google.firebase.database.DataSnapshot;
@@ -48,6 +51,10 @@ public class CommunityFragment extends Fragment {
     private Button distanceBtn;
     private Button afterBtn;
     private Button timebtn;
+
+    private FirebaseAuth mAuth;
+
+    private FirebaseUser currentUser;
 
 
 
@@ -75,6 +82,9 @@ public class CommunityFragment extends Fragment {
 
         postAdapter = new PostAdapter(getActivity(), R.layout.post_item, postList);
         listView.setAdapter(postAdapter);
+
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
 
 
 
@@ -148,11 +158,39 @@ public class CommunityFragment extends Fragment {
         regButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // RegisterFragment로 전환
-                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-                transaction.replace(R.id.container, new RegisterFragment());
-                transaction.addToBackStack(null);
-                transaction.commit();
+                String currentUserName = currentUser.getUid();
+                DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference().child("users");
+                usersRef.child(currentUserName).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                        String position = snapshot.child("직위").getValue(String.class);
+
+                        Log.d(TAG,position);
+
+                        if ("드라이버".equals(position)) { // 직위 "드라이버"인 경우만 추가
+
+                            // RegisterFragment로 전환
+                            FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                            transaction.replace(R.id.container, new RegisterFragment());
+                            transaction.addToBackStack(null);
+                            transaction.commit();
+
+                        }
+                        else{
+                            Toast.makeText(getContext(), "드라이버 등록을 해주세요!", Toast.LENGTH_SHORT).show();
+                        }
+
+
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
             }
         });
 

@@ -23,6 +23,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.joinn.communityfragment.RegisterFragment;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -156,15 +157,40 @@ public class MyPageFragment extends Fragment {
         License.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "성공", Toast.LENGTH_LONG).show();
 
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                Fragment newFragment = new DriverRegistrationFragment();
+                DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference().child("users");
+                usersRef.child(uid).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                transaction.replace(R.id.container, newFragment);
+                        String position = snapshot.child("직위").getValue(String.class);
 
-                transaction.addToBackStack(null);
-                transaction.commit();
+
+                        if ("드라이버".equals(position)) { // 직위 "드라이버"인 경우만 추가
+
+                            Toast.makeText(getContext(), "드라이버 등록이 되어있습니다.", Toast.LENGTH_SHORT).show();
+
+                        }
+                        else{
+                            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                            Fragment newFragment = new DriverRegistrationFragment();
+
+                            transaction.replace(R.id.container, newFragment);
+
+                            transaction.addToBackStack(null);
+                            transaction.commit();
+                        }
+
+
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
             }
         });
 

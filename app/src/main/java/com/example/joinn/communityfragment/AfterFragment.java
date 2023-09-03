@@ -2,6 +2,7 @@ package com.example.joinn.communityfragment;
 
 import static android.content.ContentValues.TAG;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,8 +16,11 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.joinn.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -32,6 +36,8 @@ import java.util.List;
 public class AfterFragment extends Fragment {
 
     private List<Post> postList;
+
+    private Context context;
     private ListView listView;
     private PostAdapter postAdapter;
     private Button regButton;
@@ -39,6 +45,10 @@ public class AfterFragment extends Fragment {
     private Button beforeBtn;
 
     private Button timebtn;
+
+    private FirebaseAuth mAuth;
+
+    private FirebaseUser currentUser;
     public AfterFragment() {
         // Required empty public constructor
     }
@@ -62,6 +72,11 @@ public class AfterFragment extends Fragment {
 
         postAdapter = new PostAdapter(getActivity(), R.layout.post_item, postList);
         listView.setAdapter(postAdapter);
+
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
+
+
 
         beforeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,14 +130,45 @@ public class AfterFragment extends Fragment {
 
             }
         });
+
+
+
         regButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // RegisterFragment로 전환
-                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-                transaction.replace(R.id.container, new RegisterFragment());
-                transaction.addToBackStack(null);
-                transaction.commit();
+                String currentUserName = currentUser.getUid();
+                DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference().child("users");
+                usersRef.child(currentUserName).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                        String position = snapshot.child("직위").getValue(String.class);
+
+//                        Log.d(TAG,position);
+
+                        if ("드라이버".equals(position)) { // 직위 "드라이버"인 경우만 추가
+
+                            // RegisterFragment로 전환
+                            FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                            transaction.replace(R.id.container, new RegisterFragment());
+                            transaction.addToBackStack(null);
+                            transaction.commit();
+
+                        }
+                        else{
+                            Toast.makeText(getContext(), "드라이버 등록을 해주세요!", Toast.LENGTH_SHORT).show();
+                        }
+
+
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
             }
         });
 
