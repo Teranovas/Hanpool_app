@@ -12,20 +12,44 @@
         android:orientation="horizontal"
         android:padding="8dp">
 
-        <ImageView
-            android:id="@+id/profileImageView"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:src="@drawable/user" />
-
-        <TextView
-            android:id="@+id/nicknameTextView"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:text="상대방 닉네임"
-            android:textSize="16sp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="8dp"/>
+            android:orientation="horizontal"
+
+            android:padding="8dp">
+            <ImageView
+                android:id="@+id/profileImageView"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/user" />
+
+            <TextView
+                android:id="@+id/nicknameTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="상대방 닉네임"
+                android:textSize="16sp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="8dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+
+            android:padding="8dp">
+
+            <Button
+                android:id="@+id/inviteBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginStart="10dp"
+                android:text="카풀 초대"
+                android:textSize="16sp" />
+        </LinearLayout>
     </LinearLayout>
 
 
