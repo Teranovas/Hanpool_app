@@ -8,6 +8,7 @@ import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.joinn.R;
@@ -18,6 +19,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
@@ -56,6 +58,9 @@ public class MainActivity extends AppCompatActivity {
         // 구글 로그인 버튼 클릭 이벤트 처리
         SignInButton signInButton = findViewById(R.id.loginbtn);
         signInButton.setOnClickListener(view -> {
+
+            signInWithGoogle();
+
             // Firebase에 로그인한 사용자가 있는지 확인
             FirebaseUser currentUser = mAuth.getCurrentUser();
             if(currentUser != null){
@@ -69,61 +74,50 @@ public class MainActivity extends AppCompatActivity {
             }
             Intent signInIntent = mGoogleSignInClient.getSignInIntent();
             startActivityForResult(signInIntent, RC_SIGN_IN);
+
         });
     }
 
+    // 구글 로그인 요청
+    private void signInWithGoogle() {
+        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, RC_SIGN_IN);
+    }
+
+    // 구글 로그인 결과 처리
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        // 구글 로그인 인텐트 결과 처리
         if (requestCode == RC_SIGN_IN) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            try {
-                // 구글 로그인이 성공하면 Firebase에 인증 정보를 등록
-                GoogleSignInAccount account = task.getResult(ApiException.class);
-                firebaseAuthWithGoogle(account.getIdToken());
-            } catch (ApiException e) {
-                // 구글 로그인 실패
-                Log.w("TAG", "Google sign in failed", e);
+            handleGoogleSignInResult(task);
+        }
+    }
+
+    // 구글 로그인 결과를 처리하고 이메일을 확인하여 다음 단계로 이동
+    private void handleGoogleSignInResult(Task<GoogleSignInAccount> completedTask) {
+        try {
+            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+            String userEmail = account.getEmail();
+
+            // Firebase Authentication을 사용하여 현재 로그인된 사용자의 이메일 주소 가져오기
+            FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+            String currentUserEmail = firebaseUser != null ? firebaseUser.getEmail() : null;
+
+            if (currentUserEmail != null && currentUserEmail.equals(userEmail)) {
+                // 이미 로그인한 사용자의 이메일 주소와 일치하면 matchingActivity로 이동
+                Intent intent = new Intent(this, matchingActivity.class);
+                startActivity(intent);
+                finish();
+            } else {
+                // 이메일이 일치하지 않는 경우 다른 로그인 처리 코드 작성
+                // 예: 로그인 화면으로 이동
+                Toast.makeText(this, "다른 이메일로 로그인해주세요.", Toast.LENGTH_SHORT).show();
             }
+        } catch (ApiException e) {
+            Log.w("TAG", "Google sign in failed", e);
+            // 구글 로그인 실패 처리 코드 작성
         }
     }
-
-    // Firebase에 구글 로그인 정보를 등록
-    private void firebaseAuthWithGoogle(String idToken) {
-        AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
-        mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, task -> {
-                    if (task.isSuccessful()) {
-                        // Firebase 인증 성공
-                        Log.d("TAG", "signInWithCredential:success");
-                        FirebaseUser user = mAuth.getCurrentUser();
-                        updateUI(user);
-                        Intent intent = new Intent(MainActivity.this, NicknameActivity.class);
-                        startActivity(intent);
-                    } else {
-                        // Firebase 인증 실패
-                        Log.w("TAG", "signInWithCredential:failure", task.getException());
-                        Toast.makeText(MainActivity.this, "Authentication failed.",
-                                Toast.LENGTH_SHORT).show();
-                        updateUI(null);
-                    }
-                });
-    }
-
-    // 로그인 성공 시 화면 업데이트 처리
-    private void updateUI(FirebaseUser user) {
-        if (user != null) {
-            // Firebase 인증 정보가 있을 때 처리할 로직 작성
-            // 예: 화면 이동, 데이터 조회 등
-            Toast.makeText(MainActivity.this, "Google 로그인 성공", Toast.LENGTH_SHORT).show();
-
-        } else {
-            // Firebase 인증 정보가 없을 때 처리할 로직 작성
-            Toast.makeText(MainActivity.this, "Google 로그인 실패", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-
 }
