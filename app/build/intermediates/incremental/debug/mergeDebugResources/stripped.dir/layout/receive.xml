@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="20dp">
+
+    <TextView
+        android:id="@+id/receive_message_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/message_bg_other"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:layout_alignBaseline="@+id/receiveImage"
+        android:layout_marginLeft="2dp"
+        android:layout_toRightOf="@+id/receiveImage"
+        android:layout_below="@+id/receiverName"
+        android:text="받는 메시지" />
+
+    <TextView
+        android:id="@+id/receiverName"
+        android:text="이름"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/receiveImage"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/timeReceiver"
+        android:text="시간"
+        android:textColor="@color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/receiveImage"
+        android:layout_below="@+id/receive_message_text"/>
+
+    <ImageView
+        android:id="@+id/receiveImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+</RelativeLayout>

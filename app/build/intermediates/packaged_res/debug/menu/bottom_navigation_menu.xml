@@ -1,0 +1,33 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/community"
+        android:title="community"
+        android:enabled="true"
+        android:icon="@drawable/community"  />
+
+    <item
+        android:id="@+id/map"
+        android:title="map"
+        android:enabled="true"
+        android:icon="@drawable/placeholder"  />
+
+    <item
+        android:id="@+id/home"
+        android:title="home"
+        android:enabled="true"
+        android:icon="@drawable/home" />
+
+    <item
+        android:id="@+id/chat"
+        android:title="chat"
+        android:enabled="true"
+        android:icon="@drawable/chat" />
+
+    <item
+        android:id="@+id/Mypage"
+        android:title="My page"
+        android:enabled="true"
+        android:icon="@drawable/user2"  />
+
+</menu>

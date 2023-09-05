@@ -1,0 +1,138 @@
+[
+    {
+        "merged": "com.example.joinn.app-mergeDebugResources-57:/layout/activity_main.xml",
+        "source": "com.example.joinn.app-main-60:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.example.joinn.app-mergeDebugResources-57:/layout/fragment_after.xml",
+        "source": "com.example.joinn.app-main-60:/layout/fragment_after.xml"
+    },
+    {
+        "merged": "com.example.joinn.app-mergeDebugResources-57:/layout/fragment_date.xml",
+        "source": "com.example.joinn.app-main-60:/layout/fragment_date.xml"
+    },
+    {
+        "merged": "com.example.joinn.app-mergeDebugResources-57:/layout/activity_main_splash.xml",
+        "source": "com.example.joinn.app-main-60:/layout/activity_main_splash.xml"
+    },
+    {
+        "merged": "com.example.joinn.app-mergeDebugResources-57:/layout/search.xml",
+        "source": "com.example.joinn.app-main-60:/layout/search.xml"
+    },
+    {
+        "merged": "com.example.joinn.app-mergeDebugResources-57:/layout/user_item.xml",
+        "source": "com.example.joinn.app-main-60:/layout/user_item.xml"
+    },
+    {
+        "merged": "com.example.joinn.app-mergeDebugResources-57:/layout/test.xml",
+        "source": "com.example.joinn.app-main-60:/layout/test.xml"
+    },
+    {
+        "merged": "com.example.joinn.app-mergeDebugResources-57:/layout/fragment_arrive.xml",
+        "source": "com.example.joinn.app-main-60:/layout/fragment_arrive.xml"
+    },
+    {
+        "merged": "com.example.joinn.app-mergeDebugResources-57:/layout/fragment_start.xml",
+        "source": "com.example.joinn.app-main-60:/layout/fragment_start.xml"
+    },
+    {
+        "merged": "com.example.joinn.app-mergeDebugResources-57:/layout/fragment_edit_profile.xml",
+        "source": "com.example.joinn.app-main-60:/layout/fragment_edit_profile.xml"
+    },
+    {
+        "merged": "com.example.joinn.app-mergeDebugResources-57:/layout/fragment_driver_registration.xml",
+        "source": "com.example.joinn.app-main-60:/layout/fragment_driver_registration.xml"
+    },
+    {
+        "merged": "com.example.joinn.app-mergeDebugResources-57:/layout/activity_matching.xml",
+        "source": "com.example.joinn.app-main-60:/layout/activity_matching.xml"
+    },
+    {
+        "merged": "com.example.joinn.app-mergeDebugResources-57:/layout/fragment_start_register.xml",
+        "source": "com.example.joinn.app-main-60:/layout/fragment_start_register.xml"
+    },
+    {
+        "merged": "com.example.joinn.app-mergeDebugResources-57:/layout/post_item.xml",
+        "source": "com.example.joinn.app-main-60:/layout/post_item.xml"
+    },
+    {
+        "merged": "com.example.joinn.app-mergeDebugResources-57:/layout/fragment_community.xml",
+        "source": "com.example.joinn.app-main-60:/layout/fragment_community.xml"
+    },
+    {
+        "merged": "com.example.joinn.app-mergeDebugResources-57:/layout/receive.xml",
+        "source": "com.example.joinn.app-main-60:/layout/receive.xml"
+    },
+    {
+        "merged": "com.example.joinn.app-mergeDebugResources-57:/layout/fragment_driver_car_img.xml",
+        "source": "com.example.joinn.app-main-60:/layout/fragment_driver_car_img.xml"
+    },
+    {
+        "merged": "com.example.joinn.app-mergeDebugResources-57:/layout/fragment_search.xml",
+        "source": "com.example.joinn.app-main-60:/layout/fragment_search.xml"
+    },
+    {
+        "merged": "com.example.joinn.app-mergeDebugResources-57:/layout/calendar_cell.xml",
+        "source": "com.example.joinn.app-main-60:/layout/calendar_cell.xml"
+    },
+    {
+        "merged": "com.example.joinn.app-mergeDebugResources-57:/layout/fragment_my_page.xml",
+        "source": "com.example.joinn.app-main-60:/layout/fragment_my_page.xml"
+    },
+    {
+        "merged": "com.example.joinn.app-mergeDebugResources-57:/layout/fragment_detail.xml",
+        "source": "com.example.joinn.app-main-60:/layout/fragment_detail.xml"
+    },
+    {
+        "merged": "com.example.joinn.app-mergeDebugResources-57:/layout/activity_image.xml",
+        "source": "com.example.joinn.app-main-60:/layout/activity_image.xml"
+    },
+    {
+        "merged": "com.example.joinn.app-mergeDebugResources-57:/layout/fragment_driver_license_plate.xml",
+        "source": "com.example.joinn.app-main-60:/layout/fragment_driver_license_plate.xml"
+    },
+    {
+        "merged": "com.example.joinn.app-mergeDebugResources-57:/layout/fragment_map.xml",
+        "source": "com.example.joinn.app-main-60:/layout/fragment_map.xml"
+    },
+    {
+        "merged": "com.example.joinn.app-mergeDebugResources-57:/layout/fragment_chat_room.xml",
+        "source": "com.example.joinn.app-main-60:/layout/fragment_chat_room.xml"
+    },
+    {
+        "merged": "com.example.joinn.app-mergeDebugResources-57:/layout/custom_marker_layout.xml",
+        "source": "com.example.joinn.app-main-60:/layout/custom_marker_layout.xml"
+    },
+    {
+        "merged": "com.example.joinn.app-mergeDebugResources-57:/layout/fragment_chat.xml",
+        "source": "com.example.joinn.app-main-60:/layout/fragment_chat.xml"
+    },
+    {
+        "merged": "com.example.joinn.app-mergeDebugResources-57:/layout/send.xml",
+        "source": "com.example.joinn.app-main-60:/layout/send.xml"
+    },
+    {
+        "merged": "com.example.joinn.app-mergeDebugResources-57:/layout/activity_nickname.xml",
+        "source": "com.example.joinn.app-main-60:/layout/activity_nickname.xml"
+    },
+    {
+        "merged": "com.example.joinn.app-mergeDebugResources-57:/layout/fragment_arrive_register.xml",
+        "source": "com.example.joinn.app-main-60:/layout/fragment_arrive_register.xml"
+    },
+    {
+        "merged": "com.example.joinn.app-mergeDebugResources-57:/layout/activity_intro_splash.xml",
+        "source": "com.example.joinn.app-main-60:/layout/activity_intro_splash.xml"
+    },
+    {
+        "merged": "com.example.joinn.app-mergeDebugResources-57:/layout/fragment_home.xml",
+        "source": "com.example.joinn.app-main-60:/layout/fragment_home.xml"
+    },
+    {
+        "merged": "com.example.joinn.app-mergeDebugResources-57:/layout/fragment_register.xml",
+        "source": "com.example.joinn.app-main-60:/layout/fragment_register.xml"
+    },
+    {
+        "merged": "com.example.joinn.app-mergeDebugResources-57:/layout/item_user.xml",
+        "source": "com.example.joinn.app-main-60:/layout/item_user.xml"
+    }
+]
