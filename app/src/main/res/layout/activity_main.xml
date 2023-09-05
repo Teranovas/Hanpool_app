@@ -17,8 +17,6 @@
         android:layout_marginTop="120dp"
         android:gravity="center"
         android:textSize="43sp"
-        android:textStyle="bold"
-        android:typeface="normal"
         android:fontFamily="@font/fontbold"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"

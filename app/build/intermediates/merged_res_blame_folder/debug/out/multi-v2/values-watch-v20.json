@@ -4,7 +4,7 @@
             "outputFile": "com.example.joinn.app-mergeDebugResources-56:/values-watch-v20/values-watch-v20.xml",
             "map": [
                 {
-                    "source": "/Users/apple/.gradle/caches/transforms-3/5c2aa74bcc2dff6f08ca88c27a4f157c/transformed/play-services-auth-20.4.1/res/values-watch-v20/values.xml",
+                    "source": "/Users/apple/.gradle/caches/transforms-3/b72860d6b39f55092ca62ccbfdcb0c7a/transformed/jetified-play-services-auth-20.4.1/res/values-watch-v20/values.xml",
                     "from": {
                         "startLines": "4,5,6,7,8,9,10,11",
                         "startColumns": "0,0,0,0,0,0,0,0",

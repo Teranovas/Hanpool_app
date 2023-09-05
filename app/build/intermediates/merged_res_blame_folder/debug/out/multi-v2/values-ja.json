@@ -38,6 +38,23 @@
                     }
                 },
                 {
+                    "source": "/Users/apple/.gradle/caches/transforms-3/e767549bb5c7b5c99bb141d20465203e/transformed/jetified-play-services-basement-18.1.0/res/values-ja/values.xml",
+                    "from": {
+                        "startLines": "4",
+                        "startColumns": "0",
+                        "startOffsets": "195",
+                        "endColumns": "117",
+                        "endOffsets": "312"
+                    },
+                    "to": {
+                        "startLines": "56",
+                        "startColumns": "4",
+                        "startOffsets": "5106",
+                        "endColumns": "121",
+                        "endOffsets": "5223"
+                    }
+                },
+                {
                     "source": "/Users/apple/.gradle/caches/transforms-3/fb7b1c17f0add65084f0e5db5fd0edf3/transformed/core-1.10.1/res/values-ja/values-ja.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9",
@@ -72,7 +89,7 @@
                     }
                 },
                 {
-                    "source": "/Users/apple/.gradle/caches/transforms-3/bc349de50fbfec9606f814b5063f63ce/transformed/play-services-base-18.0.1/res/values-ja/values.xml",
+                    "source": "/Users/apple/.gradle/caches/transforms-3/01a89ab1d8a2a875cdd5b4a5eb906cfc/transformed/jetified-play-services-base-18.0.1/res/values-ja/values.xml",
                     "from": {
                         "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
                         "startColumns": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",
@@ -105,23 +122,6 @@
                         "endLines": "5,33,34,35,36,37,45,46,47,67,68,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,125",
                         "endColumns": "12,66,63,68,80,81,84,103,75,62,83,63,57,80,60,63,54,58,56,53,92,55,56,53,65,99,75,80,121,61,61,78,52,50,65,69,69,76,63,70,67,62,78,62,79,81,71,70,71,47,63,74,76,61,63,62,85,83,80,84,56,54,72",
                         "endOffsets": "298,2951,3015,3084,3165,3247,4001,4105,4181,6296,6380,6735,6793,6874,6935,6999,7054,7113,7170,7224,7317,7373,7430,7484,7550,7650,7726,7807,7929,7991,8053,8132,8185,8236,8302,8372,8442,8519,8583,8654,8722,8785,8864,8927,9007,9089,9161,9232,9304,9352,9416,9491,9568,9630,9694,9757,9843,9927,10008,10093,10150,10205,10487"
-                    }
-                },
-                {
-                    "source": "/Users/apple/.gradle/caches/transforms-3/9ff1d1106aa827db99845985a1bc5ded/transformed/play-services-basement-18.1.0/res/values-ja/values.xml",
-                    "from": {
-                        "startLines": "4",
-                        "startColumns": "0",
-                        "startOffsets": "195",
-                        "endColumns": "117",
-                        "endOffsets": "312"
-                    },
-                    "to": {
-                        "startLines": "56",
-                        "startColumns": "4",
-                        "startOffsets": "5106",
-                        "endColumns": "121",
-                        "endOffsets": "5223"
                     }
                 }
             ]

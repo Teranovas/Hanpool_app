@@ -39,10 +39,10 @@ public class MainActivity extends AppCompatActivity {
 
         circleTextview = findViewById(R.id.Appname);
 
-        GradientDrawable drawable = new GradientDrawable();
-        drawable.setShape(GradientDrawable.OVAL); // 원 모양 설정
-        drawable.setColor(Color.parseColor("#FFFFFF"));
-        circleTextview.setBackground(drawable);
+////        GradientDrawable drawable = new GradientDrawable();
+//////        drawable.setShape(GradientDrawable.OVAL); // 원 모양 설정
+////////        drawable.setColor(Color.parseColor("#FFFFFF"));
+////        circleTextview.setBackground(drawable);
         // 구글 로그인 클라이언트 초기화
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))

@@ -1,10 +1,13 @@
 package com.example.joinn.sign;
 
+import static androidx.fragment.app.FragmentManager.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -41,6 +44,8 @@ public class NicknameActivity extends AppCompatActivity {
             public void onClick(View v) {
                 final String nickname = NicknameText.getText().toString().trim();
 
+
+                Log.d(TAG,nickname);
                 // 닉네임 중복 검사를 위한 레퍼런스 설정
                 DatabaseReference nicknameReference = FirebaseDatabase.getInstance().getReference("nicknames");
 

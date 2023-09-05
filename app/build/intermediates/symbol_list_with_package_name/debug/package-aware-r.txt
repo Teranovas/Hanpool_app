@@ -3276,6 +3276,7 @@ id amu_text
 id androidx_window_activity_scope
 id animateToEnd
 id animateToStart
+id animationView
 id antiClockwise
 id anticipate
 id arc
@@ -4053,6 +4054,7 @@ menu bottom_navigation_menu
 mipmap ic_launcher
 mipmap ic_launcher_round
 plurals mtrl_badge_content_description
+raw animation1
 raw firebase_common_keep
 raw intro_splash
 raw intro_splash1

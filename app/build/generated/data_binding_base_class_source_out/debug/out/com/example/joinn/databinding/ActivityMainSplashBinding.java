@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.joinn.R;
 import java.lang.NullPointerException;
 import java.lang.Override;
@@ -20,11 +21,15 @@ public final class ActivityMainSplashBinding implements ViewBinding {
   private final ConstraintLayout rootView;
 
   @NonNull
+  public final LottieAnimationView animationView;
+
+  @NonNull
   public final TextView mainText;
 
   private ActivityMainSplashBinding(@NonNull ConstraintLayout rootView,
-      @NonNull TextView mainText) {
+      @NonNull LottieAnimationView animationView, @NonNull TextView mainText) {
     this.rootView = rootView;
+    this.animationView = animationView;
     this.mainText = mainText;
   }
 
@@ -55,13 +60,19 @@ public final class ActivityMainSplashBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
+      id = R.id.animationView;
+      LottieAnimationView animationView = ViewBindings.findChildViewById(rootView, id);
+      if (animationView == null) {
+        break missingId;
+      }
+
       id = R.id.mainText;
       TextView mainText = ViewBindings.findChildViewById(rootView, id);
       if (mainText == null) {
         break missingId;
       }
 
-      return new ActivityMainSplashBinding((ConstraintLayout) rootView, mainText);
+      return new ActivityMainSplashBinding((ConstraintLayout) rootView, animationView, mainText);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

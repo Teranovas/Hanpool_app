@@ -49,6 +49,7 @@ id Text2
 id TitleText
 id after_Btn
 id after_button
+id animationView
 id arrive
 id arriveTextView
 id before_Btn
@@ -184,6 +185,7 @@ layout user_item
 menu bottom_navigation_menu
 mipmap ic_launcher
 mipmap ic_launcher_round
+raw animation1
 raw intro_splash
 raw intro_splash1
 string app_name

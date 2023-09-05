@@ -1,314 +1,322 @@
 [
     {
-        "merged": "com.example.joinn.app-merged_res-58:/drawable_round_button.xml.flat",
-        "source": "com.example.joinn.app-main-60:/drawable/round_button.xml"
+        "merged": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-merged_res-58:/drawable_ic_next.xml.flat",
+        "source": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-main-60:/drawable/ic_next.xml"
     },
     {
-        "merged": "com.example.joinn.app-merged_res-58:/mipmap-xhdpi_ic_launcher.webp.flat",
-        "source": "com.example.joinn.app-main-60:/mipmap-xhdpi/ic_launcher.webp"
+        "merged": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-merged_res-58:/drawable_ic_launcher_background.xml.flat",
+        "source": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-main-60:/drawable/ic_launcher_background.xml"
     },
     {
-        "merged": "com.example.joinn.app-merged_res-58:/layout_activity_nickname.xml.flat",
-        "source": "com.example.joinn.app-main-60:/layout/activity_nickname.xml"
+        "merged": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-merged_res-58:/layout_send.xml.flat",
+        "source": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-main-60:/layout/send.xml"
     },
     {
-        "merged": "com.example.joinn.app-merged_res-58:/drawable_message_bg_self.xml.flat",
-        "source": "com.example.joinn.app-main-60:/drawable/message_bg_self.xml"
+        "merged": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-merged_res-58:/layout_search.xml.flat",
+        "source": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-main-60:/layout/search.xml"
     },
     {
-        "merged": "com.example.joinn.app-merged_res-58:/layout_post_item.xml.flat",
-        "source": "com.example.joinn.app-main-60:/layout/post_item.xml"
+        "merged": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-merged_res-58:/layout_activity_image.xml.flat",
+        "source": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-main-60:/layout/activity_image.xml"
+    },
+    {
+        "merged": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-merged_res-58:/drawable_driver.png.flat",
+        "source": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-main-60:/drawable/driver.png"
+    },
+    {
+        "merged": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-merged_res-58:/layout_fragment_driver_license_plate.xml.flat",
+        "source": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-main-60:/layout/fragment_driver_license_plate.xml"
     },
     {
         "merged": "com.example.joinn.app-merged_res-58:/layout_activity_main_splash.xml.flat",
         "source": "com.example.joinn.app-main-60:/layout/activity_main_splash.xml"
     },
     {
-        "merged": "com.example.joinn.app-merged_res-58:/font_font1.ttf.flat",
-        "source": "com.example.joinn.app-main-60:/font/font1.ttf"
+        "merged": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-merged_res-58:/xml_data_extraction_rules.xml.flat",
+        "source": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-main-60:/xml/data_extraction_rules.xml"
     },
     {
-        "merged": "com.example.joinn.app-merged_res-58:/drawable_gradient_background.xml.flat",
-        "source": "com.example.joinn.app-main-60:/drawable/gradient_background.xml"
+        "merged": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-merged_res-58:/drawable_message_bg_self.xml.flat",
+        "source": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-main-60:/drawable/message_bg_self.xml"
     },
     {
-        "merged": "com.example.joinn.app-merged_res-58:/layout_fragment_detail.xml.flat",
-        "source": "com.example.joinn.app-main-60:/layout/fragment_detail.xml"
+        "merged": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-merged_res-58:/layout_fragment_community.xml.flat",
+        "source": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-main-60:/layout/fragment_community.xml"
     },
     {
-        "merged": "com.example.joinn.app-merged_res-58:/drawable_ic_launcher_background.xml.flat",
-        "source": "com.example.joinn.app-main-60:/drawable/ic_launcher_background.xml"
+        "merged": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-merged_res-58:/drawable_car.png.flat",
+        "source": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-main-60:/drawable/car.png"
     },
     {
-        "merged": "com.example.joinn.app-merged_res-58:/drawable-v24_user.png.flat",
-        "source": "com.example.joinn.app-main-60:/drawable-v24/user.png"
+        "merged": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-merged_res-58:/layout_fragment_map.xml.flat",
+        "source": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-main-60:/layout/fragment_map.xml"
     },
     {
-        "merged": "com.example.joinn.app-merged_res-58:/drawable_user2.png.flat",
-        "source": "com.example.joinn.app-main-60:/drawable/user2.png"
+        "merged": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-merged_res-58:/mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-main-60:/mipmap-mdpi/ic_launcher.webp"
     },
     {
-        "merged": "com.example.joinn.app-merged_res-58:/drawable_rounded_background.xml.flat",
-        "source": "com.example.joinn.app-main-60:/drawable/rounded_background.xml"
+        "merged": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-merged_res-58:/drawable-v24_ic_launcher_foreground.xml.flat",
+        "source": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-main-60:/drawable-v24/ic_launcher_foreground.xml"
     },
     {
-        "merged": "com.example.joinn.app-merged_res-58:/layout_test.xml.flat",
-        "source": "com.example.joinn.app-main-60:/layout/test.xml"
+        "merged": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-merged_res-58:/mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-main-60:/mipmap-hdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "com.example.joinn.app-merged_res-58:/layout_fragment_chat.xml.flat",
-        "source": "com.example.joinn.app-main-60:/layout/fragment_chat.xml"
+        "merged": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-merged_res-58:/drawable_history.png.flat",
+        "source": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-main-60:/drawable/history.png"
     },
     {
-        "merged": "com.example.joinn.app-merged_res-58:/layout_fragment_start.xml.flat",
-        "source": "com.example.joinn.app-main-60:/layout/fragment_start.xml"
+        "merged": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-merged_res-58:/layout_activity_matching.xml.flat",
+        "source": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-main-60:/layout/activity_matching.xml"
     },
     {
-        "merged": "com.example.joinn.app-merged_res-58:/xml_backup_rules.xml.flat",
-        "source": "com.example.joinn.app-main-60:/xml/backup_rules.xml"
+        "merged": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-merged_res-58:/font_font1.ttf.flat",
+        "source": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-main-60:/font/font1.ttf"
     },
     {
-        "merged": "com.example.joinn.app-merged_res-58:/drawable_history.png.flat",
-        "source": "com.example.joinn.app-main-60:/drawable/history.png"
+        "merged": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-merged_res-58:/drawable_rounded_background.xml.flat",
+        "source": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-main-60:/drawable/rounded_background.xml"
     },
     {
-        "merged": "com.example.joinn.app-merged_res-58:/drawable_editprofile.png.flat",
-        "source": "com.example.joinn.app-main-60:/drawable/editprofile.png"
+        "merged": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-merged_res-58:/layout_fragment_date.xml.flat",
+        "source": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-main-60:/layout/fragment_date.xml"
     },
     {
-        "merged": "com.example.joinn.app-merged_res-58:/drawable_message_bg_other.xml.flat",
-        "source": "com.example.joinn.app-main-60:/drawable/message_bg_other.xml"
+        "merged": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-merged_res-58:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-main-60:/mipmap-anydpi-v26/ic_launcher.xml"
     },
     {
-        "merged": "com.example.joinn.app-merged_res-58:/anim_slide_out_left.xml.flat",
-        "source": "com.example.joinn.app-main-60:/anim/slide_out_left.xml"
+        "merged": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-merged_res-58:/layout_fragment_driver_registration.xml.flat",
+        "source": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-main-60:/layout/fragment_driver_registration.xml"
     },
     {
-        "merged": "com.example.joinn.app-merged_res-58:/layout_receive.xml.flat",
-        "source": "com.example.joinn.app-main-60:/layout/receive.xml"
+        "merged": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-merged_res-58:/layout_fragment_my_page.xml.flat",
+        "source": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-main-60:/layout/fragment_my_page.xml"
     },
     {
-        "merged": "com.example.joinn.app-merged_res-58:/mipmap-xxhdpi_ic_launcher.webp.flat",
-        "source": "com.example.joinn.app-main-60:/mipmap-xxhdpi/ic_launcher.webp"
+        "merged": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-merged_res-58:/drawable_user2.png.flat",
+        "source": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-main-60:/drawable/user2.png"
     },
     {
-        "merged": "com.example.joinn.app-merged_res-58:/mipmap-anydpi-v26_ic_launcher.xml.flat",
-        "source": "com.example.joinn.app-main-60:/mipmap-anydpi-v26/ic_launcher.xml"
+        "merged": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-merged_res-58:/raw_intro_splash.json.flat",
+        "source": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-main-60:/raw/intro_splash.json"
     },
     {
-        "merged": "com.example.joinn.app-merged_res-58:/layout_activity_matching.xml.flat",
-        "source": "com.example.joinn.app-main-60:/layout/activity_matching.xml"
+        "merged": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-merged_res-58:/layout_test.xml.flat",
+        "source": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-main-60:/layout/test.xml"
     },
     {
-        "merged": "com.example.joinn.app-merged_res-58:/mipmap-xxxhdpi_ic_launcher_round.webp.flat",
-        "source": "com.example.joinn.app-main-60:/mipmap-xxxhdpi/ic_launcher_round.webp"
+        "merged": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-merged_res-58:/layout_item_user.xml.flat",
+        "source": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-main-60:/layout/item_user.xml"
     },
     {
-        "merged": "com.example.joinn.app-merged_res-58:/anim_slide_in_right.xml.flat",
-        "source": "com.example.joinn.app-main-60:/anim/slide_in_right.xml"
+        "merged": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-merged_res-58:/drawable_schedule.png.flat",
+        "source": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-main-60:/drawable/schedule.png"
     },
     {
-        "merged": "com.example.joinn.app-merged_res-58:/mipmap-xxxhdpi_ic_launcher.webp.flat",
-        "source": "com.example.joinn.app-main-60:/mipmap-xxxhdpi/ic_launcher.webp"
+        "merged": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-merged_res-58:/layout_fragment_start.xml.flat",
+        "source": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-main-60:/layout/fragment_start.xml"
     },
     {
-        "merged": "com.example.joinn.app-merged_res-58:/layout_fragment_my_page.xml.flat",
-        "source": "com.example.joinn.app-main-60:/layout/fragment_my_page.xml"
+        "merged": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-merged_res-58:/layout_custom_marker_layout.xml.flat",
+        "source": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-main-60:/layout/custom_marker_layout.xml"
     },
     {
-        "merged": "com.example.joinn.app-merged_res-58:/layout_fragment_chat_room.xml.flat",
-        "source": "com.example.joinn.app-main-60:/layout/fragment_chat_room.xml"
+        "merged": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-merged_res-58:/layout_user_item.xml.flat",
+        "source": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-main-60:/layout/user_item.xml"
     },
     {
-        "merged": "com.example.joinn.app-merged_res-58:/drawable_home.png.flat",
-        "source": "com.example.joinn.app-main-60:/drawable/home.png"
+        "merged": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-merged_res-58:/layout_fragment_chat.xml.flat",
+        "source": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-main-60:/layout/fragment_chat.xml"
     },
     {
-        "merged": "com.example.joinn.app-merged_res-58:/layout_fragment_home.xml.flat",
-        "source": "com.example.joinn.app-main-60:/layout/fragment_home.xml"
+        "merged": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-merged_res-58:/drawable-v24_user.png.flat",
+        "source": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-main-60:/drawable-v24/user.png"
     },
     {
-        "merged": "com.example.joinn.app-merged_res-58:/layout_send.xml.flat",
-        "source": "com.example.joinn.app-main-60:/layout/send.xml"
+        "merged": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-merged_res-58:/layout_calendar_cell.xml.flat",
+        "source": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-main-60:/layout/calendar_cell.xml"
     },
     {
-        "merged": "com.example.joinn.app-merged_res-58:/drawable_circle.xml.flat",
-        "source": "com.example.joinn.app-main-60:/drawable/circle.xml"
+        "merged": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-merged_res-58:/layout_fragment_edit_profile.xml.flat",
+        "source": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-main-60:/layout/fragment_edit_profile.xml"
     },
     {
-        "merged": "com.example.joinn.app-merged_res-58:/mipmap-mdpi_ic_launcher_round.webp.flat",
-        "source": "com.example.joinn.app-main-60:/mipmap-mdpi/ic_launcher_round.webp"
+        "merged": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-merged_res-58:/mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-main-60:/mipmap-mdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "com.example.joinn.app-merged_res-58:/mipmap-mdpi_ic_launcher.webp.flat",
-        "source": "com.example.joinn.app-main-60:/mipmap-mdpi/ic_launcher.webp"
+        "merged": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-merged_res-58:/layout_fragment_arrive_register.xml.flat",
+        "source": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-main-60:/layout/fragment_arrive_register.xml"
     },
     {
-        "merged": "com.example.joinn.app-merged_res-58:/drawable_driverlicense.png.flat",
-        "source": "com.example.joinn.app-main-60:/drawable/driverlicense.png"
+        "merged": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-merged_res-58:/mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-main-60:/mipmap-hdpi/ic_launcher.webp"
     },
     {
-        "merged": "com.example.joinn.app-merged_res-58:/layout_activity_image.xml.flat",
-        "source": "com.example.joinn.app-main-60:/layout/activity_image.xml"
+        "merged": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-merged_res-58:/mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-main-60:/mipmap-xxhdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "com.example.joinn.app-merged_res-58:/drawable_driver.png.flat",
-        "source": "com.example.joinn.app-main-60:/drawable/driver.png"
+        "merged": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-merged_res-58:/raw_intro_splash1.json.flat",
+        "source": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-main-60:/raw/intro_splash1.json"
     },
     {
-        "merged": "com.example.joinn.app-merged_res-58:/layout_fragment_arrive_register.xml.flat",
-        "source": "com.example.joinn.app-main-60:/layout/fragment_arrive_register.xml"
+        "merged": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-merged_res-58:/drawable_driverlicense.png.flat",
+        "source": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-main-60:/drawable/driverlicense.png"
     },
     {
-        "merged": "com.example.joinn.app-merged_res-58:/drawable_placeholder.png.flat",
-        "source": "com.example.joinn.app-main-60:/drawable/placeholder.png"
+        "merged": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-merged_res-58:/drawable_message_bg_other.xml.flat",
+        "source": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-main-60:/drawable/message_bg_other.xml"
     },
     {
-        "merged": "com.example.joinn.app-merged_res-58:/layout_fragment_start_register.xml.flat",
-        "source": "com.example.joinn.app-main-60:/layout/fragment_start_register.xml"
+        "merged": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-merged_res-58:/layout_fragment_after.xml.flat",
+        "source": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-main-60:/layout/fragment_after.xml"
     },
     {
-        "merged": "com.example.joinn.app-merged_res-58:/drawable-v24_ic_launcher_foreground.xml.flat",
-        "source": "com.example.joinn.app-main-60:/drawable-v24/ic_launcher_foreground.xml"
+        "merged": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-merged_res-58:/layout_fragment_chat_room.xml.flat",
+        "source": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-main-60:/layout/fragment_chat_room.xml"
     },
     {
-        "merged": "com.example.joinn.app-merged_res-58:/drawable_car.png.flat",
-        "source": "com.example.joinn.app-main-60:/drawable/car.png"
+        "merged": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-merged_res-58:/menu_bottom_navigation_menu.xml.flat",
+        "source": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-main-60:/menu/bottom_navigation_menu.xml"
     },
     {
-        "merged": "com.example.joinn.app-merged_res-58:/drawable_ic_previous.xml.flat",
-        "source": "com.example.joinn.app-main-60:/drawable/ic_previous.xml"
+        "merged": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-merged_res-58:/font_fontbold.ttf.flat",
+        "source": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-main-60:/font/fontbold.ttf"
     },
     {
-        "merged": "com.example.joinn.app-merged_res-58:/layout_fragment_driver_license_plate.xml.flat",
-        "source": "com.example.joinn.app-main-60:/layout/fragment_driver_license_plate.xml"
+        "merged": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-merged_res-58:/layout_activity_intro_splash.xml.flat",
+        "source": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-main-60:/layout/activity_intro_splash.xml"
     },
     {
-        "merged": "com.example.joinn.app-merged_res-58:/layout_user_item.xml.flat",
-        "source": "com.example.joinn.app-main-60:/layout/user_item.xml"
+        "merged": "com.example.joinn.app-merged_res-58:/raw_animation1.json.flat",
+        "source": "com.example.joinn.app-main-60:/raw/animation1.json"
     },
     {
-        "merged": "com.example.joinn.app-merged_res-58:/layout_activity_main.xml.flat",
-        "source": "com.example.joinn.app-main-60:/layout/activity_main.xml"
+        "merged": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-merged_res-58:/drawable_editprofile.png.flat",
+        "source": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-main-60:/drawable/editprofile.png"
     },
     {
-        "merged": "com.example.joinn.app-merged_res-58:/mipmap-hdpi_ic_launcher.webp.flat",
-        "source": "com.example.joinn.app-main-60:/mipmap-hdpi/ic_launcher.webp"
+        "merged": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-merged_res-58:/anim_slide_in_right.xml.flat",
+        "source": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-main-60:/anim/slide_in_right.xml"
     },
     {
-        "merged": "com.example.joinn.app-merged_res-58:/drawable_level.png.flat",
-        "source": "com.example.joinn.app-main-60:/drawable/level.png"
+        "merged": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-merged_res-58:/drawable_circle.xml.flat",
+        "source": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-main-60:/drawable/circle.xml"
     },
     {
-        "merged": "com.example.joinn.app-merged_res-58:/layout_search.xml.flat",
-        "source": "com.example.joinn.app-main-60:/layout/search.xml"
+        "merged": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-merged_res-58:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-main-60:/mipmap-anydpi-v26/ic_launcher_round.xml"
     },
     {
-        "merged": "com.example.joinn.app-merged_res-58:/raw_intro_splash.json.flat",
-        "source": "com.example.joinn.app-main-60:/raw/intro_splash.json"
+        "merged": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-merged_res-58:/mipmap-xxxhdpi_ic_launcher.webp.flat",
+        "source": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-main-60:/mipmap-xxxhdpi/ic_launcher.webp"
     },
     {
-        "merged": "com.example.joinn.app-merged_res-58:/layout_fragment_community.xml.flat",
-        "source": "com.example.joinn.app-main-60:/layout/fragment_community.xml"
+        "merged": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-merged_res-58:/layout_post_item.xml.flat",
+        "source": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-main-60:/layout/post_item.xml"
     },
     {
-        "merged": "com.example.joinn.app-merged_res-58:/layout_calendar_cell.xml.flat",
-        "source": "com.example.joinn.app-main-60:/layout/calendar_cell.xml"
+        "merged": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-merged_res-58:/layout_fragment_start_register.xml.flat",
+        "source": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-main-60:/layout/fragment_start_register.xml"
     },
     {
-        "merged": "com.example.joinn.app-merged_res-58:/drawable_ic_next.xml.flat",
-        "source": "com.example.joinn.app-main-60:/drawable/ic_next.xml"
+        "merged": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-merged_res-58:/layout_fragment_driver_car_img.xml.flat",
+        "source": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-main-60:/layout/fragment_driver_car_img.xml"
     },
     {
-        "merged": "com.example.joinn.app-merged_res-58:/layout_fragment_edit_profile.xml.flat",
-        "source": "com.example.joinn.app-main-60:/layout/fragment_edit_profile.xml"
+        "merged": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-merged_res-58:/mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-main-60:/mipmap-xxxhdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "com.example.joinn.app-merged_res-58:/layout_fragment_driver_car_img.xml.flat",
-        "source": "com.example.joinn.app-main-60:/layout/fragment_driver_car_img.xml"
+        "merged": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-merged_res-58:/mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-main-60:/mipmap-xhdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "com.example.joinn.app-merged_res-58:/mipmap-xhdpi_ic_launcher_round.webp.flat",
-        "source": "com.example.joinn.app-main-60:/mipmap-xhdpi/ic_launcher_round.webp"
+        "merged": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-merged_res-58:/xml_backup_rules.xml.flat",
+        "source": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-main-60:/xml/backup_rules.xml"
     },
     {
-        "merged": "com.example.joinn.app-merged_res-58:/mipmap-xxhdpi_ic_launcher_round.webp.flat",
-        "source": "com.example.joinn.app-main-60:/mipmap-xxhdpi/ic_launcher_round.webp"
+        "merged": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-merged_res-58:/layout_activity_main_splash.xml.flat",
+        "source": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-main-60:/layout/activity_main_splash.xml"
     },
     {
-        "merged": "com.example.joinn.app-merged_res-58:/raw_intro_splash1.json.flat",
-        "source": "com.example.joinn.app-main-60:/raw/intro_splash1.json"
+        "merged": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-merged_res-58:/mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-main-60:/mipmap-xhdpi/ic_launcher.webp"
     },
     {
-        "merged": "com.example.joinn.app-merged_res-58:/layout_fragment_map.xml.flat",
-        "source": "com.example.joinn.app-main-60:/layout/fragment_map.xml"
+        "merged": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-merged_res-58:/layout_fragment_home.xml.flat",
+        "source": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-main-60:/layout/fragment_home.xml"
     },
     {
-        "merged": "com.example.joinn.app-merged_res-58:/layout_item_user.xml.flat",
-        "source": "com.example.joinn.app-main-60:/layout/item_user.xml"
+        "merged": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-merged_res-58:/drawable_home.png.flat",
+        "source": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-main-60:/drawable/home.png"
     },
     {
-        "merged": "com.example.joinn.app-merged_res-58:/xml_data_extraction_rules.xml.flat",
-        "source": "com.example.joinn.app-main-60:/xml/data_extraction_rules.xml"
+        "merged": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-merged_res-58:/drawable_gradient_background.xml.flat",
+        "source": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-main-60:/drawable/gradient_background.xml"
     },
     {
-        "merged": "com.example.joinn.app-merged_res-58:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
-        "source": "com.example.joinn.app-main-60:/mipmap-anydpi-v26/ic_launcher_round.xml"
+        "merged": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-merged_res-58:/drawable_placeholder.png.flat",
+        "source": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-main-60:/drawable/placeholder.png"
     },
     {
-        "merged": "com.example.joinn.app-merged_res-58:/drawable_schedule.png.flat",
-        "source": "com.example.joinn.app-main-60:/drawable/schedule.png"
+        "merged": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-merged_res-58:/anim_slide_out_left.xml.flat",
+        "source": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-main-60:/anim/slide_out_left.xml"
     },
     {
-        "merged": "com.example.joinn.app-merged_res-58:/menu_bottom_navigation_menu.xml.flat",
-        "source": "com.example.joinn.app-main-60:/menu/bottom_navigation_menu.xml"
+        "merged": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-merged_res-58:/layout_fragment_detail.xml.flat",
+        "source": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-main-60:/layout/fragment_detail.xml"
     },
     {
-        "merged": "com.example.joinn.app-merged_res-58:/layout_fragment_search.xml.flat",
-        "source": "com.example.joinn.app-main-60:/layout/fragment_search.xml"
+        "merged": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-merged_res-58:/layout_fragment_search.xml.flat",
+        "source": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-main-60:/layout/fragment_search.xml"
     },
     {
-        "merged": "com.example.joinn.app-merged_res-58:/mipmap-hdpi_ic_launcher_round.webp.flat",
-        "source": "com.example.joinn.app-main-60:/mipmap-hdpi/ic_launcher_round.webp"
+        "merged": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-merged_res-58:/layout_receive.xml.flat",
+        "source": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-main-60:/layout/receive.xml"
     },
     {
-        "merged": "com.example.joinn.app-merged_res-58:/layout_activity_intro_splash.xml.flat",
-        "source": "com.example.joinn.app-main-60:/layout/activity_intro_splash.xml"
+        "merged": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-merged_res-58:/layout_activity_main.xml.flat",
+        "source": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-main-60:/layout/activity_main.xml"
     },
     {
-        "merged": "com.example.joinn.app-merged_res-58:/drawable_chat.png.flat",
-        "source": "com.example.joinn.app-main-60:/drawable/chat.png"
+        "merged": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-merged_res-58:/drawable_level.png.flat",
+        "source": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-main-60:/drawable/level.png"
     },
     {
-        "merged": "com.example.joinn.app-merged_res-58:/font_fontbold.ttf.flat",
-        "source": "com.example.joinn.app-main-60:/font/fontbold.ttf"
+        "merged": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-merged_res-58:/drawable_community.png.flat",
+        "source": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-main-60:/drawable/community.png"
     },
     {
-        "merged": "com.example.joinn.app-merged_res-58:/drawable_community.png.flat",
-        "source": "com.example.joinn.app-main-60:/drawable/community.png"
+        "merged": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-merged_res-58:/drawable_ic_previous.xml.flat",
+        "source": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-main-60:/drawable/ic_previous.xml"
     },
     {
-        "merged": "com.example.joinn.app-merged_res-58:/layout_fragment_arrive.xml.flat",
-        "source": "com.example.joinn.app-main-60:/layout/fragment_arrive.xml"
+        "merged": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-merged_res-58:/layout_fragment_register.xml.flat",
+        "source": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-main-60:/layout/fragment_register.xml"
     },
     {
-        "merged": "com.example.joinn.app-merged_res-58:/layout_custom_marker_layout.xml.flat",
-        "source": "com.example.joinn.app-main-60:/layout/custom_marker_layout.xml"
+        "merged": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-merged_res-58:/drawable_chat.png.flat",
+        "source": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-main-60:/drawable/chat.png"
     },
     {
-        "merged": "com.example.joinn.app-merged_res-58:/layout_fragment_driver_registration.xml.flat",
-        "source": "com.example.joinn.app-main-60:/layout/fragment_driver_registration.xml"
+        "merged": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-merged_res-58:/layout_fragment_arrive.xml.flat",
+        "source": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-main-60:/layout/fragment_arrive.xml"
     },
     {
-        "merged": "com.example.joinn.app-merged_res-58:/layout_fragment_after.xml.flat",
-        "source": "com.example.joinn.app-main-60:/layout/fragment_after.xml"
+        "merged": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-merged_res-58:/drawable_round_button.xml.flat",
+        "source": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-main-60:/drawable/round_button.xml"
     },
     {
-        "merged": "com.example.joinn.app-merged_res-58:/layout_fragment_register.xml.flat",
-        "source": "com.example.joinn.app-main-60:/layout/fragment_register.xml"
+        "merged": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-merged_res-58:/layout_activity_nickname.xml.flat",
+        "source": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-main-60:/layout/activity_nickname.xml"
     },
     {
-        "merged": "com.example.joinn.app-merged_res-58:/layout_fragment_date.xml.flat",
-        "source": "com.example.joinn.app-main-60:/layout/fragment_date.xml"
+        "merged": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-merged_res-58:/mipmap-xxhdpi_ic_launcher.webp.flat",
+        "source": "/Users/apple/.gradle/daemon/8.0.2/com.example.joinn.app-main-60:/mipmap-xxhdpi/ic_launcher.webp"
     }
 ]
