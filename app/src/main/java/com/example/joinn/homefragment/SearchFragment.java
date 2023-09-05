@@ -123,49 +123,8 @@ public class SearchFragment extends Fragment{
 
 
     private void calculateAndDisplayRoute(MapPoint departurePoint, MapPoint destinationPoint) {
-        // 이전의 마커와 폴리라인을 모두 제거
-//        mapView.removeAllPOIItems();
-//        mapView.removeAllPolylines();
-//
-//        // 출발지와 목적지에 마커를 추가합니다.
-//        MapPOIItem departureMarker = createMarker(departurePoint, "Departure");
-//        mapView.addPOIItem(departureMarker);
-//
-//        MapPOIItem destinationMarker = createMarker(destinationPoint, "Destination");
-//        mapView.addPOIItem(destinationMarker);
 
-//        // 경로 계산 요청을 위한 GeoApiContext 생성
-//        GeoApiContext geoApiContext = new GeoApiContext.Builder()
-//                .apiKey("a89f1daaf052c0cf2d6beb70f8e672ca") // 여기에 카카오 API에서 javascript키 넣기.
-//                .build();
-//
-//        // 경로 요청 생성
-//        DirectionsApiRequest directionsApiRequest = DirectionsApi.newRequest(geoApiContext)
-//                .origin(new com.google.maps.model.LatLng(departurePoint.getMapPointGeoCoord().latitude, departurePoint.getMapPointGeoCoord().longitude))
-//                .destination(new com.google.maps.model.LatLng(destinationPoint.getMapPointGeoCoord().latitude, destinationPoint.getMapPointGeoCoord().longitude))
-//                .mode(TravelMode.DRIVING) // 운전 경로로 설정 (도보나 대중교통으로도 설정 가능)
-//                .units(Unit.METRIC)
-//                .region("kr");
-//
-//        // 경로 요청 결과 받기
-//        DirectionsResult directionsResult;
-//        try {
-//            directionsResult = directionsApiRequest.await();
-//            if (directionsResult.routes != null && directionsResult.routes.length > 0) {
-//                // 첫 번째 경로를 가져와서 폴리라인을 그립니다.
-//                com.google.maps.model.LatLng[] path = directionsResult.routes[0].overviewPolyline.decodePath();
-//                List<LatLng> latLngs = new ArrayList<>();
-//                for (com.google.maps.model.LatLng latLng : path) {
-//                    latLngs.add(new LatLng(latLng.lat, latLng.lng));
-//                }
-//                PolylineOptions polylineOptions = new PolylineOptions()
-//                        .addAll(latLngs)
-//                        .width(10)
-//                        .color(Color.BLUE);
-//                Polyline polyline = mapView.addPolyline(polylineOptions);
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+
+
     }
 }
