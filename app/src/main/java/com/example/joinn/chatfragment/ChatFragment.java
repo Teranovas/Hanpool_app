@@ -58,50 +58,6 @@ public class ChatFragment extends Fragment {
 
         usersRef = FirebaseDatabase.getInstance().getReference().child("users");
 
-//        mAuth = FirebaseAuth.getInstance();
-//        currentUser = mAuth.getCurrentUser();
-//
-//        if (currentUser != null) {
-//            String currentUserName = currentUser.getUid();
-//
-//            usersRef.child(currentUserName).addListenerForSingleValueEvent(new ValueEventListener() {
-//                @Override
-//                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                    if (dataSnapshot.exists()) {
-//                        String userNickname = dataSnapshot.child("닉네임").getValue(String.class);
-//
-//                        DatabaseReference chatListRef = FirebaseDatabase.getInstance().getReference().child("chatList").child(userNickname);
-//                        chatListRef.addValueEventListener(new ValueEventListener() {
-//                            @Override
-//                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                                userList.clear();
-//                                for (DataSnapshot userSnapshot : snapshot.getChildren()) {
-//                                    User user = userSnapshot.getValue(User.class);
-//                                    userList.add(user);
-//                                }
-//                                // 시간순으로 정렬
-//                                Collections.sort(userList, new Comparator<User>() {
-//                                    @Override
-//                                    public int compare(User user1, User user2) {
-//                                        return Long.compare(user1.getTimestamp(), user2.getTimestamp());
-//                                    }
-//                                });
-//                                userAdapter.notifyDataSetChanged();
-//                            }
-//
-//                            @Override
-//                            public void onCancelled(@NonNull DatabaseError error) {
-//                                Log.e(TAG, "Failed to read post data.", error.toException());
-//                            }
-//                        });
-//                    }
-//                }
-//                @Override
-//                public void onCancelled(@NonNull DatabaseError databaseError) {
-//                    // 처리 중 오류 발생 시
-//                }
-//            });
-//        }
     }
 
     @Override
@@ -113,6 +69,9 @@ public class ChatFragment extends Fragment {
 
         userAdapter = new UserAdapter(getActivity(), R.layout.user_item, userList);
         listView.setAdapter(userAdapter);
+
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
 
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
@@ -131,14 +90,9 @@ public class ChatFragment extends Fragment {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 userList.clear();
-                                Set<String> uniqueNicknames = new HashSet<>(); // 중복을 제거하기 위한 Set
-
                                 for (DataSnapshot userSnapshot : snapshot.getChildren()) {
                                     User user = userSnapshot.getValue(User.class);
-                                    if (!uniqueNicknames.contains(user.getWriter())) {
-                                        userList.add(user);
-                                        uniqueNicknames.add(user.getWriter());
-                                    }
+                                    userList.add(user);
                                 }
                                 // 시간순으로 정렬
                                 Collections.sort(userList, new Comparator<User>() {
@@ -157,7 +111,6 @@ public class ChatFragment extends Fragment {
                         });
                     }
                 }
-
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
                     // 처리 중 오류 발생 시
@@ -210,17 +163,4 @@ public class ChatFragment extends Fragment {
         return view;
     }
 }
-
-
-
-//    FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-//    ChatRoomFragment chatRoomFragment = new ChatRoomFragment();
-//    Bundle bundle = new Bundle();
-//                bundle.putString("opponentNickname", opponentNickname);
-//                        bundle.putString("opponentImageUrl", opponentImageUrl);
-//                        bundle.putString("opponentUID", opponentUID);
-//
-//                        chatRoomFragment.setArguments(bundle);
-//                        transaction.replace(R.id.container, chatRoomFragment);
-//                        transaction.addToBackStack(null);
-//                        transaction.commit();
+//check woojin
