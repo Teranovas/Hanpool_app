@@ -1,7 +1,10 @@
 package com.example.joinn.chatfragment;
 
+import static android.content.ContentValues.TAG;
+
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.nfc.Tag;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -10,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 
 import android.renderscript.ScriptGroup;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +23,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.example.joinn.chatfragment.ChatRoomFragment.*;
 
 
@@ -209,6 +215,61 @@ public class ChatRoomFragment extends Fragment {
                         // 여기서 선택한 날짜를 처리하거나 저장할 수 있습니다.
                         long selectedDateMillis = calendarView.getDate();
                         // 선택한 날짜에 대한 작업을 수행합니다.
+                        String text = "[수락하기]";
+                        TextView textView = new TextView(getContext());
+                        textView.setText("[수락하기]");
+
+                        String message2 = handleSelectedDate(selectedDateMillis) + "  " + textView;
+
+//                        textView.setOnClickListener(new View.OnClickListener() {
+//                            @Override
+//                            public void onClick(View view) {
+//                               Log.d(TAG,"수락하기 완료");
+//                            }
+//                        });
+
+
+                        long now = System.currentTimeMillis();
+                        Date date = new Date(now);
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm");
+                        String getTime = dateFormat.format(date);
+
+
+                        usersRef.child(senderUid).addListenerForSingleValueEvent(new ValueEventListener() {
+
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                                String Nickname = snapshot.child("닉네임").getValue(String.class);
+                                Message messageObject = new Message(message2, senderUid, getTime, Nickname);
+                                messageList.add(messageObject);
+                                messageAdapter.notifyDataSetChanged();
+
+                                // 데이터 저장
+                                // 데이터 저장
+                                mDbRef.child("chats").child(senderRoom).child("messages").push()
+                                        .setValue(messageObject)
+                                        .addOnSuccessListener(aVoid -> {
+                                            // 저장 성공하면
+                                            mDbRef.child("chats").child(receiverRoom).child("messages").push()
+                                                    .setValue(messageObject)
+                                                    .addOnSuccessListener(aVoid2 -> {
+                                                        // 받는 쪽에도 저장 성공하면 어댑터 갱신
+                                                    });
+                                        });
+
+
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+
+
+                        // 대화 상자 닫기
+                        dialogInterface.dismiss();
                     }
                 });
 
@@ -228,6 +289,39 @@ public class ChatRoomFragment extends Fragment {
         });
 
 
+
         return view;
+    }
+
+    private String handleSelectedDate(long selectedDateMillis) {
+        // 여기에서 선택한 날짜를 처리하거나 필요한 데이터로 변환합니다.
+        Date selectedDate = new Date(selectedDateMillis);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd");
+        String formattedDate = dateFormat.format(selectedDate);
+        // formattedDate를 사용하여 선택한 날짜에 대한 작업을 수행합니다.
+
+        String S = sendInvitationMessage(formattedDate);
+
+        return S;
+    }
+
+
+    private String sendInvitationMessage(String selectedDateMillis) {
+        // 여기에서 초대 메시지를 생성하고 상대방에게 보내는 작업을 수행합니다.
+        // selectedDateMillis를 사용하여 초대 메시지에 선택한 날짜 정보를 포함시킵니다.
+
+        String text = "[수락하기]";
+
+        // 예를 들어, 초대 메시지 생성
+        String invitationMessage = "카풀에 초대합니다! 날짜: " + selectedDateMillis;
+
+        Log.d(TAG,invitationMessage);
+
+        return invitationMessage;
+
+
+
+        // Firebase Realtime Database에 메시지를 저장하고 상대방에게도 보냅니다.
+        // 코드는 이전 답변에서 이미 제공된 내용을 활용할 수 있습니다.
     }
 }
