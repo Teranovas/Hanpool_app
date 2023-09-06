@@ -3,6 +3,7 @@ local
 anim slide_in_right
 anim slide_out_left
 color black
+color hanpool_background
 color purple_200
 color purple_500
 color purple_700
@@ -27,6 +28,7 @@ drawable ic_next
 drawable ic_previous
 drawable level
 drawable logo
+drawable logo2
 drawable message_bg_other
 drawable message_bg_self
 drawable placeholder
@@ -191,6 +193,9 @@ layout send
 layout test
 layout user_item
 menu bottom_navigation_menu
+mipmap hanpool
+mipmap hanpool_foreground
+mipmap hanpool_round
 mipmap ic_launcher
 mipmap ic_launcher_round
 raw animation1

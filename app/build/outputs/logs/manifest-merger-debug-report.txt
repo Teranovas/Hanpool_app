@@ -297,7 +297,7 @@ MERGED from [androidx.startup:startup-runtime:1.1.1] /Users/apple/.gradle/caches
 	android:supportsRtl
 		ADDED from /Users/apple/AndroidStudioProjects/Capstone/app/src/main/AndroidManifest.xml:23:9-35
 	android:label
-		ADDED from /Users/apple/AndroidStudioProjects/Capstone/app/src/main/AndroidManifest.xml:21:9-41
+		ADDED from /Users/apple/AndroidStudioProjects/Capstone/app/src/main/AndroidManifest.xml:21:9-27
 	android:fullBackupContent
 		ADDED from /Users/apple/AndroidStudioProjects/Capstone/app/src/main/AndroidManifest.xml:19:9-54
 	android:roundIcon
@@ -305,7 +305,7 @@ MERGED from [androidx.startup:startup-runtime:1.1.1] /Users/apple/.gradle/caches
 	tools:targetApi
 		ADDED from /Users/apple/AndroidStudioProjects/Capstone/app/src/main/AndroidManifest.xml:26:9-29
 	android:icon
-		ADDED from /Users/apple/AndroidStudioProjects/Capstone/app/src/main/AndroidManifest.xml:20:9-43
+		ADDED from /Users/apple/AndroidStudioProjects/Capstone/app/src/main/AndroidManifest.xml:20:9-45
 	android:allowBackup
 		ADDED from /Users/apple/AndroidStudioProjects/Capstone/app/src/main/AndroidManifest.xml:17:9-35
 	android:theme
