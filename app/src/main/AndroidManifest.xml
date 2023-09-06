@@ -24,24 +24,20 @@
         android:theme="@style/Theme.Joinn"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
-        <activity
-            android:name=".HelloActivity"
-            android:exported="false"
-            android:label="@string/title_activity_hello"
-            android:theme="@style/Theme.Joinn" />
-        <activity
-            android:name=".splash.mainSplashActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDoZiB_HmXnhyP1fDfhHY2e6J8frs9Ue2I" />
+
+        <activity
+            android:name=".splash.mainSplashActivity"
+            android:exported="true">
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+        </activity>
 
         <activity
             android:name=".matchingActivity"
@@ -55,6 +51,12 @@
             android:exported="true"
             android:noHistory="true"
             android:screenOrientation="portrait">
+            <intent-filter>
+
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -76,12 +78,12 @@
         <activity
             android:name=".sign.MainActivity"
             android:exported="true">
-            <intent-filter>
+<!--            <intent-filter>-->
 
-                <!-- <action android:name="android.intent.action.MAIN" /> -->
+<!--                 <action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
 
             <meta-data
                 android:name="android.app.lib_name"

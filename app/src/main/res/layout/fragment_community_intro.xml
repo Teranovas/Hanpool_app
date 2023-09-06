@@ -1,92 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:fillViewport="true"
     android:background="@drawable/gradient_background"
     tools:context=".communityfragment.CommunityIntroFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        >
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="30sp"
+                android:layout_height="30sp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="40dp"
+                android:src="@drawable/logo" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/fontbold"
+                android:layout_marginLeft="-35dp"
+                android:gravity="center"
+                android:padding="40dp"
+                android:text="한풀"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="30sp" />
+        </LinearLayout>
+
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
             android:fontFamily="@font/fontbold"
             android:gravity="center"
-            android:text="게시판 보기"
+            android:text="게시판을 이동해주세요"
             android:textAlignment="center"
             android:textColor="@color/white"
-            android:textSize="43sp" />
+            android:textSize="30sp" />
 
+        <ImageView
+            android:layout_width="300dp"
+            android:layout_height="400dp"
+
+            android:layout_gravity="center"
+
+            android:src="@drawable/toschool" />
+
+        <ImageView
+            android:layout_width="300dp"
+            android:layout_height="400dp"
+
+            android:layout_gravity="center"
+            android:src="@drawable/tohome" />
+
+        <ImageView
+            android:layout_width="300dp"
+            android:layout_height="400dp"
+
+            android:layout_gravity="center"
+            android:src="@drawable/taxi" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/white"
+            android:layout_marginBottom="7dp"/>
 
     </LinearLayout>
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:layout_weight="1">
-
-            <Button
-                android:layout_width="150dp"
-                android:layout_height="220dp"
-                android:text="->집" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:layout_weight="1">
-
-            <Button
-                android:layout_width="150dp"
-                android:layout_height="220dp"
-                android:text="->집" />
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:layout_weight="1">
-
-            <Button
-                android:layout_width="150dp"
-                android:layout_height="220dp"
-                android:text="->집" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:layout_weight="1">
-
-            <Button
-                android:layout_width="150dp"
-                android:layout_height="220dp"
-                android:background="@drawable/custom_button_background"
-                android:text="->집" />
-        </LinearLayout>
-
-    </LinearLayout>
-
-</LinearLayout>
+</ScrollView>

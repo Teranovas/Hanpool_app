@@ -26,12 +26,17 @@ drawable ic_launcher_foreground
 drawable ic_next
 drawable ic_previous
 drawable level
+drawable logo
 drawable message_bg_other
 drawable message_bg_self
 drawable placeholder
 drawable round_button
 drawable rounded_background
+drawable rounded_shape
 drawable schedule
+drawable taxi
+drawable tohome
+drawable toschool
 drawable user
 drawable user2
 font font1

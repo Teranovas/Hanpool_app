@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.example.joinn.communityfragment.CommunityFragment;
+import com.example.joinn.communityfragment.CommunityIntroFragment;
 import com.example.joinn.mapfragment.MapFragment;
 import com.example.joinn.homefragment.HomeFragment;
 import com.example.joinn.chatfragment.ChatFragment;
@@ -14,10 +15,10 @@ import com.example.joinn.mypagefragment.MyPageFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class matchingActivity extends AppCompatActivity {
-    public CommunityFragment getCommunityFragment() {
-        return communityFragment;
+    public CommunityIntroFragment getCommunityFragment() {
+        return communityintroFragment;
     }
-    CommunityFragment communityFragment;
+    CommunityIntroFragment communityintroFragment;
     MapFragment mapFragment;
     HomeFragment homeFragment;
     ChatFragment chatFragment;
@@ -30,7 +31,7 @@ public class matchingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_matching);
 
-        communityFragment = new CommunityFragment();
+        communityintroFragment = new CommunityIntroFragment();
         mapFragment = new MapFragment();
         homeFragment = new HomeFragment();
         chatFragment = new ChatFragment();
@@ -44,7 +45,7 @@ public class matchingActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.community:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.container, communityFragment).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, communityintroFragment).commit();
                         return true;
                     case R.id.map:
                         getSupportFragmentManager().beginTransaction().replace(R.id.container, mapFragment).commit();
