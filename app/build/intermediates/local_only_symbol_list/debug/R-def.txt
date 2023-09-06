@@ -14,6 +14,7 @@ drawable car
 drawable chat
 drawable circle
 drawable community
+drawable custom_button_background
 drawable driver
 drawable driverlicense
 drawable editprofile
@@ -46,6 +47,7 @@ id StartBtn
 id SummitBtn
 id Text1
 id Text2
+id Text3
 id TitleText
 id after_Btn
 id after_button
@@ -67,6 +69,7 @@ id chatlistView
 id community
 id confirmButton
 id container
+id customButton
 id custom_calendar
 id date
 id dayText
@@ -155,6 +158,7 @@ layout activity_main_splash
 layout activity_matching
 layout activity_nickname
 layout calendar_cell
+layout custom_button
 layout custom_marker_layout
 layout fragment_after
 layout fragment_arrive
@@ -162,6 +166,7 @@ layout fragment_arrive_register
 layout fragment_chat
 layout fragment_chat_room
 layout fragment_community
+layout fragment_community_intro
 layout fragment_date
 layout fragment_detail
 layout fragment_driver_car_img
@@ -199,6 +204,7 @@ string google_crash_reporting_api_key
 string google_storage_bucket
 string hello_blank_fragment
 string project_id
+string title_activity_hello
 style Theme.Joinn
 xml backup_rules
 xml data_extraction_rules

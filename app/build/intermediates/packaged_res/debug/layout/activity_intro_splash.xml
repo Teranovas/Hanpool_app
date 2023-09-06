@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+
+    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient_background"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
@@ -10,18 +13,72 @@
         android:id="@+id/welcomeText"
         android:layout_width="300dp"
         android:layout_height="150dp"
-        android:text="환영합니다"
+        android:text="환영합니다!"
         android:layout_marginTop="120dp"
         android:textAlignment="center"
         android:textSize="43sp"
-        android:textStyle="bold"
-        android:typeface="normal"
-        android:textColor="@color/black"
+        android:fontFamily="@font/fontbold"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.518"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.011"/>
+
+    <TextView
+        android:id="@+id/Text1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="드라이버 : 게시물을 올리고 탑승객들을 초대할수 있어요."
+        android:textSize="25sp"
+        android:ems="12"
+        android:layout_marginTop="10dp"
+        android:textColor="#B5AEAE"
+        app:layout_constraintBottom_toTopOf="@+id/Text2"
+        app:layout_constraintStart_toStartOf="@+id/welcomeText"
+        app:layout_constraintEnd_toEndOf="@+id/welcomeText"
+        app:layout_constraintTop_toBottomOf="@+id/welcomeText"/>
+
+    <TextView
+        android:id="@+id/Text2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="라이더 : 드라이버를 검색하고 카풀을 신청할 수 있어요."
+        android:layout_marginTop="20dp"
+        android:textSize="25sp"
+        android:textColor="#B5AEAE"
+        android:ems="12"
+        app:layout_constraintBottom_toTopOf="@+id/Text1"
+        app:layout_constraintStart_toStartOf="@+id/welcomeText"
+        app:layout_constraintEnd_toEndOf="@+id/welcomeText"
+        app:layout_constraintTop_toBottomOf="@+id/Text1" />
+
+    <TextView
+        android:id="@+id/Text3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="택시 카풀 : 조건, 시간이 맞는 동승자를 구할수 있어요!"
+        android:layout_marginTop="20dp"
+        android:textSize="25sp"
+        android:textColor="#B5AEAE"
+        android:ems="12"
+        app:layout_constraintStart_toStartOf="@+id/welcomeText"
+        app:layout_constraintEnd_toEndOf="@+id/welcomeText"
+        app:layout_constraintTop_toBottomOf="@+id/Text2" />
+
+    <Button
+        android:id="@+id/StartBtn"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="시작하기"
+        android:textColor="@android:color/white"
+        android:background="@android:color/transparent"
+        android:textStyle="bold"
+        android:layout_marginTop="150dp"
+        android:onClick="btnclick"
+        app:layout_constraintStart_toStartOf="@+id/welcomeText"
+        app:layout_constraintEnd_toEndOf="@+id/welcomeText"
+        app:layout_constraintTop_toBottomOf="@+id/Text2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

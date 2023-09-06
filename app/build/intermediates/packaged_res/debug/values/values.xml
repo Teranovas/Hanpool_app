@@ -19,6 +19,7 @@
     <string name="google_storage_bucket" translatable="false">test1-84d99.appspot.com</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="project_id" translatable="false">test1-84d99</string>
+    <string name="title_activity_hello">HelloActivity</string>
     <style name="Theme.Joinn" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         
         <item name="colorPrimary">@color/purple_500</item>
