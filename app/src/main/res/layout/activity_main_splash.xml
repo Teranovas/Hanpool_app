@@ -1,41 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/gradient_background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:gravity="center"
+    android:layout_gravity="center"
+    android:background="@drawable/gradient_background"
     tools:context=".splash.mainSplashActivity">
 
-    <TextView
-        android:id="@+id/mainText"
-        android:layout_width="300dp"
-        android:layout_height="150dp"
-        android:text="한풀"
-        android:layout_marginTop="80dp"
-        android:textAlignment="center"
-        android:gravity="center"
-        android:textSize="43sp"
-        android:fontFamily="@font/fontbold"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.518"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.011"/>
+    <ImageView
+        android:layout_width="80sp"
+        android:layout_height="80sp"
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/animationView"
+
+        android:src="@drawable/logo" />
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:lottie_url="REPLACE_JSON_URL"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mainText"
-        app:lottie_rawRes="@raw/animation1"/>
+        android:fontFamily="@font/fontbold"
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:gravity="center"
+
+        android:text="한풀"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="50sp" />
+
+
+
+
+    <!--    <com.airbnb.lottie.LottieAnimationView-->
+    <!--        android:id="@+id/animationView"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        app:lottie_url="REPLACE_JSON_URL"-->
+    <!--        app:lottie_autoPlay="true"-->
+    <!--        app:lottie_loop="true"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/mainText"-->
+    <!--        app:lottie_rawRes="@raw/animation1"/>-->
+
+</LinearLayout>

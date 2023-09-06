@@ -326,6 +326,16 @@ ADDED from /Users/apple/AndroidStudioProjects/Capstone/app/src/main/AndroidManif
 		ADDED from /Users/apple/AndroidStudioProjects/Capstone/app/src/main/AndroidManifest.xml:34:13-36
 	android:name
 		ADDED from /Users/apple/AndroidStudioProjects/Capstone/app/src/main/AndroidManifest.xml:33:13-54
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
+ADDED from /Users/apple/AndroidStudioProjects/Capstone/app/src/main/AndroidManifest.xml:35:13-39:29
+action#android.intent.action.MAIN
+ADDED from /Users/apple/AndroidStudioProjects/Capstone/app/src/main/AndroidManifest.xml:36:17-69
+	android:name
+		ADDED from /Users/apple/AndroidStudioProjects/Capstone/app/src/main/AndroidManifest.xml:36:25-66
+category#android.intent.category.LAUNCHER
+ADDED from /Users/apple/AndroidStudioProjects/Capstone/app/src/main/AndroidManifest.xml:38:17-77
+	android:name
+		ADDED from /Users/apple/AndroidStudioProjects/Capstone/app/src/main/AndroidManifest.xml:38:27-74
 activity#com.example.joinn.matchingActivity
 ADDED from /Users/apple/AndroidStudioProjects/Capstone/app/src/main/AndroidManifest.xml:42:9-48:20
 	android:exported
@@ -348,16 +358,6 @@ ADDED from /Users/apple/AndroidStudioProjects/Capstone/app/src/main/AndroidManif
 		ADDED from /Users/apple/AndroidStudioProjects/Capstone/app/src/main/AndroidManifest.xml:51:13-36
 	android:name
 		ADDED from /Users/apple/AndroidStudioProjects/Capstone/app/src/main/AndroidManifest.xml:50:13-55
-intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from /Users/apple/AndroidStudioProjects/Capstone/app/src/main/AndroidManifest.xml:54:13-59:29
-action#android.intent.action.MAIN
-ADDED from /Users/apple/AndroidStudioProjects/Capstone/app/src/main/AndroidManifest.xml:56:17-69
-	android:name
-		ADDED from /Users/apple/AndroidStudioProjects/Capstone/app/src/main/AndroidManifest.xml:56:25-66
-category#android.intent.category.LAUNCHER
-ADDED from /Users/apple/AndroidStudioProjects/Capstone/app/src/main/AndroidManifest.xml:58:17-77
-	android:name
-		ADDED from /Users/apple/AndroidStudioProjects/Capstone/app/src/main/AndroidManifest.xml:58:27-74
 activity#com.example.joinn.sign.ImageActivity
 ADDED from /Users/apple/AndroidStudioProjects/Capstone/app/src/main/AndroidManifest.xml:64:9-70:20
 	android:exported

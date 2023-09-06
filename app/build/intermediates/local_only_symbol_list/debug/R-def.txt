@@ -56,7 +56,6 @@ id Text3
 id TitleText
 id after_Btn
 id after_button
-id animationView
 id arrive
 id arriveTextView
 id before_Btn
@@ -108,7 +107,6 @@ id location_search_btn
 id loginbtn
 id logoutBtn
 id lottieAnimationView
-id mainText
 id map
 id map_container
 id map_layout

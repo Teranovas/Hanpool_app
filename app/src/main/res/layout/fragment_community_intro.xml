@@ -40,12 +40,13 @@
 
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:padding="20dp"
             android:fontFamily="@font/fontbold"
             android:gravity="center"
-            android:text="게시판을 이동해주세요"
+            android:layout_gravity="center"
+            android:text="조건에 맞는 게시판을 선택하세요"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="30sp" />
