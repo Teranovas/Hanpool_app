@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".sign.loginActivity">
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="회원가입할 이메일과 비밀번호를 입력하세요."
+        android:textSize="20dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        android:textStyle="bold"/>
+
+    <EditText
+        android:id="@+id/EmailText"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:ems="10"
+        android:layout_gravity="center"
+        android:hint="이메일" />
+
+    <EditText
+        android:id="@+id/PasswordText"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:ems="10"
+        android:layout_gravity="center"
+        android:hint="비밀번호" />
+
+    <Button
+        android:id="@+id/joinBtn"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:text="회원가입"
+        android:layout_gravity="center"
+        android:textColor="@android:color/black"
+        android:textStyle="bold"
+        android:layout_marginTop="20dp" />
+</LinearLayout>

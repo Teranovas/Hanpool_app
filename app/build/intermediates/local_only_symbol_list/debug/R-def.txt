@@ -87,6 +87,8 @@ id imageView
 id imguser
 id input_layout
 id inviteBtn
+id joinBtn
+id joinbtn
 id level
 id level2
 id leveltxt
@@ -162,6 +164,7 @@ layout fragment_arrive_register
 layout fragment_chat
 layout fragment_chat_room
 layout fragment_community
+layout fragment_community_intro
 layout fragment_date
 layout fragment_detail
 layout fragment_driver_car_img
@@ -176,6 +179,7 @@ layout fragment_search
 layout fragment_start
 layout fragment_start_register
 layout item_user
+layout login
 layout post_item
 layout receive
 layout search

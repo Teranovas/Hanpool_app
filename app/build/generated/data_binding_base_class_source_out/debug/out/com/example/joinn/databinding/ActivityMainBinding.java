@@ -4,6 +4,7 @@ package com.example.joinn.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -12,7 +13,6 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
 import com.example.joinn.R;
-import com.google.android.gms.common.SignInButton;
 import java.lang.NullPointerException;
 import java.lang.Override;
 import java.lang.String;
@@ -31,14 +31,19 @@ public final class ActivityMainBinding implements ViewBinding {
   public final EditText PasswordText;
 
   @NonNull
-  public final SignInButton loginbtn;
+  public final Button joinbtn;
+
+  @NonNull
+  public final Button loginbtn;
 
   private ActivityMainBinding(@NonNull ConstraintLayout rootView, @NonNull TextView Appname,
-      @NonNull EditText EmailText, @NonNull EditText PasswordText, @NonNull SignInButton loginbtn) {
+      @NonNull EditText EmailText, @NonNull EditText PasswordText, @NonNull Button joinbtn,
+      @NonNull Button loginbtn) {
     this.rootView = rootView;
     this.Appname = Appname;
     this.EmailText = EmailText;
     this.PasswordText = PasswordText;
+    this.joinbtn = joinbtn;
     this.loginbtn = loginbtn;
   }
 
@@ -87,14 +92,20 @@ public final class ActivityMainBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.joinbtn;
+      Button joinbtn = ViewBindings.findChildViewById(rootView, id);
+      if (joinbtn == null) {
+        break missingId;
+      }
+
       id = R.id.loginbtn;
-      SignInButton loginbtn = ViewBindings.findChildViewById(rootView, id);
+      Button loginbtn = ViewBindings.findChildViewById(rootView, id);
       if (loginbtn == null) {
         break missingId;
       }
 
       return new ActivityMainBinding((ConstraintLayout) rootView, Appname, EmailText, PasswordText,
-          loginbtn);
+          joinbtn, loginbtn);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

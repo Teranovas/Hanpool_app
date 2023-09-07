@@ -3473,6 +3473,8 @@ id inward
 id is_pooling_container_tag
 id italic
 id item_touch_helper_previous_elevation
+id joinBtn
+id joinbtn
 id jumpToEnd
 id jumpToStart
 id labeled
@@ -3969,6 +3971,7 @@ layout fragment_arrive_register
 layout fragment_chat
 layout fragment_chat_room
 layout fragment_community
+layout fragment_community_intro
 layout fragment_date
 layout fragment_detail
 layout fragment_driver_car_img
@@ -3983,6 +3986,7 @@ layout fragment_search
 layout fragment_start
 layout fragment_start_register
 layout item_user
+layout login
 layout m3_alert_dialog
 layout m3_alert_dialog_actions
 layout m3_alert_dialog_title

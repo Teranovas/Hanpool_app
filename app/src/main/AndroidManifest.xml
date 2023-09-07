@@ -57,6 +57,13 @@
                 android:value="" />
         </activity>
         <activity
+            android:name=".sign.loginActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".sign.ImageActivity"
             android:exported="false">
             <meta-data
