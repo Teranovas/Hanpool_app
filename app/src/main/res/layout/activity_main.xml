@@ -33,6 +33,7 @@
         android:ems="10"
         android:hint="이메일"
         android:inputType="textPersonName"
+        android:background="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/PasswordText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -44,8 +45,10 @@
         android:layout_height="60dp"
         android:layout_marginBottom="17dp"
         android:ems="10"
+        android:background="@color/white"
         android:hint="비밀번호"
         android:inputType="textPersonName"
+
         app:layout_constraintBottom_toTopOf="@+id/loginbtn"
         app:layout_constraintStart_toStartOf="@+id/EmailText"
         app:layout_constraintTop_toBottomOf="@+id/EmailText" />
@@ -57,7 +60,7 @@
         android:background="@android:color/transparent"
         android:onClick="JoinClick"
         android:text="로그인"
-        android:textColor="@android:color/black"
+        android:textColor="@color/white"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.478"
