@@ -24,6 +24,11 @@
         android:theme="@style/Theme.Joinn"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".sign.LoginActivity"
+            android:exported="false"
+            android:label="@string/title_activity_login"
+            android:theme="@style/Theme.Joinn" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -38,7 +43,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".matchingActivity"
             android:exported="false">
@@ -51,12 +55,15 @@
             android:exported="true"
             android:noHistory="true"
             android:screenOrientation="portrait">
-<!--            <intent-filter>-->
 
-<!--                <action android:name="android.intent.action.MAIN" />-->
+            <!-- <intent-filter> -->
 
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -78,12 +85,15 @@
         <activity
             android:name=".sign.MainActivity"
             android:exported="true">
-<!--            <intent-filter>-->
 
-<!--                 <action android:name="android.intent.action.MAIN" />-->
+            <!-- <intent-filter> -->
 
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
 
             <meta-data
                 android:name="android.app.lib_name"

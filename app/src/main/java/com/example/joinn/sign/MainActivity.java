@@ -1,9 +1,8 @@
 package com.example.joinn.sign;
 
-import static androidx.core.content.ContextCompat.startActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,7 +13,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.joinn.R;
 import com.example.joinn.matchingActivity;
-import com.example.joinn.splash.introSplashActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -34,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         emailText = findViewById(R.id.EmailText);
         passwordText = findViewById(R.id.PasswordText);
-//        joinBtn = findViewById(R.id.joinbtn);
+        joinBtn = findViewById(R.id.joinbtn);
         loginBtn = findViewById(R.id.loginbtn);
 
         loginBtn.setOnClickListener(new View.OnClickListener() {
@@ -52,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
                                     // 로그인 성공 시
                                     FirebaseUser user = mAuth.getCurrentUser();
                                     Toast.makeText(MainActivity.this, "로그인 성공", Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(MainActivity.this, introSplashActivity.class);
+                                    Intent intent = new Intent(MainActivity.this, matchingActivity.class);
                                     startActivity(intent);
                                 } else {
                                     // 로그인 실패 시
@@ -62,14 +60,14 @@ public class MainActivity extends AppCompatActivity {
                         });
             }
         });
-//        joinBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(MainActivity.this, loginActivity.class);
-//                startActivity(intent);
-//                finish();
-//            }
-//        });
+        joinBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.e("MainActivity", "joinBtn 클릭됨");
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
 }
