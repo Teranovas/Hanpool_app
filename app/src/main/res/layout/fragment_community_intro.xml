@@ -51,27 +51,31 @@
             android:textColor="@color/white"
             android:textSize="30sp" />
 
-        <ImageView
+        <ImageButton
+            android:id="@+id/toSchoolBtn"
             android:layout_width="300dp"
             android:layout_height="400dp"
+            android:layout_marginBottom="20dp"
 
             android:layout_gravity="center"
 
-            android:src="@drawable/toschool" />
+            android:background="@drawable/toschool"/>
 
-        <ImageView
+        <ImageButton
+            android:id="@+id/toHomeBtn"
             android:layout_width="300dp"
             android:layout_height="400dp"
-
+            android:layout_marginBottom="20dp"
             android:layout_gravity="center"
-            android:src="@drawable/tohome" />
+            android:background="@drawable/tohome" />
 
-        <ImageView
+        <ImageButton
+            android:id="@+id/taxiBtn"
             android:layout_width="300dp"
             android:layout_height="400dp"
-
+            android:layout_marginBottom="20dp"
             android:layout_gravity="center"
-            android:src="@drawable/taxi" />
+            android:background="@drawable/taxi" />
 
         <Button
             android:layout_width="match_parent"

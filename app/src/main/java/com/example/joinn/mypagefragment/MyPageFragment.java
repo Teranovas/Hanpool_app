@@ -1,4 +1,5 @@
 package com.example.joinn.mypagefragment;
+
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -15,14 +16,18 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.airbnb.lottie.L;
 import com.example.joinn.communityfragment.RegisterFragment;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -50,6 +55,7 @@ import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+
 import android.content.DialogInterface;
 import android.widget.Toast;
 
@@ -68,11 +74,11 @@ public class MyPageFragment extends Fragment {
     private TextView txtNickname, leveltxt;
     private DatabaseReference databaseRef;
 
-    private ImageView License;
+    private ImageButton License;
 
-    private ImageView date;
+    private ImageButton date;
 
-    private ImageView edit;
+    private ImageButton edit;
 
     // 현재 로그인한 사용자의 uid를 가져옵니다.
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -92,7 +98,6 @@ public class MyPageFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         usersRef = FirebaseDatabase.getInstance().getReference().child("users");
-
 
 
         mAuth = FirebaseAuth.getInstance();
@@ -132,7 +137,10 @@ public class MyPageFragment extends Fragment {
         License = view.findViewById(R.id.license);
         date = view.findViewById(R.id.date);
         edit = view.findViewById(R.id.editProfile);
-        Button logoutBtn = view.findViewById(R.id.logoutBtn);
+
+        ImageView logoutBtn = view.findViewById(R.id.logoutBtn);
+
+        final Animation buttonClickAnimation = AnimationUtils.loadAnimation(getContext(), R.anim.button_click_animation);
 
         logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -143,10 +151,10 @@ public class MyPageFragment extends Fragment {
         });
 
 
-
         License.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
+                License.startAnimation(buttonClickAnimation);
 
                 DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference().child("users");
                 usersRef.child(uid).addValueEventListener(new ValueEventListener() {
@@ -160,9 +168,10 @@ public class MyPageFragment extends Fragment {
 
                             Toast.makeText(getContext(), "드라이버 등록이 되어있습니다.", Toast.LENGTH_SHORT).show();
 
-                        }
-                        else{
+                        } else {
                             FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+
+                            transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
                             Fragment newFragment = new DriverRegistrationFragment();
 
                             transaction.replace(R.id.container, newFragment);
@@ -172,7 +181,6 @@ public class MyPageFragment extends Fragment {
                         }
 
 
-
                     }
 
                     @Override
@@ -180,16 +188,19 @@ public class MyPageFragment extends Fragment {
 
                     }
                 });
-
             }
         });
+
 
         date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getActivity(),"일정", Toast.LENGTH_LONG).show();
+                date.startAnimation(buttonClickAnimation);
+                Toast.makeText(getActivity(), "일정", Toast.LENGTH_LONG).show();
+
 
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
                 Fragment newFragment = new DateFragment();
 
                 transaction.replace(R.id.container, newFragment);
@@ -201,7 +212,10 @@ public class MyPageFragment extends Fragment {
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                edit.startAnimation(buttonClickAnimation);
+
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left);
                 Fragment newFragment = new EditProfileFragment();
 
                 transaction.replace(R.id.container, newFragment);
@@ -209,6 +223,8 @@ public class MyPageFragment extends Fragment {
                 transaction.commit();
             }
         });
+
+
         return view;
 
     }
@@ -231,9 +247,6 @@ public class MyPageFragment extends Fragment {
                     }
                 });
     }
-
-
-
 
 
 }

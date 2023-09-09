@@ -1,207 +1,231 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:background="#FBFBFB"
     tools:context=".mypagefragment.MyPageFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#000000"
-        android:layout_weight="2">
+        android:orientation="vertical"
+        android:background="@drawable/gradient_background">
 
-        <TextView
-            android:id="@+id/txtNickname"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/fontbold"
+                android:gravity="left"
+                android:layout_marginTop="20dp"
+                android:text="프로필"
+                android:textColor="@color/white"
+                android:textSize="35sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp">
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imguser"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="right"
+                android:background="@android:color/transparent"
+                android:foreground="@drawable/circle"
+                android:scaleType="centerCrop"
+                android:src="@drawable/user"
+                app:civ_border_overlay="true" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/txtNickname"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:fontFamily="@font/fontbold"
+                        android:gravity="left"
+                        android:text="닉네임"
+                        android:textColor="@color/white"
+                        android:textSize="25sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:fontFamily="@font/fontbold"
+                        android:gravity="left"
+                        android:text="님"
+                        android:textColor="@color/white"
+                        android:textSize="25sp" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/fontbold"
+                    android:gravity="left"
+                    android:text="안녕하세요!"
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/fontbold"
+                        android:gravity="left"
+                        android:text="드라이버 레벨: "
+                        android:textColor="@color/white"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/leveltxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/fontbold"
+                        android:gravity="left"
+                        android:text="Lv"
+                        android:textColor="@color/white"
+                        android:textSize="16sp" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:layout_marginBottom="-20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/fontbold"
+                android:gravity="left"
+                android:text="계정 관리"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="140dp"
+                android:gravity="center"
+                android:layout_weight="1">
+                <ImageButton
+                    android:id="@+id/date"
+                    android:layout_width="140dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:background="@drawable/schedule" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="140dp"
+                android:gravity="center"
+                android:layout_weight="1">
+                <ImageButton
+                    android:id="@+id/editProfile"
+                    android:layout_width="140dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:background="@drawable/editprofile" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+
+            android:layout_marginTop="-20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="140dp"
+                android:gravity="center"
+                android:layout_weight="1">
+                <ImageButton
+                    android:id="@+id/license"
+                    android:layout_width="140dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/license" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="140dp"
+                android:gravity="center"
+                android:layout_weight="1">
+                <ImageButton
+                    android:id="@+id/history"
+                    android:layout_width="140dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/history" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:layout_marginTop="-20dp"
             android:gravity="center"
-            android:text="닉네임"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textSize="25sp" />
+            android:orientation="vertical">
 
-    </LinearLayout>
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/imguser"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="-15dp"
-        android:background="@android:color/transparent"
-        android:foreground="@drawable/circle"
-        android:scaleType="centerCrop"
-        android:src="@drawable/user"
-        app:civ_border_overlay="true" />
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="7"
-        android:gravity="center">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <Button
+            <ImageView
                 android:id="@+id/logoutBtn"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:background="@android:color/transparent"
-                android:text="로그아웃"
-                android:textColor="@color/black"
-                android:layout_marginLeft="100dp"/>
-            <Button
+                android:layout_height="200dp"
+                android:src="@drawable/logout" />
+
+            <ImageView
                 android:id="@+id/revokeBtn"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_height="200dp"
+                android:src="@drawable/output" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:background="@android:color/transparent"
-                android:text="회원 탈퇴"
-                android:textColor="@color/black"
-                android:layout_marginLeft="210dp"/>
-
-
-            <ImageView
-                android:id="@+id/level"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="100dp"
-                android:layout_marginTop="70dp"
-                android:src="@drawable/level" />
-
-            <TextView
-                android:id="@+id/level2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Lv."
-                android:textColor="#000000"
-                android:textSize="16sp"
-                android:layout_below="@+id/level"
-                android:layout_marginLeft="110dp"/>
-
-            <TextView
-                android:id="@+id/leveltxt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Lv."
-                android:textColor="#000000"
-                android:textSize="16sp"
-                android:layout_below="@+id/level"
-                android:layout_alignRight="@+id/level"/>
-
-            <ImageView
-                android:id="@+id/license"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginTop="70dp"
-                android:layout_marginRight="100dp"
-                android:src="@drawable/driver" />
-
-            <TextView
-                android:id="@+id/drivertxt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="드라이버 등록"
-                android:textColor="#000000"
-                android:layout_alignParentRight="true"
-                android:textSize="16sp"
-                android:layout_below="@+id/license"
-                android:layout_alignLeft="@+id/license"/>
-
-
-            <ImageView
-                android:id="@+id/history"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="50dp"
-                android:layout_marginTop="180dp"
-                android:src="@drawable/history" />
-
-            <TextView
-                android:id="@+id/historytxt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="카풀 내역"
-                android:textColor="#000000"
-                android:textSize="16sp"
-                android:layout_below="@+id/history"
-                android:layout_alignLeft="@+id/history"/>
-
-            <ImageView
-                android:id="@+id/editProfile"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginRight="50dp"
-                android:layout_marginTop="180dp"
-                android:src="@drawable/editprofile" />
-
-            <TextView
-                android:id="@+id/profile"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/license"
-                android:layout_alignLeft="@+id/license"
-                android:layout_alignParentRight="true"
-                android:layout_marginLeft="48dp"
-                android:layout_marginTop="110dp"
-                android:layout_marginRight="-48dp"
-                android:text="프로필 설정"
-                android:textColor="#000000"
-                android:textSize="16sp" />
-
-            <ImageView
-                android:id="@+id/date"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="180dp"
-                android:src="@drawable/schedule" />
-
-            <TextView
-                android:id="@+id/calendertxt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="카풀 일정"
-                android:textColor="#000000"
-
-                android:textSize="16sp"
-                android:layout_below="@+id/date"
-                android:layout_centerHorizontal="true"/>
-
-            <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/lottieAnimationView"
-                android:layout_width="200dp"
-                android:layout_height="150dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="8dp"
-                android:layout_marginLeft="120dp"
-                android:layout_below="@+id/calendertxt"
-                app:lottie_autoPlay="true"
-                app:lottie_loop="true"
-                app:lottie_rawRes="@raw/intro_splash" />
-
-        </RelativeLayout>
+                android:layout_marginBottom="7dp"/>
+        </LinearLayout>
 
     </LinearLayout>
 
 
-
-
-</LinearLayout>
+</ScrollView>
