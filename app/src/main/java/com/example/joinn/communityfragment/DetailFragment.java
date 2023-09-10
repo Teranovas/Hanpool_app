@@ -42,7 +42,7 @@ import java.util.Locale;
 public class DetailFragment extends Fragment {
 
     private TextView titleTextView;
-    private TextView  startTextView;
+    private TextView startTextView;
     private TextView arriveTextView;
 
     private TextView timestampTextView;
@@ -98,9 +98,8 @@ public class DetailFragment extends Fragment {
         currentUser = mAuth.getCurrentUser();
 
 
-
         Bundle arguments = getArguments();
-        if(arguments != null) {
+        if (arguments != null) {
             String title = arguments.getString("title");
             titleTextView.setText(title);
 
@@ -113,7 +112,7 @@ public class DetailFragment extends Fragment {
             String timestamp = arguments.getString("timestamp");
             timestampTextView.setText(timestamp);
 
-            writer =  arguments.getString("writer");
+            writer = arguments.getString("writer");
             writerTextView.setText(writer);
 
             imageURL = arguments.getString("image");
@@ -121,7 +120,6 @@ public class DetailFragment extends Fragment {
             Glide.with(this)
                     .load(imageURL)
                     .into(detailProfileImageView);
-
 
 
         }
@@ -136,19 +134,22 @@ public class DetailFragment extends Fragment {
                     String postId = chatlistRef.push().getKey();
 
 
-                    if (!currentUserName.equals(writer)) {
-                        // 현재 로그인한 사용자와 게시물 작성자가 다른 경우에만 채팅 화면으로 이동
-                        Toast.makeText(getContext(), "게시물이 등록되었습니다.", Toast.LENGTH_SHORT).show();
+                    // 현재 로그인한 사용자와 게시물 작성자가 다른 경우에만 채팅 화면으로 이동
 
-                        // 현재 사용자의 UID로 users 레퍼런스에 접근하여 닉네임 가져오기
-                        usersRef.child(currentUserName).addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                if (dataSnapshot.exists()) {
-                                    String userNickname = dataSnapshot.child("닉네임").getValue(String.class);
+                    // 현재 사용자의 UID로 users 레퍼런스에 접근하여 닉네임 가져오기
+                    usersRef.child(currentUserName).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            // 현재 로그인한 사용자와 게시물 작성자가 다른 경우에만 채팅 화면으로 이동
+
+                            // 현재 사용자의 UID로 users 레퍼런스에 접근하여 닉네임 가져오기
+                            if (dataSnapshot.exists()) {
+                                String userNickname = dataSnapshot.child("닉네임").getValue(String.class);
+
+                                if (!userNickname.equals(writer)) {
 
                                     DatabaseReference chatListRef = FirebaseDatabase.getInstance().getReference().child("chatList").child(writer); // 상대방의 chatList 레퍼런스
-
+                                    Toast.makeText(getContext(), "게시물이 등록되었습니다.", Toast.LENGTH_SHORT).show();
                                     User user = new User(postId, userNickname, imageURL); // 현재 사용자의 닉네임과 이미지 저장
                                     chatListRef.child(postId).setValue(user); // 상대방의 chatList에 저장
 
@@ -157,45 +158,35 @@ public class DetailFragment extends Fragment {
                                     User opponentUser = new User(postId, writer, imageURL); // 상대방의 닉네임과 이미지 저장
                                     opponentChatListRef.child(postId).setValue(opponentUser);
 
-//
-//
-//                                    // userNickname을 chatListRef에 저장하는 로직 추가
-//                                    DatabaseReference chatListRef = FirebaseDatabase.getInstance().getReference().child("chatList").child(userNickname);
-//                                    User user = new User(postId, writer, imageURL); // 상대방 닉네임과 이미지 저장
-//                                    chatListRef.setValue(user);
+                                    FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                                    ChatFragment chatFragment = new ChatFragment();
+                                    transaction.replace(R.id.container, chatFragment);
+                                    transaction.addToBackStack(null);
+                                    transaction.commit();
+
                                 }
+                                else {
+                                    // 현재 로그인한 사용자가 게시물 작성자인 경우 처리할 내용 추가
+                                    Toast.makeText(getContext(), "자기 자신한테는 신청할 수 없습니다.", Toast.LENGTH_SHORT).show();
+                                }
+
+
                             }
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError databaseError) {
-                                // 처리 중 오류 발생 시
-                            }
-                        });
+                        }
 
-                        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-                        ChatFragment chatFragment = new ChatFragment();
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            // 처리 중 오류 발생 시
+                        }
+                    });
 
 
-//                        Bundle bundle = new Bundle();
-//                        bundle.putString("chatOpponent", writer);
-//                        bundle.putString("image", imageURL);
-//                        chatFragment.setArguments(bundle);
-                        transaction.replace(R.id.container, chatFragment);
-                        transaction.addToBackStack(null);
-                        transaction.commit();
-                    } else {
-                        // 현재 로그인한 사용자가 게시물 작성자인 경우 처리할 내용 추가
-                        Toast.makeText(getContext(), "자기 자신한테는 신청할 수 없습니다.", Toast.LENGTH_SHORT).show();
-                    }
                 }
             }
         });
 
         return view;
     }
-
-
-
-
 
 
 }
