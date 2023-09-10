@@ -23,8 +23,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -34,6 +37,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.polyak.iconswitch.IconSwitch;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -45,7 +49,7 @@ public class CommunityFragment extends Fragment {
     private List<Post> postList;
     private ListView listView;
     private PostAdapter postAdapter;
-    private Button regButton;
+    private ImageButton regButton;
 
 
     private Button distanceBtn;
@@ -71,43 +75,70 @@ public class CommunityFragment extends Fragment {
 
         listView = view.findViewById(R.id.listView);
         regButton = view.findViewById(R.id.reg_button);
-        timebtn = view.findViewById(R.id.time_button);
-
+//        timebtn = view.findViewById(R.id.time_button);
+//
         postList = new ArrayList<>();
-
-        afterBtn = view.findViewById(R.id.after_button);
-
-        distanceBtn = view.findViewById(R.id.distance_button);
-
-
+//
+//        afterBtn = view.findViewById(R.id.after_button);
+//
+//        distanceBtn = view.findViewById(R.id.distance_button);
         postAdapter = new PostAdapter(getActivity(), R.layout.post_item, postList);
         listView.setAdapter(postAdapter);
 
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
 
+        IconSwitch iconSwitch = view.findViewById(R.id.icon_switch);
+        final Animation buttonClickAnimation = AnimationUtils.loadAnimation(getContext(), R.anim.button_click_animation);
 
-
-
-
-
-        afterBtn.setOnClickListener(new View.OnClickListener() {
+        iconSwitch.setCheckedChangeListener(new IconSwitch.CheckedChangeListener() {
             @Override
-            public void onClick(View view) {
-                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-                transaction.replace(R.id.container, new AfterFragment());
-                transaction.addToBackStack(null);
-                transaction.commit();
+            public void onCheckChanged(IconSwitch.Checked current) {
+                switch (current){
+                    case LEFT:
+                        Toast.makeText(getContext(),"거리순",Toast.LENGTH_SHORT).show();
+
+                        break;
+
+                    case RIGHT:
+                        Toast.makeText(getContext(),"시간순",Toast.LENGTH_SHORT).show();
+                        Collections.sort(postList, new Comparator<Post>() {
+                            @Override
+                            public int compare(Post post1, Post post2) {
+                                return Long.compare(post2.getTimestamp(), post1.getTimestamp());
+                            }
+                        });
+                        postAdapter.notifyDataSetChanged();
+                        break;
+                }
 
             }
         });
 
-        distanceBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-            }
-        });
+
+
+
+
+
+//
+//        afterBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+//                transaction.replace(R.id.container, new AfterFragment());
+//                transaction.addToBackStack(null);
+//                transaction.commit();
+//
+//            }
+//        });
+
+//        distanceBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//            }
+//        });
 
 
 
@@ -141,19 +172,19 @@ public class CommunityFragment extends Fragment {
             }
         });
 
-        timebtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Collections.sort(postList, new Comparator<Post>() {
-                    @Override
-                    public int compare(Post post1, Post post2) {
-                        return Long.compare(post2.getTimestamp(), post1.getTimestamp());
-                    }
-                });
-                postAdapter.notifyDataSetChanged();
-
-            }
-        });
+//        timebtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Collections.sort(postList, new Comparator<Post>() {
+//                    @Override
+//                    public int compare(Post post1, Post post2) {
+//                        return Long.compare(post2.getTimestamp(), post1.getTimestamp());
+//                    }
+//                });
+//                postAdapter.notifyDataSetChanged();
+//
+//            }
+//        });
 
         regButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -172,6 +203,7 @@ public class CommunityFragment extends Fragment {
 
                             // RegisterFragment로 전환
                             FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                            transaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left);
                             transaction.replace(R.id.container, new RegisterFragment());
                             transaction.addToBackStack(null);
                             transaction.commit();

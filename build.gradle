@@ -24,6 +24,15 @@ allprojects {
     }
 }
 
+ext {
+    userOrg = 'polyak01'
+    groupId = 'com.polyak'
+    uploadName = 'IconSwitch'
+    description = 'Custom switch-like widget.'
+    publishVersion = '1.0.0'
+    licences = ['Apache-2.0']
+}
+
 
 
 

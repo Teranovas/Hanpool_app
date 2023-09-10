@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -26,6 +27,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.polyak.iconswitch.IconSwitch;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -40,7 +42,7 @@ public class AfterFragment extends Fragment {
     private Context context;
     private ListView listView;
     private PostAdapter postAdapter;
-    private Button regButton;
+    private ImageButton regButton;
 
     private Button beforeBtn;
 
@@ -64,11 +66,11 @@ public class AfterFragment extends Fragment {
 
         listView = view.findViewById(R.id.listView);
         regButton = view.findViewById(R.id.reg_button);
-        timebtn = view.findViewById(R.id.time_button);
+//        timebtn = view.findViewById(R.id.time_button);
 
         postList = new ArrayList<>();
 
-        beforeBtn = view.findViewById(R.id.before_button);
+//        beforeBtn = view.findViewById(R.id.before_button);
 
         postAdapter = new PostAdapter(getActivity(), R.layout.post_item, postList);
         listView.setAdapter(postAdapter);
@@ -76,18 +78,42 @@ public class AfterFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
 
+        IconSwitch iconSwitch = view.findViewById(R.id.icon_switch);
 
-
-        beforeBtn.setOnClickListener(new View.OnClickListener() {
+        iconSwitch.setCheckedChangeListener(new IconSwitch.CheckedChangeListener() {
             @Override
-            public void onClick(View view) {
-                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-                transaction.replace(R.id.container, new CommunityFragment());
-                transaction.addToBackStack(null);
-                transaction.commit();
+            public void onCheckChanged(IconSwitch.Checked current) {
+                switch (current){
+                    case LEFT:
+                        Toast.makeText(getContext(),"거리순",Toast.LENGTH_SHORT).show();
+
+                        break;
+
+                    case RIGHT:
+                        Toast.makeText(getContext(),"시간순",Toast.LENGTH_SHORT).show();
+                        Collections.sort(postList, new Comparator<Post>() {
+                            @Override
+                            public int compare(Post post1, Post post2) {
+                                return Long.compare(post2.getTimestamp(), post1.getTimestamp());
+                            }
+                        });
+                        postAdapter.notifyDataSetChanged();
+                        break;
+                }
 
             }
         });
+
+//        beforeBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+//                transaction.replace(R.id.container, new CommunityFragment());
+//                transaction.addToBackStack(null);
+//                transaction.commit();
+//
+//            }
+//        });
 
         // onDataChange() 메서드에서 로딩 시에 시간순으로 정렬되도록 변경
         DatabaseReference postsRef = FirebaseDatabase.getInstance().getReference().child("posts");
@@ -117,19 +143,7 @@ public class AfterFragment extends Fragment {
             }
         });
 
-        timebtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Collections.sort(postList, new Comparator<Post>() {
-                    @Override
-                    public int compare(Post post1, Post post2) {
-                        return Long.compare(post2.getTimestamp(), post1.getTimestamp());
-                    }
-                });
-                postAdapter.notifyDataSetChanged();
 
-            }
-        });
 
 
 
@@ -150,6 +164,7 @@ public class AfterFragment extends Fragment {
 
                             // RegisterFragment로 전환
                             FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                            transaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left);
                             transaction.replace(R.id.container, new RegisterFragment());
                             transaction.addToBackStack(null);
                             transaction.commit();
