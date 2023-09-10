@@ -39,11 +39,35 @@ public class PostAdapter extends ArrayAdapter<Post> {
         TextView arriveTextView = convertView.findViewById(R.id.arriveTextView);
         TextView writerTextView = convertView.findViewById(R.id.writerTextView);
         ImageView imageView = convertView.findViewById(R.id.imageView);
+        TextView timeView = convertView.findViewById(R.id.timeView);
 
         titleTextView.setText(post.getTitle());
-        startTextView.setText("출발지: " + post.getStartpoint()); // 출발지 정보를 추가하여 표시
-        arriveTextView.setText("도착지: " + post.getArrivepoint());
+        startTextView.setText(post.getStartpoint()); // 출발지 정보를 추가하여 표시
+        arriveTextView.setText(post.getArrivepoint());
         writerTextView.setText(post.getWriter());
+
+        // 게시물 작성 시간 계산 및 표시
+        long currentTimeMillis = System.currentTimeMillis();
+        long postTimeMillis = post.getTimestamp();
+        long elapsedTimeMillis = currentTimeMillis - postTimeMillis;
+        long elapsedMinutes = elapsedTimeMillis / (60 * 1000);
+
+
+        String timeAgo;
+        if (elapsedMinutes < 1) {
+            timeAgo = "방금 전";
+        } else if (elapsedMinutes < 60) {
+            timeAgo = elapsedMinutes + "분 전";
+        } else {
+            long elapsedHours = elapsedMinutes / 60;
+            if (elapsedHours < 24) {
+                timeAgo = elapsedHours + "시간 전";
+            } else {
+                long elapsedDays = elapsedHours / 24;
+                timeAgo = elapsedDays + "일 전";
+            }
+        }
+        timeView.setText(timeAgo);
 
         // 이미지를 Glide를 사용하여 로드하고 ImageView에 표시
         Glide.with(context).load(post.getImageUrl()).into(imageView);
