@@ -90,9 +90,16 @@ public class ChatFragment extends Fragment {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 userList.clear();
+                                Set<String> uniqueUserNames = new HashSet<>();
                                 for (DataSnapshot userSnapshot : snapshot.getChildren()) {
                                     User user = userSnapshot.getValue(User.class);
-                                    userList.add(user);
+                                    String userName = user.getWriter();
+
+                                    // 중복된 사용자 제거
+                                    if (!uniqueUserNames.contains(userName)) {
+                                        userList.add(user);
+                                        uniqueUserNames.add(userName);
+                                    }
                                 }
                                 // 시간순으로 정렬
                                 Collections.sort(userList, new Comparator<User>() {
