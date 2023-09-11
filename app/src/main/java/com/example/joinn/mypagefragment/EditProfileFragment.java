@@ -221,6 +221,25 @@ public class EditProfileFragment extends Fragment {
             }
         });
 
+        usersRef.child(currentUserName).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String nickname = snapshot.child("닉네임").getValue(String.class);
+                String imageURL = snapshot.child("photoUrl").getValue(String.class);
+
+                Glide.with(getContext())
+                        .load(imageURL)
+                        .into(ImgUser);
+
+                NickText.setText(nickname);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         return view;
 
     }

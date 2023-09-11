@@ -83,9 +83,9 @@ public class ChatFragment extends Fragment {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists()) {
-                        String userNickname = dataSnapshot.child("닉네임").getValue(String.class);
+//                        String userNickname = dataSnapshot.child("닉네임").getValue(String.class);
 
-                        DatabaseReference chatListRef = FirebaseDatabase.getInstance().getReference().child("chatList").child(userNickname);
+                        DatabaseReference chatListRef = FirebaseDatabase.getInstance().getReference().child("chatList").child(currentUserName);
                         chatListRef.addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
