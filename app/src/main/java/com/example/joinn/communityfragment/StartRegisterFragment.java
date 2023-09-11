@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.example.joinn.R;
 import com.example.joinn.mapfragment.AddSearchFragment;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -39,7 +40,9 @@ public class StartRegisterFragment extends Fragment {
     String data;
 
     private String after = "한신대학교";
+    private FirebaseAuth mAuth;
 
+    private FirebaseUser currentUser;
 
     private DatabaseReference postsRef;
     private StorageReference storageRef;
@@ -51,6 +54,8 @@ public class StartRegisterFragment extends Fragment {
         postsRef = FirebaseDatabase.getInstance().getReference().child("posts");
         storageRef = FirebaseStorage.getInstance().getReference();
         usersRef = FirebaseDatabase.getInstance().getReference().child("users");
+
+
     }
 
     @Override

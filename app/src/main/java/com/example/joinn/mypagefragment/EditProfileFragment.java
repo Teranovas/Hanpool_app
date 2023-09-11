@@ -3,6 +3,7 @@ package com.example.joinn.mypagefragment;
 
 
 import static android.app.Activity.RESULT_OK;
+import static android.content.ContentValues.TAG;
 
 import android.Manifest;
 import android.content.Context;
@@ -21,6 +22,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,6 +46,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -67,6 +70,8 @@ public class EditProfileFragment extends Fragment {
 
     private DatabaseReference usersRef;
 
+    private DatabaseReference postsRef;
+
 
     private FirebaseStorage mStorage;
 
@@ -76,12 +81,13 @@ public class EditProfileFragment extends Fragment {
 
 
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
+    String currentUserName2 = user.getUid();
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         usersRef = FirebaseDatabase.getInstance().getReference().child("users");
+        postsRef = FirebaseDatabase.getInstance().getReference().child("posts");
         mStorage = FirebaseStorage.getInstance();
 
 
@@ -175,19 +181,43 @@ public class EditProfileFragment extends Fragment {
 
                         }
 
-                       else {
+                        else {
                             // 새 닉네임이 다를 경우, 기존 닉네임 삭제 후 새 닉네임 저장
-                            nicknameReference.child(currentNickname).removeValue();
-                            usersRef.child(currentUserName).child("닉네임").setValue(newNickname);
-                            nicknameReference.child(newNickname).setValue(true);
 
-                            uploadImageToFirebase();
+                            Query postsQuery = postsRef.orderByChild("writer").equalTo(currentNickname);
 
-                            // MyPageFragment로 전환
-                            FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-                            transaction.replace(R.id.container, new MyPageFragment());
-                            transaction.addToBackStack(null);
-                            transaction.commit();
+                            postsQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                                        String postId = postSnapshot.getKey(); // 해당 포스트의 postId를 가져옵니다.
+                                        postsRef.child(postId).child("writer").setValue(newNickname);
+                                        nicknameReference.child(currentNickname).removeValue();
+                                        usersRef.child(currentUserName).child("닉네임").setValue(newNickname);
+                                        nicknameReference.child(newNickname).setValue(true);
+
+                                        uploadImageToFirebase();
+
+                                        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                                        transaction.replace(R.id.container, new MyPageFragment());
+                                        transaction.addToBackStack(null);
+                                        transaction.commit();
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+                                    Log.e(TAG, "포스트 검색 중 오류 발생", databaseError.toException());
+                                }
+                            });
+
+//                            uploadImageToFirebase();
+//
+//                            // MyPageFragment로 전환
+//                            FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+//                            transaction.replace(R.id.container, new MyPageFragment());
+//                            transaction.addToBackStack(null);
+//                            transaction.commit();
                         }
                     }
 
@@ -369,7 +399,46 @@ public class EditProfileFragment extends Fragment {
                         @Override
                         public void onSuccess(Uri uri) {
                             // Firebase Database에 이미지 다운로드 URL을 저장
-                            FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid()).child("photoUrl").setValue(uri.toString());
+
+                            String currentUserName = user.getUid();
+
+                            // 새 닉네임과 현재 사용자의 닉네임 가져오기
+                            usersRef.child(currentUserName).child("닉네임").addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    String currentNickname = dataSnapshot.getValue(String.class);
+
+
+                                    Query postsQuery = postsRef.orderByChild("writer").equalTo(currentNickname);
+                                    postsQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                            for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                                                String postId = postSnapshot.getKey(); // 해당 포스트의 postId를 가져옵니다.
+                                                postsRef.child(postId).child("imageUrl").setValue(uri.toString());
+
+
+                                                FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid()).child("photoUrl").setValue(uri.toString());
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                                            Log.e(TAG, "포스트 검색 중 오류 발생", databaseError.toException());
+                                        }
+                                    });
+
+
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+                                    // 에러 처리
+                                }
+                            });
+
+
+
                             // 이미지 업로드 완료 메시지를 표시
                             Toast.makeText(getContext(), "이미지 업로드가 완료되었습니다.", Toast.LENGTH_SHORT).show();
                         }
