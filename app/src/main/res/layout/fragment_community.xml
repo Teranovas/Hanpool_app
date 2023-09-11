@@ -82,7 +82,7 @@
         android:layout_height="20dp"
         android:layout_gravity="top|center_horizontal"
         android:layout_marginTop="10dp"
-        android:text="게시판"
+        android:text="등교게시판"
         android:layout_above="@+id/listView"
         android:textColor="@color/white"
         android:textSize="20sp"
@@ -113,6 +113,18 @@
         android:layout_above="@+id/listView"
 
         android:textColor="#FFFFFF" />
+
+    <TextView
+        android:id="@+id/after_button"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginRight="10dp"
+        android:text="하교게시판 >>"
+        android:textColor="@color/white"
+        android:layout_gravity="top|right"
+        android:layout_marginTop="13dp"
+        android:textSize="15sp"
+        android:textStyle="bold"/>
 
 
 

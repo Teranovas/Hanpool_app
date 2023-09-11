@@ -149,6 +149,7 @@ public class DetailFragment extends Fragment {
                             // 현재 사용자의 UID로 users 레퍼런스에 접근하여 닉네임 가져오기
                             if (dataSnapshot.exists()) {
                                 String userNickname = dataSnapshot.child("닉네임").getValue(String.class);
+                                String userImageUrl = dataSnapshot.child("photoUrl").getValue(String.class);
 
                                 usersRef.orderByChild("닉네임").equalTo(writer).addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
@@ -161,9 +162,11 @@ public class DetailFragment extends Fragment {
 
                                             if (!currentUserName.equals(opponentUID)) {
 
+
+
                                                 DatabaseReference chatListRef = FirebaseDatabase.getInstance().getReference().child("chatList").child(opponentUID); // 상대방의 chatList 레퍼런스
                                                 Toast.makeText(getContext(), "게시물이 등록되었습니다.", Toast.LENGTH_SHORT).show();
-                                                User user = new User(postId, userNickname, imageURL); // 현재 사용자의 닉네임과 이미지 저장
+                                                User user = new User(postId, userNickname, userImageUrl); // 현재 사용자의 닉네임과 이미지 저장
                                                 chatListRef.child(postId).setValue(user); // 상대방의 chatList에 저장
 
                                                 // 상대방도 채팅 목록에 현재 사용자 정보 추가

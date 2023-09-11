@@ -29,6 +29,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.joinn.R;
@@ -53,7 +54,7 @@ public class CommunityFragment extends Fragment {
 
 
     private Button distanceBtn;
-    private Button afterBtn;
+    private TextView afterBtn;
     private Button timebtn;
 
     private FirebaseAuth mAuth;
@@ -79,7 +80,7 @@ public class CommunityFragment extends Fragment {
 //
         postList = new ArrayList<>();
 //
-//        afterBtn = view.findViewById(R.id.after_button);
+        afterBtn = view.findViewById(R.id.after_button);
 //
 //        distanceBtn = view.findViewById(R.id.distance_button);
         postAdapter = new PostAdapter(getActivity(), R.layout.post_item, postList);
@@ -121,17 +122,17 @@ public class CommunityFragment extends Fragment {
 
 
 
-//
-//        afterBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-//                transaction.replace(R.id.container, new AfterFragment());
-//                transaction.addToBackStack(null);
-//                transaction.commit();
-//
-//            }
-//        });
+
+        afterBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                transaction.replace(R.id.container, new AfterFragment());
+                transaction.addToBackStack(null);
+                transaction.commit();
+
+            }
+        });
 
 //        distanceBtn.setOnClickListener(new View.OnClickListener() {
 //            @Override

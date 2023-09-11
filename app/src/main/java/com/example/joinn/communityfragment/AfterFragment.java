@@ -17,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.joinn.R;
@@ -44,7 +45,7 @@ public class AfterFragment extends Fragment {
     private PostAdapter postAdapter;
     private ImageButton regButton;
 
-    private Button beforeBtn;
+    private TextView beforeBtn;
 
     private Button timebtn;
 
@@ -70,7 +71,7 @@ public class AfterFragment extends Fragment {
 
         postList = new ArrayList<>();
 
-//        beforeBtn = view.findViewById(R.id.before_button);
+        beforeBtn = view.findViewById(R.id.before_button);
 
         postAdapter = new PostAdapter(getActivity(), R.layout.post_item, postList);
         listView.setAdapter(postAdapter);
@@ -104,16 +105,16 @@ public class AfterFragment extends Fragment {
             }
         });
 
-//        beforeBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-//                transaction.replace(R.id.container, new CommunityFragment());
-//                transaction.addToBackStack(null);
-//                transaction.commit();
-//
-//            }
-//        });
+        beforeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                transaction.replace(R.id.container, new CommunityFragment());
+                transaction.addToBackStack(null);
+                transaction.commit();
+
+            }
+        });
 
         // onDataChange() 메서드에서 로딩 시에 시간순으로 정렬되도록 변경
         DatabaseReference postsRef = FirebaseDatabase.getInstance().getReference().child("posts");
