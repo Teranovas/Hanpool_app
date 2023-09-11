@@ -17,6 +17,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.Random;
+
 public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private EditText emailText, passwordText;
@@ -38,40 +40,67 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void signUp(String email, String password) {
+    private void signUp(final String email, String password) {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            sendEmailVerification(user); // 이메일 인증 메일 보내기
-                            Toast.makeText(LoginActivity.this, "인증메일을 확인하세요.", Toast.LENGTH_SHORT).show();
+                            // 회원 가입 성공
+                            sendVerificationEmail(email); // 인증 이메일 보내기
                         } else {
-                            Toast.makeText(LoginActivity.this, "회원가입 실패.", Toast.LENGTH_SHORT).show();
+                            // 회원 가입 실패
+                            Toast.makeText(LoginActivity.this, "회원 가입 실패", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
     }
 
-    private void sendEmailVerification(FirebaseUser user) {
-        if (user != null) {
-            user.sendEmailVerification()
-                    .addOnCompleteListener(this, new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()) {
-                                Toast.makeText(LoginActivity.this, "이메일로 인증 링크를 보냈습니다. 인증 후 로그인하세요.", Toast.LENGTH_SHORT).show();
+    private void sendVerificationEmail(final String email) {
+        // 6자리 랜덤 인증 번호 생성 (이 부분을 적절히 수정하여 인증 번호 생성)
+        final String verificationCode = generateRandomCode();
 
-                                // 이메일 인증이 성공한 경우 nicknameActivity로 이동
-                                Intent intent = new Intent(LoginActivity.this, NicknameActivity.class);
-                                startActivity(intent);
-                                finish();
-                            } else {
-                                Toast.makeText(LoginActivity.this, "이메일 인증 메일을 보내지 못했습니다. 나중에 다시 시도하세요.", Toast.LENGTH_SHORT).show();
-                            }
+        // Firebase에 이메일 인증 요청 보내기
+        mAuth.getCurrentUser().sendEmailVerification()
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            // 이메일 전송 성공
+                            // 인증 번호를 verifyEdit EditText에 설정하고 verifyEdit 및 verifyBtn을 표시
+                            EditText verifyEdit = findViewById(R.id.verifyEdit);
+                            verifyEdit.setVisibility(View.VISIBLE);
+
+                            Button verifyBtn = findViewById(R.id.verifyBtn);
+                            verifyBtn.setVisibility(View.VISIBLE);
+
+                            // verifyBtn 클릭 리스너 추가
+                            verifyBtn.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    // 사용자가 입력한 인증 번호
+                                    String userEnteredCode = verifyEdit.getText().toString().trim();
+                                    if (userEnteredCode.equals(verificationCode)) {
+                                        // 인증 번호 일치, 다음 화면으로 이동
+                                        startActivity(new Intent(LoginActivity.this, NicknameActivity.class));
+                                    } else {
+                                        Toast.makeText(LoginActivity.this, "인증 번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+                        } else {
+                            // 이메일 전송 실패
+                            Toast.makeText(LoginActivity.this, "이메일을 보내는 동안 오류가 발생했습니다.", Toast.LENGTH_SHORT).show();
                         }
-                    });
-        }
+                    }
+                });
     }
+    private String generateRandomCode() {
+        // 6자리 랜덤 숫자 생성
+        Random random = new Random();
+        int code = 100000 + random.nextInt(900000); // 100000에서 999999 사이의 숫자 생성
+        return String.valueOf(code);
     }
+//checking
+
+}
