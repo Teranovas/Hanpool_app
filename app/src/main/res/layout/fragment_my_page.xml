@@ -50,7 +50,7 @@
                 android:background="@drawable/backgroundtwo"
                 android:layout_marginLeft="-15dp"
                 android:layout_weight="1"
-                android:elevation="10dp">
+                android:elevation="15dp">
 
                 <TextView
                     android:text="환영합니다 !"
