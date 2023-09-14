@@ -15,6 +15,8 @@ public class Post implements Serializable, Parcelable {
     private String imageUrl;
     private long timestamp;
 
+    private boolean taxi;
+
     public Post() {
         // Firebase Realtime Database에서 객체를 deserialize할 때 필요한 빈 생성자
     }
@@ -28,6 +30,17 @@ public class Post implements Serializable, Parcelable {
         this.writer = writer;
         this.imageUrl = imageUrl;
         this.timestamp = timestamp;
+    }
+    public Post(String key, String title, String startpoint, String arrivepoint
+            ,String writer, String imageUrl, long timestampm, boolean taxi) {
+        this.key = key;
+        this.title = title;
+        this.startpoint = startpoint;
+        this.arrivepoint = arrivepoint;
+        this.writer = writer;
+        this.imageUrl = imageUrl;
+        this.timestamp = timestamp;
+        this.taxi = taxi;
     }
 
     // getter/setter 메서드들
@@ -69,6 +82,9 @@ public class Post implements Serializable, Parcelable {
 
     public void setWriter(String writer) {
         this.writer = writer;
+    }
+    public boolean getTaxi() {
+        return taxi;
     }
 
     public String getImageUrl() {
@@ -112,7 +128,7 @@ public class Post implements Serializable, Parcelable {
         timestamp = in.readLong();
     }
 
-    public static final Parcelable.Creator<Post> CREATOR = new Parcelable.Creator<Post>() {
+    public static final Creator<Post> CREATOR = new Creator<Post>() {
         @Override
         public Post createFromParcel(Parcel in) {
             return new Post(in);

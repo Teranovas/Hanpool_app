@@ -17,7 +17,7 @@ import com.example.joinn.mypagefragment.DateFragment;
 
 public class CommunityIntroFragment extends Fragment {
 
-    private ImageButton toHomeBtn, toSchoolBtn, taxiBtn;
+    private ImageButton toHomeBtn, toSchoolBtn, toTaxiBtn;
 
 
     @Override
@@ -34,7 +34,7 @@ public class CommunityIntroFragment extends Fragment {
 
         toHomeBtn = view.findViewById(R.id.toHomeBtn);
         toSchoolBtn = view.findViewById(R.id.toSchoolBtn);
-        taxiBtn =  view.findViewById(R.id.taxiBtn);
+        toTaxiBtn =  view.findViewById(R.id.taxiBtn);
 
         final Animation buttonClickAnimation = AnimationUtils.loadAnimation(getContext(), R.anim.button_click_animation);
 
@@ -66,6 +66,23 @@ public class CommunityIntroFragment extends Fragment {
                 transaction.replace(R.id.container, newFragment);
                 transaction.addToBackStack(null);
                 transaction.commit();
+            }
+        });
+
+        toTaxiBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                toTaxiBtn.startAnimation(buttonClickAnimation);
+
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+                Fragment newFragment = new TaxiFragment();
+
+                transaction.replace(R.id.container, newFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+
             }
         });
 

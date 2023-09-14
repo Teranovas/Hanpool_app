@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 반투명한 색상 설정 (예: #80000000은 50% 투명한 검은색) -->
+    <solid android:color="#99FFFFFF" />
+
+    <!-- 모서리 둥글게 설정 -->
+    <corners android:radius="30dp" />
+</shape>
