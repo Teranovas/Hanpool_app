@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/hanpool"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fillViewport="true"
     tools:context=".mypagefragment.MyPageFragment">
 
     <LinearLayout
@@ -13,88 +13,111 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:padding="25dp">
 
-            <TextView
-                android:id="@+id/txtNickname"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/textContainer"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:gravity="left"
+                android:layout_centerVertical="true"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txtNickname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:gravity="left"
+                    android:text="닉네임"
+                    android:textColor="@color/black"
+                    android:textSize="35sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="left"
+                    android:text="aaaaaa@hs.ac.kr"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/edit"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
                 android:layout_marginTop="30dp"
-                android:text="닉네임"
-                android:textColor="@color/black"
-                android:textSize="35sp" />
-            <TextView
-                android:id="@+id/email"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="left"
-                android:layout_marginTop="5dp"
-                android:text="aaaaaa@hs.ac.kr"
-                android:textSize="15sp" />
-        </LinearLayout>
+                android:layout_marginRight="10dp"
+                android:background="@drawable/backgroundtwo2"
+                android:elevation="10dp" />
+
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="130dp"
             android:layout_marginBottom="25dp">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="110dp"
-                android:orientation="vertical"
-                android:background="@drawable/backgroundtwo"
                 android:layout_marginLeft="-15dp"
                 android:layout_weight="1"
-                android:elevation="15dp">
+                android:background="@drawable/backgroundtwo"
+                android:elevation="15dp"
+                android:orientation="vertical">
 
                 <TextView
-                    android:text="환영합니다 !"
-                    android:background="@android:color/transparent"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold|bold"
-                    android:layout_marginTop="10dp"
                     android:layout_marginLeft="40dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@android:color/transparent"
+                    android:text="환영합니다 !"
+                    android:textColor="@color/black"
                     android:textSize="18sp"
-                    android:textColor="@color/black"/>
+                    android:textStyle="bold|bold" />
 
                 <TextView
-                    android:text="오늘의 카풀을 확인하세요"
-                    android:background="@android:color/transparent"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="40dp"
                     android:layout_marginTop="10dp"
-                    android:layout_marginLeft="40dp" />
+                    android:background="@android:color/transparent"
+                    android:text="오늘의 카풀을 확인하세요" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp">
-                <TextView
-                    android:text="드라이버 레벨: "
-                    android:background="@android:color/transparent"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="40dp" />
 
-                <TextView
-                    android:id="@+id/leveltxt"
-                    android:text="Lv"
-                    android:background="@android:color/transparent"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:textStyle="bold"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="40dp"
+                        android:background="@android:color/transparent"
+                        android:text="드라이버 레벨: " />
+
+                    <TextView
+                        android:id="@+id/leveltxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:text="0"
+                        android:textColor="@color/black"
+                        android:textStyle="bold" />
 
                 </LinearLayout>
 
 
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -109,95 +132,330 @@
                     android:foreground="@drawable/circle"
                     android:scaleType="centerCrop"
                     android:src="@drawable/user"
+
                     app:civ_border_overlay="true" />
 
             </LinearLayout>
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="330dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="25dp"
+            android:background="@drawable/backgroundtwo3"
+            android:orientation="horizontal"
+            android:elevation="15dp"
+            android:padding="25dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <ImageView
+
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+
+                    android:gravity="center"
+                    android:src="@drawable/star2" />
+
+                <TextView
+                    android:id="@+id/scopeTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:text="0.0"
+                    android:textColor="@color/black"
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <!-- This is the vertical line between the TextViews -->
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@color/black" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center">
 
 
-<!--            <LinearLayout-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginLeft="20dp"-->
-<!--                android:orientation="vertical">-->
+                <TextView
+                    android:id="@+id/spotTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:text="라이더"
+                    android:textColor="@color/black"
+                    android:textSize="25sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
 
-<!--                <LinearLayout-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:orientation="horizontal">-->
+        </LinearLayout>
 
-<!--                    <TextView-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginTop="20dp"-->
-<!--                        android:fontFamily="@font/fontbold"-->
-<!--                        android:gravity="left"-->
-<!--                        android:text="닉네임"-->
-<!--                        android:textColor="@color/white"-->
-<!--                        android:textSize="25sp" />-->
-
-<!--                    <TextView-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginTop="20dp"-->
-<!--                        android:fontFamily="@font/fontbold"-->
-<!--                        android:gravity="left"-->
-<!--                        android:text="님"-->
-<!--                        android:textColor="@color/white"-->
-<!--                        android:textSize="25sp" />-->
-<!--                </LinearLayout>-->
-
-<!--                <TextView-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:fontFamily="@font/fontbold"-->
-<!--                    android:gravity="left"-->
-<!--                    android:text="안녕하세요!"-->
-<!--                    android:textColor="@color/white"-->
-<!--                    android:textSize="20sp" />-->
-
-<!--                <LinearLayout-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:orientation="horizontal">-->
-
-<!--                    <TextView-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:fontFamily="@font/fontbold"-->
-<!--                        android:gravity="left"-->
-<!--                        android:text="드라이버 레벨: "-->
-<!--                        android:textColor="@color/white"-->
-<!--                        android:textSize="16sp" />-->
-
-<!--                    <TextView-->
-<!--                        android:id="@+id/leveltxt"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:fontFamily="@font/fontbold"-->
-<!--                        android:gravity="left"-->
-<!--                        android:text="Lv"-->
-<!--                        android:textColor="@color/white"-->
-<!--                        android:textSize="16sp" />-->
-<!--                </LinearLayout>-->
-<!--            </LinearLayout>-->
-
-
-
-        <ListView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/listView"
             android:background="@drawable/listview_background"
             android:layout_width="300dp"
             android:layout_gravity="center"
             android:padding="20dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:elevation="20dp"/>
 
-
-
-
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:text="dlckdtp "
+            android:textColor="@android:color/transparent"
+            android:background="@android:color/transparent"
+            android:textSize="30dp"/>
 
     </LinearLayout>
 
+</androidx.core.widget.NestedScrollView>
 
-</LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<LinearLayout-->
+<!--    xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:tools="http://schemas.android.com/tools"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent"-->
+<!--    android:background="@drawable/hanpool"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    tools:context=".mypagefragment.MyPageFragment">-->
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="vertical">-->
+
+<!--        <RelativeLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:padding="25dp">-->
+
+<!--            <LinearLayout-->
+<!--                android:id="@+id/textContainer"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_centerVertical="true"-->
+<!--                android:orientation="vertical">-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/txtNickname"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:textStyle="bold"-->
+<!--                    android:gravity="left"-->
+<!--                    android:layout_marginTop="30dp"-->
+<!--                    android:text="닉네임"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:textSize="35sp" />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/email"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:gravity="left"-->
+<!--                    android:layout_marginTop="5dp"-->
+<!--                    android:text="aaaaaa@hs.ac.kr"-->
+<!--                    android:textSize="15sp" />-->
+<!--            </LinearLayout>-->
+
+<!--            <ImageButton-->
+<!--                android:id="@+id/edit"-->
+<!--                android:layout_width="40dp"-->
+<!--                android:layout_height="40dp"-->
+<!--                android:layout_marginTop="30dp"-->
+<!--                android:layout_marginRight="10dp"-->
+<!--                android:layout_alignParentRight="true"-->
+<!--                android:layout_centerVertical="true"-->
+<!--                android:background="@drawable/backgroundtwo2"-->
+<!--                android:elevation="10dp"/>-->
+<!--        </RelativeLayout>-->
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="130dp"-->
+<!--            android:layout_marginBottom="25dp">-->
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="110dp"-->
+<!--                android:orientation="vertical"-->
+<!--                android:background="@drawable/backgroundtwo"-->
+<!--                android:layout_marginLeft="-15dp"-->
+<!--                android:layout_weight="1"-->
+<!--                android:elevation="15dp">-->
+
+<!--                <TextView-->
+<!--                    android:text="환영합니다 !"-->
+<!--                    android:background="@android:color/transparent"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:textStyle="bold|bold"-->
+<!--                    android:layout_marginTop="10dp"-->
+<!--                    android:layout_marginLeft="40dp"-->
+<!--                    android:textSize="18sp"-->
+<!--                    android:textColor="@color/black"/>-->
+
+<!--                <TextView-->
+<!--                    android:text="오늘의 카풀을 확인하세요"-->
+<!--                    android:background="@android:color/transparent"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="10dp"-->
+<!--                    android:layout_marginLeft="40dp" />-->
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="4dp">-->
+<!--                <TextView-->
+<!--                    android:text="드라이버 레벨: "-->
+<!--                    android:background="@android:color/transparent"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginLeft="40dp" />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/leveltxt"-->
+<!--                    android:text="0"-->
+<!--                    android:background="@android:color/transparent"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:textStyle="bold"/>-->
+
+<!--                </LinearLayout>-->
+
+
+<!--            </LinearLayout>-->
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1"-->
+<!--                android:gravity="center">-->
+
+<!--                <de.hdodenhof.circleimageview.CircleImageView-->
+<!--                    android:id="@+id/imguser"-->
+<!--                    android:layout_width="110dp"-->
+<!--                    android:layout_height="110dp"-->
+<!--                    android:background="@android:color/transparent"-->
+<!--                    android:foreground="@drawable/circle"-->
+<!--                    android:scaleType="centerCrop"-->
+<!--                    android:src="@drawable/user"-->
+<!--                    app:civ_border_overlay="true" />-->
+
+<!--            </LinearLayout>-->
+<!--        </LinearLayout>-->
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="330dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:orientation="horizontal"-->
+<!--            android:background="@drawable/backgroundtwo3"-->
+<!--            android:padding="25dp"-->
+<!--            android:layout_marginBottom="25dp">-->
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1"-->
+<!--                android:gravity="center">-->
+<!--            <ImageView-->
+
+<!--                android:layout_width="40dp"-->
+<!--                android:layout_height="40dp"-->
+
+<!--                android:gravity="center"-->
+<!--                android:src="@drawable/star2" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/scopeTxt"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="40dp"-->
+<!--                android:gravity="center"-->
+<!--                android:text="0.0"-->
+<!--                android:textColor="@color/black"-->
+<!--                android:textSize="30sp"-->
+<!--                android:textStyle="bold" />-->
+<!--        </LinearLayout>-->
+
+<!--            &lt;!&ndash; This is the vertical line between the TextViews &ndash;&gt;-->
+<!--            <View-->
+<!--                android:layout_width="1dp"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:layout_marginLeft="10dp"-->
+<!--                android:layout_marginRight="10dp"-->
+<!--                android:background="@color/black" />-->
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1"-->
+<!--                android:gravity="center"-->
+<!--                >-->
+
+
+<!--                <TextView-->
+<!--                    android:id="@+id/spotTxt"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="40dp"-->
+<!--                    android:gravity="center"-->
+<!--                    android:text="라이더"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:textSize="25sp"-->
+<!--                    android:textStyle="bold" />-->
+<!--            </LinearLayout>-->
+
+<!--        </LinearLayout>-->
+
+
+<!--        <ListView-->
+<!--            android:id="@+id/listView"-->
+<!--            android:background="@drawable/listview_background"-->
+<!--            android:layout_width="300dp"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:padding="20dp"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:elevation="20dp"/>-->
+
+
+<!--        <TextView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="@android:color/transparent"-->
+<!--            android:text="    "-->
+<!--            android:textSize="30dp"/>-->
+
+<!--    </LinearLayout>-->
+
+
+<!--</LinearLayout>-->

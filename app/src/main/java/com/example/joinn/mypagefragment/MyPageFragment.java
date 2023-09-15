@@ -13,6 +13,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
@@ -76,11 +78,6 @@ public class MyPageFragment extends Fragment {
     PackageManager packageManager;
     private ImageView mProfileImageView;
     private TextView txtNickname, leveltxt;
-    private DatabaseReference databaseRef;
-
-    private ImageButton License;
-
-    private ImageButton date;
 
     private ImageButton edit;
 
@@ -97,9 +94,12 @@ public class MyPageFragment extends Fragment {
     private int mProfileImageResId;
     private Uri mImageUri;
 
-    private ListView listView;
+    private TextView email;
+
+    private RecyclerView listView;
     private List<ListItem> items;
 
+    private TextView spotTxt;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -115,197 +115,223 @@ public class MyPageFragment extends Fragment {
         items = new ArrayList<>();
         items.add(new ListItem(R.drawable.calendar, "카풀 일정", "등록된 카풀을 확인하세요"));
         items.add(new ListItem(R.drawable.history, "카풀 내역", "드라이버에 대한 평가 및 리뷰를 남겨주세요"));
-        items.add(new ListItem(R.drawable.license, "드라이버 등록","드라이버가 되기 위해 인증하세요"));
-        items.add(new ListItem(R.drawable.user2, "Text 4","Text 4"));
-//        usersRef.child(currentUserName).addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                String nickname = snapshot.child("닉네임").getValue(String.class);
-//                String imageURL = snapshot.child("photoUrl").getValue(String.class);
-//                String level = snapshot.child("드라이버 레벨").getValue(String.class);
-//
-//                Glide.with(getContext()).load(imageURL).into(mProfileImageView);
-//
-//                txtNickname.setText(nickname);
-//                leveltxt.setText(level);
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
+        items.add(new ListItem(R.drawable.license, "드라이버 등록", "드라이버가 되기 위해 인증하세요"));
+        items.add(new ListItem(R.drawable.logout, "로그 아웃", "회원 정보를 닫고 로그인창으로 넘어갑니다"));
+        usersRef.child(currentUserName).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String nickname = snapshot.child("닉네임").getValue(String.class);
+                String imageURL = snapshot.child("photoUrl").getValue(String.class);
+                String level = snapshot.child("드라이버 레벨").getValue(String.class);
+                String spottxt = snapshot.child("직위").getValue(String.class);
+                String userEmail = currentUser.getEmail();
+                Glide.with(getContext()).load(imageURL).into(mProfileImageView);
+
+                txtNickname.setText(nickname);
+                leveltxt.setText(level);
+                spotTxt.setText(spottxt);
+
+                email.setText(userEmail);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
 
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_my_page, container, false);
-//        txtNickname = view.findViewById(R.id.txtNickname);
-//        leveltxt = view.findViewById(R.id.leveltxt);
-//
-//        mProfileImageView = view.findViewById(R.id.imguser);
+        txtNickname = view.findViewById(R.id.txtNickname);
+        leveltxt = view.findViewById(R.id.leveltxt);
+
+        mProfileImageView = view.findViewById(R.id.imguser);
         packageManager = requireActivity().getPackageManager();
 
-//        License = view.findViewById(R.id.license);
-//        date = view.findViewById(R.id.date);
-//        edit = view.findViewById(R.id.editProfile);
+        edit = view.findViewById(R.id.edit);
 
         listView = view.findViewById(R.id.listView);
 
         listView = view.findViewById(R.id.listView);
 
-        CustomAdapter adapter = new CustomAdapter();
-        listView.setAdapter(adapter);
 
-//        ImageView logoutBtn = view.findViewById(R.id.logoutBtn);
+        email = view.findViewById(R.id.email);
+        spotTxt = view.findViewById(R.id.spotTxt);
+
+        CustomRecyclerViewAdapter adapter = new CustomRecyclerViewAdapter(items);
 
         final Animation buttonClickAnimation = AnimationUtils.loadAnimation(getContext(), R.anim.button_click_animation);
+        adapter.setItemClickListener(new ItemClickListener() {
+            @Override
+            public void onItemClicked(int position, ListItem item) {
+                switch (position) {
+                    case 0:
+                        // 카풀 일정 관련 동작
 
-//        logoutBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                // 구글 로그아웃 수행
-//                signOutFromGoogle();
-//            }
-//        });
+                        Toast.makeText(getActivity(), "일정", Toast.LENGTH_LONG).show();
 
 
-//        License.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                License.startAnimation(buttonClickAnimation);
-//
-//                DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference().child("users");
-//                usersRef.child(uid).addValueEventListener(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-//
-//                        String position = snapshot.child("직위").getValue(String.class);
-//
-//
-//                        if ("드라이버".equals(position)) { // 직위 "드라이버"인 경우만 추가
-//
-//                            Toast.makeText(getContext(), "드라이버 등록이 되어있습니다.", Toast.LENGTH_SHORT).show();
-//
-//                        } else {
-//                            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-//
-//                            transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-//                            Fragment newFragment = new DriverRegistrationFragment();
-//
-//                            transaction.replace(R.id.container, newFragment);
-//
-//                            transaction.addToBackStack(null);
-//                            transaction.commit();
-//                        }
-//
-//
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(@NonNull DatabaseError error) {
-//
-//                    }
-//                });
-//            }
-//        });
-//
-//
-//        date.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                date.startAnimation(buttonClickAnimation);
-//                Toast.makeText(getActivity(), "일정", Toast.LENGTH_LONG).show();
-//
-//
-//                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-//                transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-//                Fragment newFragment = new DateFragment();
-//
-//                transaction.replace(R.id.container, newFragment);
-//                transaction.addToBackStack(null);
-//                transaction.commit();
-//            }
-//        });
-//
-//        edit.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                edit.startAnimation(buttonClickAnimation);
-//
-//                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-//                transaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left);
-//                Fragment newFragment = new EditProfileFragment();
-//
-//                transaction.replace(R.id.container, newFragment);
-//                transaction.addToBackStack(null);
-//                transaction.commit();
-//            }
-//        });
+                        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+                        Fragment newFragment = new DateFragment();
+
+                        transaction.replace(R.id.container, newFragment);
+                        transaction.addToBackStack(null);
+                        transaction.commit();
+                        break;
+                    case 1:
+                        // 카풀 내역 관련 동작
+                        break;
+                    case 2:
+                        // 드라이버 등록 관련 동작
+                        DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference().child("users");
+                        usersRef.child(uid).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                                String position = snapshot.child("직위").getValue(String.class);
+
+
+                                if ("드라이버".equals(position)) { // 직위 "드라이버"인 경우만 추가
+
+                                    Toast.makeText(getContext(), "드라이버 등록이 되어있습니다.", Toast.LENGTH_SHORT).show();
+
+                                } else {
+                                    FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+
+                                    transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+                                    Fragment newFragment = new DriverRegistrationFragment();
+
+                                    transaction.replace(R.id.container, newFragment);
+
+                                    transaction.addToBackStack(null);
+                                    transaction.commit();
+                                }
+
+
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+                        break;
+                    case 3:
+                        // 구글 로그아웃 수행
+                        signOutFromGoogle();
+                        break;
+                }
+            }
+        });
+        listView.setLayoutManager(new LinearLayoutManager(getContext()));
+        listView.setAdapter(adapter);
+
+
+
+        edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                edit.startAnimation(buttonClickAnimation);
+
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left);
+                Fragment newFragment = new EditProfileFragment();
+
+                transaction.replace(R.id.container, newFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
 
 
         return view;
 
     }
 
-//    private void signOutFromGoogle() {
-//        // GoogleSignInClient 객체 생성
-//        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-//                .requestIdToken(getString(R.string.default_web_client_id))
-//                .requestEmail()
-//                .build();
-//        GoogleSignInClient signInClient = GoogleSignIn.getClient(requireContext(), gso);
-//        // 로그아웃 수행
-//        signInClient.signOut()
-//                .addOnCompleteListener(requireActivity(), new OnCompleteListener<Void>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<Void> task) {
-//                        Intent intent = new Intent(requireContext(), MainActivity.class);
-//                        startActivity(intent);
-//                        requireActivity().finish();  // 현재 액티비티 종료
-//                    }
-//                });
-//    }
-
-
-
-    private class CustomAdapter extends BaseAdapter {
-
-        @Override
-        public int getCount() {
-            return items.size(); // 아이템의 개수는 데이터 리스트의 크기와 동일합니다.
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            if (convertView == null) {
-                LayoutInflater inflater = LayoutInflater.from(getContext());
-                convertView = inflater.inflate(R.layout.list_item1, parent, false);
-            }
-
-            ImageView iconImageView = convertView.findViewById(R.id.icon);
-            TextView itemTextView = convertView.findViewById(R.id.text);
-            TextView itemTextView2 = convertView.findViewById(R.id.text2);
-
-            ListItem item = items.get(position);
-            iconImageView.setImageResource(item.iconResId);
-            itemTextView.setText(item.text);
-            itemTextView2.setText(item.text2);
-
-            return convertView;
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return items.get(position);
-        }
+    private void signOutFromGoogle() {
+        // GoogleSignInClient 객체 생성
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+        GoogleSignInClient signInClient = GoogleSignIn.getClient(requireContext(), gso);
+        // 로그아웃 수행
+        signInClient.signOut()
+                .addOnCompleteListener(requireActivity(), new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Intent intent = new Intent(requireContext(), MainActivity.class);
+                        startActivity(intent);
+                        requireActivity().finish();  // 현재 액티비티 종료
+                    }
+                });
     }
 
+    public interface ItemClickListener {
+        void onItemClicked(int position, ListItem item);
+    }
+
+
+    public class CustomRecyclerViewAdapter extends RecyclerView.Adapter<CustomRecyclerViewAdapter.ViewHolder> {
+
+        private List<ListItem> items;
+        private ItemClickListener itemClickListener;
+
+        public CustomRecyclerViewAdapter(List<ListItem> items) {
+            this.items = items;
+        }
+
+        @NonNull
+        @Override
+        public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item1, parent, false);
+            return new ViewHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+            ListItem item = items.get(position);
+            holder.iconImageView.setImageResource(item.iconResId);
+            holder.itemTextView.setText(item.text);
+            holder.itemTextView2.setText(item.text2);
+        }
+
+        @Override
+        public int getItemCount() {
+            return items.size();
+        }
+
+        public void setItemClickListener(ItemClickListener listener) {
+            this.itemClickListener = listener;
+        }
+
+        class ViewHolder extends RecyclerView.ViewHolder {
+            ImageView iconImageView;
+            TextView itemTextView, itemTextView2;
+
+            ViewHolder(View itemView) {
+                super(itemView);
+                iconImageView = itemView.findViewById(R.id.icon);
+                itemTextView = itemView.findViewById(R.id.text);
+                itemTextView2 = itemView.findViewById(R.id.text2);
+
+                itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (itemClickListener != null) {
+                            int position = getAdapterPosition();
+                            if (position != RecyclerView.NO_POSITION) {
+                                itemClickListener.onItemClicked(position, items.get(position));
+                            }
+                        }
+                    }
+                });
+            }
+        }
+    }
 
 }
