@@ -16,11 +16,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.joinn.R;
-import com.example.joinn.chatfragment.User;
-import com.example.joinn.chatfragment.UserAdapter;
-import com.example.joinn.communityfragment.DetailFragment;
-import com.example.joinn.communityfragment.Post;
-import com.example.joinn.communityfragment.PostAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -28,7 +23,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -170,4 +164,3 @@ public class ChatFragment extends Fragment {
         return view;
     }
 }
-

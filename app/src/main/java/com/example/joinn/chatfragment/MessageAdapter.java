@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -48,11 +49,37 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             viewHolder.timeSend.setText(currentMessage.getTime());
             viewHolder.sendMessage.setText(currentMessage.getMessage());
             viewHolder.sendName.setText(currentMessage.getName());
+
+            // 수락 및 거절 버튼 표시 여부 설정
+            if (currentMessage.isAcceptButtonVisible()) {
+                viewHolder.acceptButton.setVisibility(View.VISIBLE);
+            } else {
+                viewHolder.acceptButton.setVisibility(View.GONE);
+            }
+
+            if (currentMessage.isRejectButtonVisible()) {
+                viewHolder.rejectButton.setVisibility(View.VISIBLE);
+            } else {
+                viewHolder.rejectButton.setVisibility(View.GONE);
+            }
         } else {
             ReceiveViewHolder viewHolder = (ReceiveViewHolder) holder;
             viewHolder.timeReceive.setText(currentMessage.getTime());
             viewHolder.receiveMessage.setText(currentMessage.getMessage());
             viewHolder.receiveName.setText(currentMessage.getName());
+
+            //수락 및 거절 버튼 표시 여부 설정
+            if (currentMessage.isAcceptButtonVisible()) {
+                viewHolder.acceptButton.setVisibility(View.VISIBLE);
+            } else {
+                viewHolder.acceptButton.setVisibility(View.GONE);
+            }
+
+            if (currentMessage.isRejectButtonVisible()) {
+                viewHolder.rejectButton.setVisibility(View.VISIBLE);
+            } else {
+                viewHolder.rejectButton.setVisibility(View.GONE);
+            }
         }
     }
 
@@ -78,12 +105,16 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         TextView sendMessage;
         TextView timeSend;
         TextView sendName;
+        Button acceptButton;
+        Button rejectButton;
 
         public SendViewHolder(View itemView) {
             super(itemView);
             sendMessage = itemView.findViewById(R.id.send_message_text);
             timeSend = itemView.findViewById(R.id.timeSender);
             sendName = itemView.findViewById(R.id.senderName);
+            acceptButton = itemView.findViewById(R.id.accept_button_send);
+            rejectButton = itemView.findViewById(R.id.reject_button_send);
         }
     }
 
@@ -92,12 +123,16 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         TextView receiveMessage;
         TextView timeReceive;
         TextView receiveName;
+        Button acceptButton;
+        Button rejectButton;
 
         public ReceiveViewHolder(View itemView) {
             super(itemView);
             receiveMessage = itemView.findViewById(R.id.receive_message_text);
             timeReceive = itemView.findViewById(R.id.timeReceiver);
             receiveName = itemView.findViewById(R.id.receiverName);
+            acceptButton = itemView.findViewById(R.id.accept_button);
+            rejectButton = itemView.findViewById(R.id.reject_button);
         }
     }
 }
