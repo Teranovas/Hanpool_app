@@ -66,6 +66,8 @@ public class ChatRoomFragment extends Fragment {
     private ImageView ProfileImageView;
     private TextView NicknameTextView;
 
+    private MessageAdapter messageAdapter;
+
     private Button inviteBtn;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -82,7 +84,7 @@ public class ChatRoomFragment extends Fragment {
         View view = binding.getRoot();
 
         messageList = new ArrayList<>();
-        MessageAdapter messageAdapter = new MessageAdapter(requireContext(), messageList);
+        messageAdapter = new MessageAdapter(requireContext(), messageList);
 
         binding.chatRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         binding.chatRecyclerView.setAdapter(messageAdapter);
@@ -199,98 +201,59 @@ public class ChatRoomFragment extends Fragment {
                 });
         inviteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                // AlertDialog를 생성합니다.
-                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                builder.setTitle("날짜 선택");
+            public void onClick(View v) {
+                String invitationMessage = "상대방이 당신을 카풀에 초대했습니다. 수락 하시겠습니까?";
 
-                // CalendarView를 생성하고 대화 상자에 추가합니다.
-                CalendarView calendarView = new CalendarView(getContext());
-                builder.setView(calendarView);
-
-                // OK 버튼을 추가하고 클릭 리스너를 설정합니다.
-                builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        // 여기서 선택한 날짜를 처리하거나 저장할 수 있습니다.
-                        long selectedDateMillis = calendarView.getDate();
-                        // 선택한 날짜에 대한 작업을 수행합니다.
-                        String text = "[수락하기]";
-                        TextView textView = new TextView(getContext());
-                        textView.setText("[수락하기]");
-
-                        String message2 = handleSelectedDate(selectedDateMillis) + "  " + textView;
-
-//                        textView.setOnClickListener(new View.OnClickListener() {
-//                            @Override
-//                            public void onClick(View view) {
-//                               Log.d(TAG,"수락하기 완료");
-//                            }
-//                        });
-
-
-                        long now = System.currentTimeMillis();
-                        Date date = new Date(now);
-                        SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm");
-                        String getTime = dateFormat.format(date);
-
-
-                        usersRef.child(senderUid).addListenerForSingleValueEvent(new ValueEventListener() {
-
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                                String Nickname = snapshot.child("닉네임").getValue(String.class);
-                                Message messageObject = new Message(message2, senderUid, getTime, Nickname);
-                                messageList.add(messageObject);
-                                messageAdapter.notifyDataSetChanged();
-
-                                // 데이터 저장
-                                // 데이터 저장
-                                mDbRef.child("chats").child(senderRoom).child("messages").push()
-                                        .setValue(messageObject)
-                                        .addOnSuccessListener(aVoid -> {
-                                            // 저장 성공하면
-                                            mDbRef.child("chats").child(receiverRoom).child("messages").push()
-                                                    .setValue(messageObject)
-                                                    .addOnSuccessListener(aVoid2 -> {
-                                                        // 받는 쪽에도 저장 성공하면 어댑터 갱신
-                                                    });
-                                        });
-
-
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-
-                            }
-                        });
-
-
-                        // 대화 상자 닫기
-                        dialogInterface.dismiss();
-                    }
-                });
-
-                // Cancel 버튼을 추가하고 클릭 리스너를 설정합니다.
-                builder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        // 취소 버튼을 눌렀을 때 수행할 작업을 추가할 수 있습니다.
-                        dialogInterface.dismiss();
-                    }
-                });
-
-                // AlertDialog를 표시합니다.
-                AlertDialog dialog = builder.create();
-                dialog.show();
+                // 초대 메시지를 상대방에게 보내기
+                sendInvitationMessageToReceiver(invitationMessage);
             }
         });
 
-
-
         return view;
+    }
+
+    private void sendInvitationMessageToReceiver(String invitationMessage) {
+        String senderUid = mAuth.getCurrentUser().getUid();
+
+        // 초대 메시지를 생성한 시간을 기록합니다.
+        long now = System.currentTimeMillis();
+        Date date = new Date(now);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm");
+        String getTime = dateFormat.format(date);
+
+        usersRef.child(senderUid).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String Nickname = snapshot.child("닉네임").getValue(String.class);
+                Message messageObject = new Message(invitationMessage, senderUid, getTime, Nickname);
+
+                // 초대 메시지에 수락 버튼을 추가합니다.
+                messageObject.setAcceptButtonVisible(true);
+                // 초대 메시지에 거절 버튼을 추가합니다.
+                messageObject.setRejectButtonVisible(true);
+
+                messageList.add(messageObject);
+                messageAdapter.notifyDataSetChanged();
+
+                // 데이터 저장 (Firebase Realtime Database에 초대 메시지 저장)
+                mDbRef.child("chats").child(senderRoom).child("messages").push()
+                        .setValue(messageObject)
+                        .addOnSuccessListener(aVoid -> {
+                            // 저장 성공하면
+                            mDbRef.child("chats").child(receiverRoom).child("messages").push()
+                                    .setValue(messageObject)
+                                    .addOnSuccessListener(aVoid2 -> {
+                                        // 받는 쪽에도 저장 성공하면 어댑터 갱신
+                                    });
+                        });
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // 오류 처리
+            }
+        });
     }
 
     private String handleSelectedDate(long selectedDateMillis) {
