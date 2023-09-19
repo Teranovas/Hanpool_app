@@ -35,7 +35,7 @@ public class AddSearchFragment extends Fragment {
         });
 
         // 최초 웹뷰 로드
-        webview.loadUrl("https://test1-84d99.web.app");
+        webview.loadUrl("test1-84d99.web.app");
 
         return rootView;
 
