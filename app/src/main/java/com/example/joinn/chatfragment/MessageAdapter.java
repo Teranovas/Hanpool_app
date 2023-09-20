@@ -24,9 +24,17 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private static final int RECEIVE_TYPE = 1; //받는 타입
     private static final int SEND_TYPE = 2; //보내는 타입
 
-    public MessageAdapter(Context context, ArrayList<Message> messageList) {
+    // Interface for handling accept button clicks
+    public interface OnAcceptButtonClickListener {
+        void onAcceptButtonClick();
+    }
+
+    private OnAcceptButtonClickListener acceptButtonClickListener;
+
+    public MessageAdapter(Context context, ArrayList<Message> messageList, OnAcceptButtonClickListener listener) {
         this.context = context;
         this.messageList = messageList;
+        this.acceptButtonClickListener = listener;
     }
 
     @Override
@@ -50,36 +58,58 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             viewHolder.sendMessage.setText(currentMessage.getMessage());
             viewHolder.sendName.setText(currentMessage.getName());
 
-            // 수락 및 거절 버튼 표시 여부 설정
+            // Set accept button visibility
             if (currentMessage.isAcceptButtonVisible()) {
                 viewHolder.acceptButton.setVisibility(View.VISIBLE);
             } else {
                 viewHolder.acceptButton.setVisibility(View.GONE);
             }
 
+            // Set reject button visibility
             if (currentMessage.isRejectButtonVisible()) {
                 viewHolder.rejectButton.setVisibility(View.VISIBLE);
             } else {
                 viewHolder.rejectButton.setVisibility(View.GONE);
             }
+
+            // Set accept button click listener
+            viewHolder.acceptButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (acceptButtonClickListener != null) {
+                        acceptButtonClickListener.onAcceptButtonClick();
+                    }
+                }
+            });
         } else {
             ReceiveViewHolder viewHolder = (ReceiveViewHolder) holder;
             viewHolder.timeReceive.setText(currentMessage.getTime());
             viewHolder.receiveMessage.setText(currentMessage.getMessage());
             viewHolder.receiveName.setText(currentMessage.getName());
 
-            //수락 및 거절 버튼 표시 여부 설정
+            // Set accept button visibility
             if (currentMessage.isAcceptButtonVisible()) {
                 viewHolder.acceptButton.setVisibility(View.VISIBLE);
             } else {
                 viewHolder.acceptButton.setVisibility(View.GONE);
             }
 
+            // Set reject button visibility
             if (currentMessage.isRejectButtonVisible()) {
                 viewHolder.rejectButton.setVisibility(View.VISIBLE);
             } else {
                 viewHolder.rejectButton.setVisibility(View.GONE);
             }
+
+            // Set accept button click listener
+            viewHolder.acceptButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (acceptButtonClickListener != null) {
+                        acceptButtonClickListener.onAcceptButtonClick();
+                    }
+                }
+            });
         }
     }
 
@@ -136,4 +166,3 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
     }
 }
-

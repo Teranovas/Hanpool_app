@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.joinn.R;
+import com.example.joinn.mapfragment.AddSearchFragment;
 import com.example.joinn.mypagefragment.DriverRegistrationFragment;
 
 public class HomeFragment extends Fragment {
@@ -34,7 +35,7 @@ public class HomeFragment extends Fragment {
 //                        .commit();
                 //겹쳐지지 않고 새로운 화면으로 전환되는 코드
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                Fragment newFragment = new SearchFragment();
+                Fragment newFragment = new AddSearchFragment();
 
                 transaction.replace(R.id.container, newFragment);
 

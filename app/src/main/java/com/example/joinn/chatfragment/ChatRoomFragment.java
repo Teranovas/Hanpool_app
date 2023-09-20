@@ -1,80 +1,60 @@
 package com.example.joinn.chatfragment;
 
-import static android.content.ContentValues.TAG;
-
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.nfc.Tag;
+import android.content.Context;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
-
-import android.renderscript.ScriptGroup;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CalendarView;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.example.joinn.chatfragment.ChatRoomFragment.*;
-
-
-
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.joinn.R;
 import com.example.joinn.databinding.FragmentChatRoomBinding;
+import com.google.android.material.datepicker.CalendarConstraints;
+import com.google.android.material.datepicker.DateValidatorPointForward;
+import com.google.android.material.datepicker.MaterialDatePicker;
+import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
-
-public class ChatRoomFragment extends Fragment {
+public class ChatRoomFragment extends Fragment implements MessageAdapter.OnAcceptButtonClickListener {
 
     private FragmentChatRoomBinding binding;
     private String me = "나";
-
     private String receiverName;
     private String receiverUid;
-
+    private String senderUid;
     private FirebaseAuth mAuth;
     private DatabaseReference mDbRef;
-
     private DatabaseReference usersRef;
-
     private String receiverRoom;
     private String senderRoom;
-
     private ArrayList<Message> messageList;
-
     private ImageView ProfileImageView;
     private TextView NicknameTextView;
-
     private MessageAdapter messageAdapter;
-
     private Button inviteBtn;
+    private Calendar calendar = Calendar.getInstance();
+    private long selectedDateMillis = calendar.getTimeInMillis();
+    private Date selectedDate = new Date(selectedDateMillis);
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         usersRef = FirebaseDatabase.getInstance().getReference().child("users");
-
     }
 
     @Override
@@ -82,17 +62,21 @@ public class ChatRoomFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentChatRoomBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
-
         messageList = new ArrayList<>();
-        messageAdapter = new MessageAdapter(requireContext(), messageList);
+        messageAdapter = new MessageAdapter(requireContext(), messageList, this);
 
         binding.chatRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         binding.chatRecyclerView.setAdapter(messageAdapter);
 
         ProfileImageView = view.findViewById(R.id.profileImageView);
         NicknameTextView = view.findViewById(R.id.nicknameTextView);
-
         inviteBtn = view.findViewById(R.id.inviteBtn);
+
+        mAuth = FirebaseAuth.getInstance();
+        mDbRef = FirebaseDatabase.getInstance().getReference();
+        senderUid = mAuth.getCurrentUser().getUid(); // senderUid 변수에 현재 사용자의 UID 할당
+        senderRoom = receiverUid + senderUid;
+        receiverRoom = senderUid + receiverUid;
 
         Bundle arguments = getArguments();
         if (arguments != null) {
@@ -105,90 +89,61 @@ public class ChatRoomFragment extends Fragment {
             Glide.with(this)
                     .load(receiverImage)
                     .into(ProfileImageView);
-
         }
-//        receiverName = requireActivity().getIntent().getStringExtra("key1");
-//        receiverUid = requireActivity().getIntent().getStringExtra("key2");
 
         mAuth = FirebaseAuth.getInstance();
         mDbRef = FirebaseDatabase.getInstance().getReference();
-
         String senderUid = mAuth.getCurrentUser().getUid();
-
-        // 보낸이방
         senderRoom = receiverUid + senderUid;
-
-        // 받는이방
         receiverRoom = senderUid + receiverUid;
+
         binding.sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                long now = System.currentTimeMillis();
-                Date date = new Date(now);
-                SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm");
-                String getTime = dateFormat.format(date);
-
+                // 채팅 메시지를 전송하는 코드 추가
                 String message = binding.messageEdit.getText().toString();
                 usersRef.child(senderUid).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         String Nickname = snapshot.child("닉네임").getValue(String.class);
-                        Message messageObject = new Message(message, senderUid, getTime, Nickname);
+                        Message messageObject = new Message(message, senderUid, getCurrentTime(), Nickname);
+                        messageObject.setAcceptButtonVisible(false); // 수락 버튼 숨김
+                        messageObject.setRejectButtonVisible(false); // 거절 버튼 숨김
                         messageList.add(messageObject);
                         messageAdapter.notifyDataSetChanged();
 
-                        // 데이터 저장
-                        // 데이터 저장
+                        // 데이터 저장 (Firebase Realtime Database에 채팅 메시지 저장)
                         mDbRef.child("chats").child(senderRoom).child("messages").push()
                                 .setValue(messageObject)
                                 .addOnSuccessListener(aVoid -> {
-                                    // 저장 성공하면
                                     mDbRef.child("chats").child(receiverRoom).child("messages").push()
                                             .setValue(messageObject)
                                             .addOnSuccessListener(aVoid2 -> {
                                                 // 받는 쪽에도 저장 성공하면 어댑터 갱신
+                                                messageAdapter.notifyDataSetChanged();
                                             });
                                 });
-
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-
+                        // 오류 처리
                     }
                 });
-//                Message messageObject = new Message(message, senderUid, getTime, me);
-//                messageList.add(messageObject);
-//                messageAdapter.notifyDataSetChanged();
-//
-//                // 데이터 저장
-//                // 데이터 저장
-//                mDbRef.child("chats").child(senderRoom).child("messages").push()
-//                        .setValue(messageObject)
-//                        .addOnSuccessListener(aVoid -> {
-//                            // 저장 성공하면
-//                            mDbRef.child("chats").child(receiverRoom).child("messages").push()
-//                                    .setValue(messageObject)
-//                                    .addOnSuccessListener(aVoid2 -> {
-//                                        // 받는 쪽에도 저장 성공하면 어댑터 갱신
-//                                    });
-//                        });
-
 
                 // 입력값 초기화
                 binding.messageEdit.setText("");
             }
         });
 
-        // 메시지 가져오기
         mDbRef.child("chats").child(senderRoom).child("messages")
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         messageList.clear();
 
-                        for (DataSnapshot postSnapshat : snapshot.getChildren()) {
-                            Message message = postSnapshat.getValue(Message.class);
+                        for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+                            Message message = postSnapshot.getValue(Message.class);
                             messageList.add(message);
                         }
                         messageAdapter.notifyDataSetChanged();
@@ -199,92 +154,103 @@ public class ChatRoomFragment extends Fragment {
                         System.out.println("Error: " + error.getMessage());
                     }
                 });
+
         inviteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String invitationMessage = "상대방이 당신을 카풀에 초대했습니다. 수락 하시겠습니까?";
-
-                // 초대 메시지를 상대방에게 보내기
-                sendInvitationMessageToReceiver(invitationMessage);
+                showDatePickerDialog();
             }
         });
 
         return view;
     }
 
-    private void sendInvitationMessageToReceiver(String invitationMessage) {
-        String senderUid = mAuth.getCurrentUser().getUid();
+    private void showDatePickerDialog() {
+        CalendarConstraints.Builder constraintsBuilder = new CalendarConstraints.Builder();
+        constraintsBuilder.setValidator(DateValidatorPointForward.now());
 
-        // 초대 메시지를 생성한 시간을 기록합니다.
-        long now = System.currentTimeMillis();
-        Date date = new Date(now);
-        SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm");
-        String getTime = dateFormat.format(date);
+        MaterialDatePicker<Long> datePicker = MaterialDatePicker.Builder.datePicker()
+                .setTitleText("날짜 선택")
+                .setCalendarConstraints(constraintsBuilder.build())
+                .build();
 
-        usersRef.child(senderUid).addListenerForSingleValueEvent(new ValueEventListener() {
+        datePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener<Long>() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String Nickname = snapshot.child("닉네임").getValue(String.class);
-                Message messageObject = new Message(invitationMessage, senderUid, getTime, Nickname);
+            public void onPositiveButtonClick(Long selection) {
+                String formattedDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date(selection));
+                String invitationMessage = sendInvitationMessage(formattedDate);
 
-                // 초대 메시지에 수락 버튼을 추가합니다.
-                messageObject.setAcceptButtonVisible(true);
-                // 초대 메시지에 거절 버튼을 추가합니다.
-                messageObject.setRejectButtonVisible(true);
+                // 채팅 메시지를 전송하는 코드 추가
+                String message = binding.messageEdit.getText().toString();
+                usersRef.child(senderUid).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        String Nickname = snapshot.child("닉네임").getValue(String.class);
+                        Message messageObject = new Message(message, senderUid, getCurrentTime(), Nickname);
+                        messageObject.setAcceptButtonVisible(false); // 수락 버튼 숨김
+                        messageObject.setRejectButtonVisible(false); // 거절 버튼 숨김
+                        messageList.add(messageObject);
+                        messageAdapter.notifyDataSetChanged();
 
-                messageList.add(messageObject);
-                messageAdapter.notifyDataSetChanged();
+                        // 데이터 저장 (Firebase Realtime Database에 채팅 메시지 저장)
+                        mDbRef.child("chats").child(senderRoom).child("messages").push()
+                                .setValue(messageObject)
+                                .addOnSuccessListener(aVoid -> {
+                                    mDbRef.child("chats").child(receiverRoom).child("messages").push()
+                                            .setValue(messageObject)
+                                            .addOnSuccessListener(aVoid2 -> {
+                                                // 받는 쪽에도 저장 성공하면 어댑터 갱신
+                                                messageAdapter.notifyDataSetChanged();
+                                            });
+                                });
+                    }
 
-                // 데이터 저장 (Firebase Realtime Database에 초대 메시지 저장)
-                mDbRef.child("chats").child(senderRoom).child("messages").push()
-                        .setValue(messageObject)
-                        .addOnSuccessListener(aVoid -> {
-                            // 저장 성공하면
-                            mDbRef.child("chats").child(receiverRoom).child("messages").push()
-                                    .setValue(messageObject)
-                                    .addOnSuccessListener(aVoid2 -> {
-                                        // 받는 쪽에도 저장 성공하면 어댑터 갱신
-                                    });
-                        });
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        // 오류 처리
+                    }
+                });
 
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                // 오류 처리
+                // 입력값 초기화
+                binding.messageEdit.setText("");
             }
         });
+
+        datePicker.show(getChildFragmentManager(), "DATE_PICKER_TAG");
     }
 
-    private String handleSelectedDate(long selectedDateMillis) {
-        // 여기에서 선택한 날짜를 처리하거나 필요한 데이터로 변환합니다.
-        Date selectedDate = new Date(selectedDateMillis);
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd");
-        String formattedDate = dateFormat.format(selectedDate);
-        // formattedDate를 사용하여 선택한 날짜에 대한 작업을 수행합니다.
+    private String sendInvitationMessage(String selectedDate) {
+        String invitationMessage = "카풀에 초대합니다! 날짜: " + selectedDate;
 
-        String S = sendInvitationMessage(formattedDate);
+        Message messageObject = new Message(invitationMessage, mAuth.getCurrentUser().getUid(), getCurrentTime(), me);
+        messageObject.setAcceptButtonVisible(true);
+        messageObject.setRejectButtonVisible(true); // 거절 버튼 표시
+        messageList.add(messageObject);
+        messageAdapter.notifyDataSetChanged();
 
-        return S;
-    }
-
-
-    private String sendInvitationMessage(String selectedDateMillis) {
-        // 여기에서 초대 메시지를 생성하고 상대방에게 보내는 작업을 수행합니다.
-        // selectedDateMillis를 사용하여 초대 메시지에 선택한 날짜 정보를 포함시킵니다.
-
-        String text = "[수락하기]";
-
-        // 예를 들어, 초대 메시지 생성
-        String invitationMessage = "카풀에 초대합니다! 날짜: " + selectedDateMillis;
-
-        Log.d(TAG,invitationMessage);
+        mDbRef.child("chats").child(senderRoom).child("messages").push()
+                .setValue(messageObject)
+                .addOnSuccessListener(aVoid -> {
+                    mDbRef.child("chats").child(receiverRoom).child("messages").push()
+                            .setValue(messageObject)
+                            .addOnSuccessListener(aVoid2 -> {
+                                // 받는 쪽에도 저장 성공하면 어댑터 갱신
+                                messageAdapter.notifyDataSetChanged();
+                            });
+                });
 
         return invitationMessage;
+    }
 
+    @Override
+    public void onAcceptButtonClick() {
+        // 수락 버튼 클릭 시 수행할 동작을 여기에 추가
+        // 예를 들어, 다이얼로그를 표시하거나 다른 작업을 수행할 수 있습니다.
+    }
 
-
-        // Firebase Realtime Database에 메시지를 저장하고 상대방에게도 보냅니다.
-        // 코드는 이전 답변에서 이미 제공된 내용을 활용할 수 있습니다.
+    // 현재 시간을 문자열로 반환하는 메서드
+    private String getCurrentTime() {
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+        return sdf.format(new Date());
     }
 }
