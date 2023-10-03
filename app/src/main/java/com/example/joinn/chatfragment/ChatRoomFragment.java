@@ -42,6 +42,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 
@@ -157,25 +158,7 @@ public class ChatRoomFragment extends Fragment {
 
                     }
                 });
-//                Message messageObject = new Message(message, senderUid, getTime, me);
-//                messageList.add(messageObject);
-//                messageAdapter.notifyDataSetChanged();
-//
-//                // 데이터 저장
-//                // 데이터 저장
-//                mDbRef.child("chats").child(senderRoom).child("messages").push()
-//                        .setValue(messageObject)
-//                        .addOnSuccessListener(aVoid -> {
-//                            // 저장 성공하면
-//                            mDbRef.child("chats").child(receiverRoom).child("messages").push()
-//                                    .setValue(messageObject)
-//                                    .addOnSuccessListener(aVoid2 -> {
-//                                        // 받는 쪽에도 저장 성공하면 어댑터 갱신
-//                                    });
-//                        });
 
-
-                // 입력값 초기화
                 binding.messageEdit.setText("");
             }
         });
@@ -199,18 +182,50 @@ public class ChatRoomFragment extends Fragment {
                         System.out.println("Error: " + error.getMessage());
                     }
                 });
+
         inviteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String invitationMessage = "상대방이 당신을 카풀에 초대했습니다. 수락 하시겠습니까?";
-
-                // 초대 메시지를 상대방에게 보내기
-                sendInvitationMessageToReceiver(invitationMessage);
+                showDateSelectionDialog();
             }
         });
 
+
         return view;
     }
+
+    private void showDateSelectionDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        CalendarView calendarView = new CalendarView(getContext());
+
+        // 1. 선택된 날짜를 저장하기 위한 변수를 추가
+        final Date[] selectedDateHolder = new Date[1];
+
+        // 2. 날짜 변경 리스너 설정
+        calendarView.setOnDateChangeListener((view, year, month, dayOfMonth) -> {
+            selectedDateHolder[0] = new GregorianCalendar(year, month, dayOfMonth).getTime();
+        });
+
+
+        builder.setView(calendarView);
+        builder.setTitle("날짜 선택하기");
+        builder.setNegativeButton("취소", null);
+        builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                if (selectedDateHolder[0] != null) {
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd");
+                    String formattedDate = dateFormat.format(selectedDateHolder[0]);
+
+                    String invitationMessage = formattedDate + " 카풀에 초대합니다.";
+                    sendInvitationMessageToReceiver(invitationMessage);
+                }
+            }
+        });
+
+        builder.create().show();
+    }
+
 
     private void sendInvitationMessageToReceiver(String invitationMessage) {
         String senderUid = mAuth.getCurrentUser().getUid();
@@ -229,9 +244,6 @@ public class ChatRoomFragment extends Fragment {
 
                 // 초대 메시지에 수락 버튼을 추가합니다.
                 messageObject.setAcceptButtonVisible(true);
-                // 초대 메시지에 거절 버튼을 추가합니다.
-                messageObject.setRejectButtonVisible(true);
-
                 messageList.add(messageObject);
                 messageAdapter.notifyDataSetChanged();
 
@@ -256,35 +268,4 @@ public class ChatRoomFragment extends Fragment {
         });
     }
 
-    private String handleSelectedDate(long selectedDateMillis) {
-        // 여기에서 선택한 날짜를 처리하거나 필요한 데이터로 변환합니다.
-        Date selectedDate = new Date(selectedDateMillis);
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd");
-        String formattedDate = dateFormat.format(selectedDate);
-        // formattedDate를 사용하여 선택한 날짜에 대한 작업을 수행합니다.
-
-        String S = sendInvitationMessage(formattedDate);
-
-        return S;
-    }
-
-
-    private String sendInvitationMessage(String selectedDateMillis) {
-        // 여기에서 초대 메시지를 생성하고 상대방에게 보내는 작업을 수행합니다.
-        // selectedDateMillis를 사용하여 초대 메시지에 선택한 날짜 정보를 포함시킵니다.
-
-        String text = "[수락하기]";
-
-        // 예를 들어, 초대 메시지 생성
-        String invitationMessage = "카풀에 초대합니다! 날짜: " + selectedDateMillis;
-
-        Log.d(TAG,invitationMessage);
-
-        return invitationMessage;
-
-
-
-        // Firebase Realtime Database에 메시지를 저장하고 상대방에게도 보냅니다.
-        // 코드는 이전 답변에서 이미 제공된 내용을 활용할 수 있습니다.
-    }
 }

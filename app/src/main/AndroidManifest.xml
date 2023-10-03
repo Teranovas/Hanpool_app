@@ -34,6 +34,9 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDoZiB_HmXnhyP1fDfhHY2e6J8frs9Ue2I" />
 
+        <meta-data android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
         <activity
             android:name=".splash.mainSplashActivity"
             android:exported="true">
