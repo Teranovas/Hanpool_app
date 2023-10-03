@@ -1,6 +1,9 @@
 package com.example.joinn.mypagefragment;
 
+import static androidx.fragment.app.FragmentManager.TAG;
+
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,9 +25,11 @@ public class CalendarAdapter extends  RecyclerView.Adapter<CalendarAdapter.Calen
     ArrayList<Date> dayList;
 
 
-    public CalendarAdapter(ArrayList<Date> dayList){
-        this.dayList = dayList;
+    ArrayList<String> carpoolDates;
 
+    public CalendarAdapter(ArrayList<Date> dayList, ArrayList<String> carpoolDates){
+        this.dayList = dayList;
+        this.carpoolDates = carpoolDates;
     }
 
     @NonNull
@@ -84,6 +89,14 @@ public class CalendarAdapter extends  RecyclerView.Adapter<CalendarAdapter.Calen
 
             }
         });
+
+        String date = (displayMonth < 10 ? "0" + displayMonth : displayMonth) + "-" + (displayDay < 10 ? "0" + displayDay : displayDay);
+
+        if(carpoolDates.contains(date)) {
+            // 카풀 계획이 있는 날짜는 배경색을 변경하거나 아이콘을 추가하는 등의 처리를 합니다.
+            holder.parentView.setBackgroundColor(Color.parseColor("#FFD700")); // 예: 금색으로 변경
+        }
+
 
 
 

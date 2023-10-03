@@ -2,6 +2,7 @@ package com.example.joinn.mypagefragment;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,6 +17,12 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.joinn.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -30,6 +37,7 @@ public class DateFragment extends Fragment{
 
     RecyclerView recyclerView;
 
+    ArrayList<String> carpoolDates;
 
 
     @Override
@@ -56,8 +64,30 @@ public class DateFragment extends Fragment{
 
         CalendarUtil.selectedDate = Calendar.getInstance();
 
+        carpoolDates = new ArrayList<>();
 
-        setMonthView();
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference carpoolRef = database.getReference("carpoolPlans").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+
+        carpoolRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                carpoolDates.clear(); // 기존 데이터를 제거
+                for (DataSnapshot dateSnapshot : dataSnapshot.getChildren()) {
+                    String date = dateSnapshot.getValue(String.class);
+                    carpoolDates.add(date);
+                }
+                // 데이터가 변경되면 달력 뷰를 갱신해야 할 수도 있습니다.
+                setMonthView();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // 에러 처리
+            }
+        });
+
 
         prevBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,7 +123,8 @@ public class DateFragment extends Fragment{
 
         ArrayList<Date> dayList = daysInMonthArray();
 
-        CalendarAdapter adapter = new CalendarAdapter(dayList);
+
+        CalendarAdapter adapter = new CalendarAdapter(dayList, carpoolDates);
 
         RecyclerView.LayoutManager manager = new GridLayoutManager(getContext().getApplicationContext(),7);
 
@@ -104,6 +135,8 @@ public class DateFragment extends Fragment{
 
     private ArrayList<Date> daysInMonthArray(){
         ArrayList<Date> dayList = new ArrayList<>();
+
+
 
         Calendar monthCalendar = (Calendar) CalendarUtil.selectedDate.clone();
 

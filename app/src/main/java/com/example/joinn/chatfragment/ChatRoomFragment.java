@@ -70,6 +70,7 @@ public class ChatRoomFragment extends Fragment {
     private MessageAdapter messageAdapter;
 
     private Button inviteBtn;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,7 +86,8 @@ public class ChatRoomFragment extends Fragment {
         View view = binding.getRoot();
 
         messageList = new ArrayList<>();
-        messageAdapter = new MessageAdapter(requireContext(), messageList);
+        messageAdapter = new MessageAdapter(requireContext(), messageList, onCarpoolDateAcceptedListener);
+
 
         binding.chatRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         binding.chatRecyclerView.setAdapter(messageAdapter);
@@ -267,5 +269,23 @@ public class ChatRoomFragment extends Fragment {
             }
         });
     }
+
+    private void saveCarpoolPlan(String date) {
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference carpoolRef = FirebaseDatabase.getInstance().getReference("carpoolPlans").child(uid);
+
+        carpoolRef.push().setValue(date);
+    }
+
+    public interface OnCarpoolDateAcceptedListener {
+        void onDateAccepted(String date);
+    }
+
+    private OnCarpoolDateAcceptedListener onCarpoolDateAcceptedListener = new OnCarpoolDateAcceptedListener() {
+        @Override
+        public void onDateAccepted(String date) {
+            saveCarpoolPlan(date);
+        }
+    };
 
 }

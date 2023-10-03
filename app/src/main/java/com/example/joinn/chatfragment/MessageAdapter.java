@@ -24,9 +24,13 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private static final int RECEIVE_TYPE = 1; //받는 타입
     private static final int SEND_TYPE = 2; //보내는 타입
 
-    public MessageAdapter(Context context, ArrayList<Message> messageList) {
+    private ChatRoomFragment.OnCarpoolDateAcceptedListener onCarpoolDateAcceptedListener;
+
+    public MessageAdapter(Context context, ArrayList<Message> messageList,
+                          ChatRoomFragment.OnCarpoolDateAcceptedListener listener) {
         this.context = context;
         this.messageList = messageList;
+        this.onCarpoolDateAcceptedListener = listener;
     }
 
     @Override
@@ -115,6 +119,16 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             sendName = itemView.findViewById(R.id.senderName);
             acceptButton = itemView.findViewById(R.id.accept_button_send);
             rejectButton = itemView.findViewById(R.id.reject_button_send);
+
+            acceptButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String carpoolDate = extractCarpoolDateFromMessage(sendMessage.getText().toString());
+                    if (carpoolDate != null) {
+                        onCarpoolDateAcceptedListener.onDateAccepted(carpoolDate);
+                    }
+                }
+            });
         }
     }
 
@@ -133,7 +147,24 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             receiveName = itemView.findViewById(R.id.receiverName);
             acceptButton = itemView.findViewById(R.id.accept_button);
             rejectButton = itemView.findViewById(R.id.reject_button);
+
+            acceptButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String carpoolDate = extractCarpoolDateFromMessage(receiveMessage.getText().toString());
+                    if (carpoolDate != null) {
+                        onCarpoolDateAcceptedListener.onDateAccepted(carpoolDate);
+                    }
+                }
+            });
         }
+    }
+
+    private String extractCarpoolDateFromMessage(String message) {
+        if (message.contains(" 카풀에 초대합니다.")) {
+            return message.split(" ")[0];
+        }
+        return null;
     }
 }
 
