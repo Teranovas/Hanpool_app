@@ -41,6 +41,12 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void signUp(final String email, String password) {
+
+        if (!isValidEmail(email)) {
+            Toast.makeText(LoginActivity.this, "올바른 이메일 형식이 아닙니다.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -54,6 +60,14 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+    private boolean isValidEmail(String email) {
+        // 이메일을 검증하기 위한 정규 표현식
+        String emailPattern = "[a-zA-Z0-9._%+-]+@hs\\.ac\\.kr";
+
+        // 이메일이 정규 표현식과 일치하는지 확인
+        return email.matches(emailPattern);
     }
 
     private void sendVerificationEmail(final String email) {
@@ -73,6 +87,7 @@ public class LoginActivity extends AppCompatActivity {
 
                             Button verifyBtn = findViewById(R.id.verifyBtn);
                             verifyBtn.setVisibility(View.VISIBLE);
+                            verifyEdit.setText(verificationCode);
 
                             // verifyBtn 클릭 리스너 추가
                             verifyBtn.setOnClickListener(new View.OnClickListener() {

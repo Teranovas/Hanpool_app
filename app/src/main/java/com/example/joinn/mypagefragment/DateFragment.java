@@ -1,126 +1,72 @@
 package com.example.joinn.mypagefragment;
-
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.CalendarView;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.TextView;
-
+import android.widget.Toast;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 import com.example.joinn.R;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 
-public class DateFragment extends Fragment{
+public class DateFragment extends Fragment {
 
+    private CalendarView calendarView;
+    private RecyclerView recyclerView;
+    private CustomAdapter customAdapter;
+    private DateSelectionListener dateSelectionListener;
 
-    private TextView monthYearText;
-
-    RecyclerView recyclerView;
-
-
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-
-
+    public DateFragment() {
+        // Required empty public constructor
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_date, container, false);
+        View view = inflater.inflate(R.layout.fragment_date, container, false);
 
-        monthYearText = view.findViewById(R.id.monthYearText);
-        ImageButton prevBtn = view.findViewById(R.id.pre_btn);
-        ImageButton nextBtn = view.findViewById(R.id.next_btn);
-
-
-
+        calendarView = view.findViewById(R.id.calendarView);
         recyclerView = view.findViewById(R.id.recyclerView);
 
-        CalendarUtil.selectedDate = Calendar.getInstance();
+        // RecyclerView 설정
+        customAdapter = new CustomAdapter();
+        recyclerView.setAdapter(customAdapter);
 
-
-        setMonthView();
-
-        prevBtn.setOnClickListener(new View.OnClickListener() {
+        // CalendarView에서 날짜를 선택할 때 호출되는 리스너 설정
+        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
-            public void onClick(View view) {
-                CalendarUtil.selectedDate.add(Calendar.MONTH, -1);
-                setMonthView();
-            }
-        });
+            public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
+                // 선택한 날짜를 문자열로 변환
+                String selectedDate = String.format("%04d-%02d-%02d", year, month + 1, dayOfMonth);
 
-        nextBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                CalendarUtil.selectedDate.add(Calendar.MONTH, 1);
-                setMonthView();
+                // 동그라미를 그리는 함수 호출
+                drawCircleOnCalendar(selectedDate);
             }
         });
 
         return view;
     }
 
-    private String monthYearFromDate(Calendar calendar){
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH)+1;
-
-        String monthYear = month + "월 " + year;
-
-        return monthYear;
-    }
-
-
-    private void setMonthView(){
-        monthYearText.setText(monthYearFromDate(CalendarUtil.selectedDate));
-
-        ArrayList<Date> dayList = daysInMonthArray();
-
-        CalendarAdapter adapter = new CalendarAdapter(dayList);
-
-        RecyclerView.LayoutManager manager = new GridLayoutManager(getContext().getApplicationContext(),7);
-
-        recyclerView.setLayoutManager(manager);
-
-        recyclerView.setAdapter(adapter);
-    }
-
-    private ArrayList<Date> daysInMonthArray(){
-        ArrayList<Date> dayList = new ArrayList<>();
-
-        Calendar monthCalendar = (Calendar) CalendarUtil.selectedDate.clone();
-
-        monthCalendar.set(Calendar.DAY_OF_MONTH, 1);
-
-        int firstDayOfMonth = monthCalendar.get(Calendar.DAY_OF_WEEK) - 1;
-
-        monthCalendar.add(Calendar.DAY_OF_MONTH, -firstDayOfMonth);
-
-        while (dayList.size() < 42){
-            dayList.add(monthCalendar.getTime());
-            monthCalendar.add(Calendar.DAY_OF_MONTH, 1);
+    // 선택한 날짜에 동그라미를 그리는 함수
+    public void drawCircleOnCalendar(String selectedDate) {
+        // RecyclerView 어댑터에 선택한 날짜를 전달하여 동그라미를 그릴 수 있도록 수정
+        if (customAdapter != null) {
+            customAdapter.setSelectedDate(selectedDate);
         }
 
-
-        return  dayList;
+        // 선택한 날짜를 상대방에게 전달
+        if (dateSelectionListener != null) {
+            dateSelectionListener.onDateSelected(selectedDate);
+        }
     }
 
 
+    public void setDateSelectionListener(DateSelectionListener listener) {
+        this.dateSelectionListener = listener;
+    }
+
+    public interface DateSelectionListener {
+        void onDateSelected(String selectedDate);
+    }
 }

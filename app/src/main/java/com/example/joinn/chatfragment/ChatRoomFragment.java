@@ -1,6 +1,4 @@
 package com.example.joinn.chatfragment;
-
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,29 +6,32 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
 import com.example.joinn.R;
+import com.example.joinn.chatfragment.Message;
+import com.example.joinn.chatfragment.MessageAdapter;
 import com.example.joinn.databinding.FragmentChatRoomBinding;
-import com.google.android.material.datepicker.CalendarConstraints;
-import com.google.android.material.datepicker.DateValidatorPointForward;
-import com.google.android.material.datepicker.MaterialDatePicker;
-import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
+import com.example.joinn.mypagefragment.DateFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-public class ChatRoomFragment extends Fragment implements MessageAdapter.OnAcceptButtonClickListener {
+public class ChatRoomFragment extends Fragment implements MessageAdapter.OnAcceptButtonClickListener, DateFragment.DateSelectionListener {
 
     private FragmentChatRoomBinding binding;
     private String me = "나";
@@ -50,6 +51,7 @@ public class ChatRoomFragment extends Fragment implements MessageAdapter.OnAccep
     private Calendar calendar = Calendar.getInstance();
     private long selectedDateMillis = calendar.getTimeInMillis();
     private Date selectedDate = new Date(selectedDateMillis);
+    private DateFragment dateFragment;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -74,7 +76,7 @@ public class ChatRoomFragment extends Fragment implements MessageAdapter.OnAccep
 
         mAuth = FirebaseAuth.getInstance();
         mDbRef = FirebaseDatabase.getInstance().getReference();
-        senderUid = mAuth.getCurrentUser().getUid(); // senderUid 변수에 현재 사용자의 UID 할당
+        senderUid = mAuth.getCurrentUser().getUid();
         senderRoom = receiverUid + senderUid;
         receiverRoom = senderUid + receiverUid;
 
@@ -100,26 +102,23 @@ public class ChatRoomFragment extends Fragment implements MessageAdapter.OnAccep
         binding.sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // 채팅 메시지를 전송하는 코드 추가
                 String message = binding.messageEdit.getText().toString();
                 usersRef.child(senderUid).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         String Nickname = snapshot.child("닉네임").getValue(String.class);
                         Message messageObject = new Message(message, senderUid, getCurrentTime(), Nickname);
-                        messageObject.setAcceptButtonVisible(false); // 수락 버튼 숨김
-                        messageObject.setRejectButtonVisible(false); // 거절 버튼 숨김
+                        messageObject.setAcceptButtonVisible(false);
+                        messageObject.setRejectButtonVisible(false);
                         messageList.add(messageObject);
                         messageAdapter.notifyDataSetChanged();
 
-                        // 데이터 저장 (Firebase Realtime Database에 채팅 메시지 저장)
                         mDbRef.child("chats").child(senderRoom).child("messages").push()
                                 .setValue(messageObject)
                                 .addOnSuccessListener(aVoid -> {
                                     mDbRef.child("chats").child(receiverRoom).child("messages").push()
                                             .setValue(messageObject)
                                             .addOnSuccessListener(aVoid2 -> {
-                                                // 받는 쪽에도 저장 성공하면 어댑터 갱신
                                                 messageAdapter.notifyDataSetChanged();
                                             });
                                 });
@@ -127,11 +126,9 @@ public class ChatRoomFragment extends Fragment implements MessageAdapter.OnAccep
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-                        // 오류 처리
                     }
                 });
 
-                // 입력값 초기화
                 binding.messageEdit.setText("");
             }
         });
@@ -158,97 +155,48 @@ public class ChatRoomFragment extends Fragment implements MessageAdapter.OnAccep
         inviteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDatePickerDialog();
+                // Show DateFragment when the invite button is clicked
+                if (dateFragment == null) {
+                    dateFragment = new DateFragment();
+                }
+
+                dateFragment.setDateSelectionListener(ChatRoomFragment.this);
+
+                getChildFragmentManager().beginTransaction()
+                        .replace(R.id.dateFragmentContainer, dateFragment)
+                        .commit();
             }
         });
 
         return view;
     }
 
-    private void showDatePickerDialog() {
-        CalendarConstraints.Builder constraintsBuilder = new CalendarConstraints.Builder();
-        constraintsBuilder.setValidator(DateValidatorPointForward.now());
+   public void onAcceptButtonClick() {
+       if (selectedDate != null) {
+           // 선택된 날짜를 문자열로 변환
+           SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+           String selectedDateString = sdf.format(selectedDate);
 
-        MaterialDatePicker<Long> datePicker = MaterialDatePicker.Builder.datePicker()
-                .setTitleText("날짜 선택")
-                .setCalendarConstraints(constraintsBuilder.build())
-                .build();
+           // DateFragment로 선택된 날짜를 전달하기 위한 Bundle을 생성합니다.
+           Bundle bundle = new Bundle();
+           bundle.putString("selectedDate", selectedDateString);
 
-        datePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener<Long>() {
-            @Override
-            public void onPositiveButtonClick(Long selection) {
-                String formattedDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date(selection));
-                String invitationMessage = sendInvitationMessage(formattedDate);
+           Toast.makeText(getActivity(), "카풀 일정이 등록되었습니다.", Toast.LENGTH_SHORT).show();
 
-                // 채팅 메시지를 전송하는 코드 추가
-                String message = binding.messageEdit.getText().toString();
-                usersRef.child(senderUid).addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        String Nickname = snapshot.child("닉네임").getValue(String.class);
-                        Message messageObject = new Message(message, senderUid, getCurrentTime(), Nickname);
-                        messageObject.setAcceptButtonVisible(false); // 수락 버튼 숨김
-                        messageObject.setRejectButtonVisible(false); // 거절 버튼 숨김
-                        messageList.add(messageObject);
-                        messageAdapter.notifyDataSetChanged();
-
-                        // 데이터 저장 (Firebase Realtime Database에 채팅 메시지 저장)
-                        mDbRef.child("chats").child(senderRoom).child("messages").push()
-                                .setValue(messageObject)
-                                .addOnSuccessListener(aVoid -> {
-                                    mDbRef.child("chats").child(receiverRoom).child("messages").push()
-                                            .setValue(messageObject)
-                                            .addOnSuccessListener(aVoid2 -> {
-                                                // 받는 쪽에도 저장 성공하면 어댑터 갱신
-                                                messageAdapter.notifyDataSetChanged();
-                                            });
-                                });
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                        // 오류 처리
-                    }
-                });
-
-                // 입력값 초기화
-                binding.messageEdit.setText("");
-            }
-        });
-
-        datePicker.show(getChildFragmentManager(), "DATE_PICKER_TAG");
-    }
-
-    private String sendInvitationMessage(String selectedDate) {
-        String invitationMessage = "카풀에 초대합니다! 날짜: " + selectedDate;
-
-        Message messageObject = new Message(invitationMessage, mAuth.getCurrentUser().getUid(), getCurrentTime(), me);
-        messageObject.setAcceptButtonVisible(true);
-        messageObject.setRejectButtonVisible(true); // 거절 버튼 표시
-        messageList.add(messageObject);
-        messageAdapter.notifyDataSetChanged();
-
-        mDbRef.child("chats").child(senderRoom).child("messages").push()
-                .setValue(messageObject)
-                .addOnSuccessListener(aVoid -> {
-                    mDbRef.child("chats").child(receiverRoom).child("messages").push()
-                            .setValue(messageObject)
-                            .addOnSuccessListener(aVoid2 -> {
-                                // 받는 쪽에도 저장 성공하면 어댑터 갱신
-                                messageAdapter.notifyDataSetChanged();
-                            });
-                });
-
-        return invitationMessage;
-    }
+           // DateFragment를 생성하고 선택된 날짜를 전달합니다.
+           DateFragment dateFragment = new DateFragment();
+           dateFragment.setArguments(bundle);
+       } else {
+           Toast.makeText(getActivity(), "날짜를 먼저 선택하세요.", Toast.LENGTH_SHORT).show();
+       }
+   }
 
     @Override
-    public void onAcceptButtonClick() {
-        // 수락 버튼 클릭 시 수행할 동작을 여기에 추가
-        // 예를 들어, 다이얼로그를 표시하거나 다른 작업을 수행할 수 있습니다.
+    public void onDateSelected(String selectedDate) {
+        // Handle the selected date from DateFragment
+        // This method is called when a date is selected in DateFragment
     }
 
-    // 현재 시간을 문자열로 반환하는 메서드
     private String getCurrentTime() {
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
         return sdf.format(new Date());
