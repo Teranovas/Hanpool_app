@@ -139,7 +139,7 @@ public class DateFragment extends Fragment{
             public void onDateClicked(String date, boolean hasCarpool) {
                 TextView selectedDateText = getView().findViewById(R.id.selectedDateText);
                 if (hasCarpool) {
-                    selectedDateText.setText(date + " - 카풀 있음");
+                    selectedDateText.setText(date + " - 카풀이 존재");
                 } else {
                     selectedDateText.setText(date + " - 카풀 없음");
                 }
