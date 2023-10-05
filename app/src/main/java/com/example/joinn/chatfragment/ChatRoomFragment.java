@@ -273,7 +273,10 @@ public class ChatRoomFragment extends Fragment {
     private void saveCarpoolPlan(String date) {
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         DatabaseReference carpoolRef = FirebaseDatabase.getInstance().getReference("carpoolPlans").child(uid);
-
+        carpoolRef.push().setValue(date);
+        DatabaseReference receiverCarpoolRef = FirebaseDatabase.getInstance().getReference("carpoolPlans").child(receiverUid);
+        receiverCarpoolRef.push().setValue(date);
+        Log.d(TAG, "Receiver UID: " + receiverUid);
         carpoolRef.push().setValue(date);
     }
 
