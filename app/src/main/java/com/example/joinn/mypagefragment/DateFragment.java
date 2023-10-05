@@ -39,6 +39,8 @@ public class DateFragment extends Fragment{
 
     ArrayList<String> carpoolDates;
 
+    private TextView selectedDateText;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -58,7 +60,7 @@ public class DateFragment extends Fragment{
         ImageButton prevBtn = view.findViewById(R.id.pre_btn);
         ImageButton nextBtn = view.findViewById(R.id.next_btn);
 
-
+        selectedDateText = view.findViewById(R.id.selectedDateText);
 
         recyclerView = view.findViewById(R.id.recyclerView);
 
@@ -131,6 +133,19 @@ public class DateFragment extends Fragment{
         recyclerView.setLayoutManager(manager);
 
         recyclerView.setAdapter(adapter);
+
+        adapter.setOnDateClickListener(new CalendarAdapter.OnDateClickListener() {
+            @Override
+            public void onDateClicked(String date, boolean hasCarpool) {
+                TextView selectedDateText = getView().findViewById(R.id.selectedDateText);
+                if (hasCarpool) {
+                    selectedDateText.setText(date + " - 카풀 있음");
+                } else {
+                    selectedDateText.setText(date + " - 카풀 없음");
+                }
+                selectedDateText.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
     private ArrayList<Date> daysInMonthArray(){

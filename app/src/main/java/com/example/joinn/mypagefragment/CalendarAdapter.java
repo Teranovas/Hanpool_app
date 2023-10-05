@@ -25,6 +25,7 @@ public class CalendarAdapter extends  RecyclerView.Adapter<CalendarAdapter.Calen
     ArrayList<Date> dayList;
 
 
+
     ArrayList<String> carpoolDates;
 
     public CalendarAdapter(ArrayList<Date> dayList, ArrayList<String> carpoolDates){
@@ -82,20 +83,24 @@ public class CalendarAdapter extends  RecyclerView.Adapter<CalendarAdapter.Calen
         else if( position == 0 || position % 7 == 0){
             holder.dayText.setTextColor(Color.RED);
         }
-
+        String date = (displayMonth < 10 ? "0" + displayMonth : displayMonth) + "-" + (displayDay < 10 ? "0" + displayDay : displayDay);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                if (mListener != null) {
+                    mListener.onDateClicked(date, carpoolDates.contains(date));
+                }
             }
         });
 
-        String date = (displayMonth < 10 ? "0" + displayMonth : displayMonth) + "-" + (displayDay < 10 ? "0" + displayDay : displayDay);
 
         if(carpoolDates.contains(date)) {
             // 카풀 계획이 있는 날짜는 배경색을 변경하거나 아이콘을 추가하는 등의 처리를 합니다.
             holder.parentView.setBackgroundColor(Color.parseColor("#FFD700")); // 예: 금색으로 변경
+
         }
+
+
 
 
 
@@ -111,6 +116,7 @@ public class CalendarAdapter extends  RecyclerView.Adapter<CalendarAdapter.Calen
 
         TextView dayText;
 
+
         View parentView;
 
         public CalendarviewHolder(@NonNull View itemView) {
@@ -119,6 +125,17 @@ public class CalendarAdapter extends  RecyclerView.Adapter<CalendarAdapter.Calen
             dayText = itemView.findViewById(R.id.dayText);
 
             parentView = itemView.findViewById(R.id.parentView);
+
         }
+    }
+
+    public interface OnDateClickListener {
+        void onDateClicked(String date, boolean hasCarpool);
+    }
+
+    private OnDateClickListener mListener;
+
+    public void setOnDateClickListener(OnDateClickListener listener) {
+        this.mListener = listener;
     }
 }
