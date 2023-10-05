@@ -278,6 +278,35 @@ public class ChatRoomFragment extends Fragment {
         receiverCarpoolRef.push().setValue(date);
         Log.d(TAG, "Receiver UID: " + receiverUid);
         carpoolRef.push().setValue(date);
+
+
+        DatabaseReference carpoolReview = FirebaseDatabase.getInstance().getReference("carpoolReview").child(uid);
+
+        long now = System.currentTimeMillis();
+
+        usersRef.child(receiverUid).addListenerForSingleValueEvent(new ValueEventListener(){
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                String Nickname = snapshot.child("닉네임").getValue(String.class);
+                String imageUrl = snapshot.child("photoUrl").getValue(String.class);
+
+                carpoolReview.child("닉네임").setValue(Nickname);
+                carpoolReview.child("시간").setValue(now);
+                carpoolReview.child("photoUrl").setValue(imageUrl);
+
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
     }
 
     public interface OnCarpoolDateAcceptedListener {
