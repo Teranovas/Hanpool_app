@@ -292,9 +292,9 @@ public class ChatRoomFragment extends Fragment {
                 String Nickname = snapshot.child("닉네임").getValue(String.class);
                 String imageUrl = snapshot.child("photoUrl").getValue(String.class);
 
-                carpoolReview.child("닉네임").setValue(Nickname);
-                carpoolReview.child("시간").setValue(now);
-                carpoolReview.child("photoUrl").setValue(imageUrl);
+                carpoolReview.child(receiverUid).child("nickname").setValue(Nickname);
+                carpoolReview.child(receiverUid).child("date").setValue(now);
+                carpoolReview.child(receiverUid).child("photoUrl").setValue(imageUrl);
 
 
 

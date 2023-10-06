@@ -184,6 +184,16 @@ public class MyPageFragment extends Fragment {
                         break;
                     case 1:
                         // 카풀 내역 관련 동작
+                        Toast.makeText(getActivity(), "일정", Toast.LENGTH_LONG).show();
+
+
+                        FragmentTransaction transaction1 = getActivity().getSupportFragmentManager().beginTransaction();
+                        transaction1.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+                        Fragment newFragment1 = new ReviewFragment();
+
+                        transaction1.replace(R.id.container, newFragment1);
+                        transaction1.addToBackStack(null);
+                        transaction1.commit();
                         break;
                     case 2:
                         // 드라이버 등록 관련 동작

@@ -211,13 +211,13 @@ public class EditProfileFragment extends Fragment {
                                 }
                             });
 
-//                            uploadImageToFirebase();
-//
-//                            // MyPageFragment로 전환
-//                            FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-//                            transaction.replace(R.id.container, new MyPageFragment());
-//                            transaction.addToBackStack(null);
-//                            transaction.commit();
+                            uploadImageToFirebase();
+
+                            // MyPageFragment로 전환
+                            FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                            transaction.replace(R.id.container, new MyPageFragment());
+                            transaction.addToBackStack(null);
+                            transaction.commit();
                         }
                     }
 
