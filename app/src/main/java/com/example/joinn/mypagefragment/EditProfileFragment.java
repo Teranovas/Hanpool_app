@@ -226,6 +226,7 @@ public class EditProfileFragment extends Fragment {
                         // 에러 처리
                     }
                 });
+
             }
         });
 

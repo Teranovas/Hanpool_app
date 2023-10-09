@@ -162,6 +162,7 @@ public class ChatRoomFragment extends Fragment {
                 });
 
                 binding.messageEdit.setText("");
+
             }
         });
 
@@ -189,6 +190,7 @@ public class ChatRoomFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 showDateSelectionDialog();
+
             }
         });
 

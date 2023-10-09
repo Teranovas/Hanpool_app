@@ -5,6 +5,7 @@
     <string name="edit_profile_title">프로필 변경</string>
     <string name="title_activity_hello">HelloActivity</string>
     <string name="title_activity_login">LoginActivity</string>
+    <string name="base_url">https://maps.googleapis.com</string>
 
 
 </resources>

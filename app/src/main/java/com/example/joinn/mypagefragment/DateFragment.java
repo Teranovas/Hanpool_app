@@ -96,6 +96,7 @@ public class DateFragment extends Fragment{
             public void onClick(View view) {
                 CalendarUtil.selectedDate.add(Calendar.MONTH, -1);
                 setMonthView();
+
             }
         });
 
@@ -104,6 +105,7 @@ public class DateFragment extends Fragment{
             public void onClick(View view) {
                 CalendarUtil.selectedDate.add(Calendar.MONTH, 1);
                 setMonthView();
+
             }
         });
 

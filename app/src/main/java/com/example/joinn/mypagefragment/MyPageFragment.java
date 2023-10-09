@@ -254,6 +254,7 @@ public class MyPageFragment extends Fragment {
                 transaction.replace(R.id.container, newFragment);
                 transaction.addToBackStack(null);
                 transaction.commit();
+
             }
         });
 
@@ -338,6 +339,7 @@ public class MyPageFragment extends Fragment {
                                 itemClickListener.onItemClicked(position, items.get(position));
                             }
                         }
+
                     }
                 });
             }

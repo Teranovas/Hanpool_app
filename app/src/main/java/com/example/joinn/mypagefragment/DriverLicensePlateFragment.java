@@ -88,6 +88,7 @@ public class DriverLicensePlateFragment extends Fragment {
                     }
                 });
 
+
             }
         });
 
@@ -103,6 +104,7 @@ public class DriverLicensePlateFragment extends Fragment {
 
                 transaction.addToBackStack(null);
                 transaction.commit();
+
             }
         });
 

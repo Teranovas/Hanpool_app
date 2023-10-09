@@ -127,6 +127,7 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     if (carpoolDate != null) {
                         onCarpoolDateAcceptedListener.onDateAccepted(carpoolDate);
                     }
+
                 }
             });
         }
@@ -155,6 +156,7 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     if (carpoolDate != null) {
                         onCarpoolDateAcceptedListener.onDateAccepted(carpoolDate);
                     }
+
                 }
             });
         }

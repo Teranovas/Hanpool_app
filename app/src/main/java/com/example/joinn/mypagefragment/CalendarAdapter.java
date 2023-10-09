@@ -90,6 +90,7 @@ public class CalendarAdapter extends  RecyclerView.Adapter<CalendarAdapter.Calen
                 if (mListener != null) {
                     mListener.onDateClicked(date, carpoolDates.contains(date));
                 }
+
             }
         });
 

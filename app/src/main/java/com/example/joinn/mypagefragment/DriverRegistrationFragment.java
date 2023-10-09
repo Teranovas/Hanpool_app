@@ -93,6 +93,7 @@ public class DriverRegistrationFragment extends Fragment {
 
                 showImagePicker();
                 // 이미지 선택 처리
+
             }
         });
 
@@ -101,6 +102,7 @@ public class DriverRegistrationFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 uploadImageToFirebase();
+
             }
         });
 
@@ -117,6 +119,7 @@ public class DriverRegistrationFragment extends Fragment {
 
                 transaction.addToBackStack(null);
                 transaction.commit();
+
             }
         });
 

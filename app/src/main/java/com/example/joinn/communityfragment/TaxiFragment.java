@@ -85,6 +85,7 @@ public class TaxiFragment extends Fragment {
                     }
                 });
 
+
             }
         });
 

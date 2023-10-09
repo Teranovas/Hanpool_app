@@ -69,6 +69,7 @@ public class introSplashActivity extends AppCompatActivity {
                         showWithAnimation( startBtn );
                         break;
                 }
+
             }
         };
 
@@ -81,6 +82,7 @@ public class introSplashActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(introSplashActivity.this, matchingActivity.class);
                 startActivity(intent);
+
 
             }
         });

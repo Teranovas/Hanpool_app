@@ -63,6 +63,7 @@ public class ImageActivity extends AppCompatActivity {
             public void onClick(View v) {
                 showImagePicker();
                 // 이미지 선택 처리
+
             }
         });
 
@@ -80,6 +81,7 @@ public class ImageActivity extends AppCompatActivity {
                 Intent intent = new Intent(ImageActivity.this, introSplashActivity.class);
                 startActivity(intent);
                 finish();
+
             }
         });
     }

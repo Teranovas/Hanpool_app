@@ -131,6 +131,7 @@ public class CommunityFragment extends Fragment {
                 transaction.addToBackStack(null);
                 transaction.commit();
 
+
             }
         });
 
@@ -223,6 +224,7 @@ public class CommunityFragment extends Fragment {
 
                     }
                 });
+
 
             }
         });

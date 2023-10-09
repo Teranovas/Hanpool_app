@@ -77,6 +77,7 @@ public class StartRegisterFragment extends Fragment {
                 transaction.addToBackStack(null);
                 transaction.commit();
 
+
             }
         });
 

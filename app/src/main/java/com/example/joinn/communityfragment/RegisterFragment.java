@@ -92,6 +92,7 @@ public class RegisterFragment extends Fragment {
                     transaction.addToBackStack(null);
                     transaction.commit();
                 }
+
             }
         });
 
@@ -125,6 +126,7 @@ public class RegisterFragment extends Fragment {
                     transaction.addToBackStack(null);
                     transaction.commit();
                 }
+
             }
         });
 

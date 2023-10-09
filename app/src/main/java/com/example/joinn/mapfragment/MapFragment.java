@@ -65,6 +65,7 @@ public class MapFragment extends Fragment {
                 transaction.replace(R.id.container, newFragment);
                 transaction.addToBackStack(null);
                 transaction.commit();
+
             }
         });
 
@@ -78,7 +79,7 @@ public class MapFragment extends Fragment {
 
                 if (location.isEmpty()) {
                     // EditText is empty, show an error message or return
-                    return;
+
                 }
 
                 // Convert the location to latitude and longitude using Geocoder
@@ -92,7 +93,7 @@ public class MapFragment extends Fragment {
 
                 if (addressList == null || addressList.isEmpty()) {
                     // No address found, show an error message or return
-                    return;
+
                 }
 
                 // Get the latitude and longitude from the first address in the list
@@ -103,6 +104,7 @@ public class MapFragment extends Fragment {
                 // Move the camera to the location
                 MapPoint mapPoint = MapPoint.mapPointWithGeoCoord(latitude, longitude);
                 mapView.setMapCenterPoint(mapPoint, true);
+
             }
         });
 

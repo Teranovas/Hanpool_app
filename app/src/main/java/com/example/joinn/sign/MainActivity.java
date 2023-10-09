@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             }
                         });
+
             }
         });
         joinBtn.setOnClickListener(new View.OnClickListener() {
@@ -66,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.e("MainActivity", "joinBtn 클릭됨");
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(intent);
+
             }
         });
     }

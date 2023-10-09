@@ -90,6 +90,7 @@ public class NicknameActivity extends AppCompatActivity {
                         // 에러 처리
                     }
                 });
+
             }
         });
 

@@ -35,12 +35,13 @@ public class HomeFragment extends Fragment {
 //                        .commit();
                 //겹쳐지지 않고 새로운 화면으로 전환되는 코드
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                Fragment newFragment = new AddSearchFragment();
+                Fragment newFragment = new SearchFragment();
 
                 transaction.replace(R.id.container, newFragment);
 
                 transaction.addToBackStack(null);
                 transaction.commit();
+
             }
         });
 

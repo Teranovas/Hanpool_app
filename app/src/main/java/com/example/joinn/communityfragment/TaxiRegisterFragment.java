@@ -70,6 +70,7 @@ public class TaxiRegisterFragment extends Fragment {
                 transaction.addToBackStack(null);
                 transaction.commit();
 
+
             }
         });
 
@@ -92,6 +93,7 @@ public class TaxiRegisterFragment extends Fragment {
                 transaction.replace(R.id.container, newFragment);
                 transaction.addToBackStack(null);
                 transaction.commit();
+
 
             }
         });
@@ -150,6 +152,7 @@ public class TaxiRegisterFragment extends Fragment {
 
                     }
                 });
+
             }
         });
 

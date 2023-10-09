@@ -113,6 +113,7 @@ public class AfterFragment extends Fragment {
                 transaction.addToBackStack(null);
                 transaction.commit();
 
+
             }
         });
 
@@ -184,6 +185,7 @@ public class AfterFragment extends Fragment {
 
                     }
                 });
+
 
             }
         });

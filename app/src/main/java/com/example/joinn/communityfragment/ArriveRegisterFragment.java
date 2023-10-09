@@ -82,6 +82,7 @@ public class ArriveRegisterFragment extends Fragment {
                 transaction.addToBackStack(null);
                 transaction.commit();
 
+
             }
         });
 
@@ -139,6 +140,7 @@ public class ArriveRegisterFragment extends Fragment {
 
                     }
                 });
+
             }
         });
 

@@ -83,6 +83,7 @@ public class DriverCarImgFragment extends Fragment {
                 }  //  앱이 카메라 및 외부 저장소를 사용하기 위해 필요한 권한이 있는지 확인하고, 권한이 없는 경우 권한 요청을 수행
 
                 showImagePicker();
+
             }
         });
         carImg2.setOnClickListener(new View.OnClickListener() {
@@ -94,6 +95,7 @@ public class DriverCarImgFragment extends Fragment {
                 }  //  앱이 카메라 및 외부 저장소를 사용하기 위해 필요한 권한이 있는지 확인하고, 권한이 없는 경우 권한 요청을 수행
 
                 showImagePicker();
+
             }
         });
         /** 세번째 이미지 클릭시 */
@@ -106,6 +108,7 @@ public class DriverCarImgFragment extends Fragment {
                 }  //  앱이 카메라 및 외부 저장소를 사용하기 위해 필요한 권한이 있는지 확인하고, 권한이 없는 경우 권한 요청을 수행
 
                 showImagePicker();
+
             }
         });
         /** "사진넣기" 버튼을 클릭하면 firebase 로 이미지 전송 */
@@ -115,6 +118,7 @@ public class DriverCarImgFragment extends Fragment {
                 uploadImageToFirebase(carImg1);
                 uploadImageToFirebase(carImg2);
                 uploadImageToFirebase(carImg3);
+
             }
         });
         /** "완료" 버튼 클릭하면 MYPage로 이동 */
@@ -128,6 +132,7 @@ public class DriverCarImgFragment extends Fragment {
 
                 transaction.addToBackStack(null);
                 transaction.commit();
+
             }
         });
 

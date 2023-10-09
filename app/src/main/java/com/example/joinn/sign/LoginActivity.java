@@ -36,6 +36,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 signUp(emailText.getText().toString(), passwordText.getText().toString());
+
             }
         });
     }
@@ -101,6 +102,7 @@ public class LoginActivity extends AppCompatActivity {
                                     } else {
                                         Toast.makeText(LoginActivity.this, "인증 번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show();
                                     }
+
                                 }
                             });
                         } else {

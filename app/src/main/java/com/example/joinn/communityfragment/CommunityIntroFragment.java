@@ -51,6 +51,7 @@ public class CommunityIntroFragment extends Fragment {
                 transaction.replace(R.id.container, newFragment);
                 transaction.addToBackStack(null);
                 transaction.commit();
+
             }
         });
 
@@ -66,6 +67,7 @@ public class CommunityIntroFragment extends Fragment {
                 transaction.replace(R.id.container, newFragment);
                 transaction.addToBackStack(null);
                 transaction.commit();
+
             }
         });
 
