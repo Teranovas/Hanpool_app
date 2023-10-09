@@ -43,6 +43,7 @@ import com.directions.route.Routing;
 import com.directions.route.RoutingListener;
 //import com.example.joinn.Manifest;
 import com.example.joinn.R;
+import com.example.joinn.communityfragment.DetailFragment;
 import com.example.joinn.mapfragment.AddSearchFragment;
 import com.example.joinn.mapfragment.MapFragment;
 import com.google.android.gms.common.ConnectionResult;
@@ -134,100 +135,29 @@ public class SearchFragment extends Fragment{
                 String address1 = originEditText.getText().toString();
                 String address2 = destinationEditText.getText().toString();
 
+                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                RouteFragment routeFragment = new RouteFragment();
+                Bundle bundle = new Bundle();
+
+                bundle.putString("start", address1);
+                bundle.putString("arrive", address2);
+
+                routeFragment.setArguments(bundle);
+                transaction.replace(R.id.container, routeFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+
             }
         });
 
 
-//        LinearLayout linearLayoutTmap = rootView.findViewById(R.id.tmap);
-//        TMapView tMapView = new TMapView(getContext());
 
-//        linearLayoutTmap.addView(tMapView);
-//        tMapView.setSKTMapApiKey("DXAHGOo2dXantyv0rMg371Lj8Bm8WzV7bhXjJHkh");
-//
-//        tMapView.setOnMapReadyListener(new TMapView.OnMapReadyListener() {
-//            @Override
-//            public void onMapReady() {
-//                searchButton.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        String address1 = originEditText.getText().toString();
-//                        String address2 = destinationEditText.getText().toString();
-//
-//                        LatLng coordinatesStart = getLatLngFromAddress(address1);
-//                        LatLng coordinatesEnd = getLatLngFromAddress(address2);
-//
-//                        if (coordinatesStart != null && coordinatesEnd != null) {
-//                            TMapPoint startTMapPoint = new TMapPoint(coordinatesStart.latitude, coordinatesStart.longitude);
-//                            TMapPoint endTMapPoint = new TMapPoint(coordinatesEnd.latitude, coordinatesEnd.longitude);
-//
-//                            TMapData tmapdata = new TMapData();
-//
-//                            tmapdata.findPathData(startTMapPoint, endTMapPoint, new TMapData.OnFindPathDataListener() {
-//                                @Override
-//                                public void onFindPathData(TMapPolyLine tMapPolyLine) {
-//                                    tMapPolyLine.setLineWidth(3);
-//                                    tMapPolyLine.setLineColor(Color.BLUE);
-//                                    tMapPolyLine.setLineAlpha(255);
-//
-//                                    tMapPolyLine.setOutLineWidth(5);
-//                                    tMapPolyLine.setOutLineColor(Color.RED);
-//                                    tMapPolyLine.setOutLineAlpha(255);
-//
-//
-//
-//
-//                                    tMapView.addTMapPolyLine(tMapPolyLine);
-//                                    TMapInfo info = tMapView.getDisplayTMapInfo(tMapPolyLine.getLinePointList());
-//                                    tMapView.setZoomLevel(info.getZoom());
-//                                    tMapView.setCenterPoint(info.getPoint().getLatitude(), info.getPoint().getLongitude());
-//
-//                                    tMapView.setZoomLevel(10);
-//
-//                                }
-//                            });
-//                        } else {
-//                            Toast.makeText(getContext(), "주소의 좌표를 찾을 수 없습니다.", Toast.LENGTH_SHORT).show();
-//                        }
-//                    }
-//                });
-//            }
-//        });
-//
-//        tMapView.setOnClickListenerCallback(new TMapView.OnClickListenerCallback() {
-//            @Override
-//            public void onPressDown(ArrayList arrayList, ArrayList arrayList1, TMapPoint tMapPoint, PointF pointF) {
-//                Toast.makeText(getContext(), "onPressDown", Toast.LENGTH_SHORT).show();
-//            }
-//
-//            @Override
-//            public void onPressUp(ArrayList arrayList, ArrayList arrayList1, TMapPoint tMapPoint, PointF pointF) {
-//                Toast.makeText(getContext(), "onPressUp", Toast.LENGTH_SHORT).show();
-//            }
-//        });
 
 
         return rootView;
     }
 
-    public LatLng getLatLngFromAddress(String address){
-        Geocoder geocoder = new Geocoder(getContext());
-        List<Address> addresses;
-        LatLng p1 = null;
 
-        try {
-            addresses = geocoder.getFromLocationName(address, 5);
-            if (addresses == null || addresses.size() == 0) {
-                return null;
-            }
-            Address location = addresses.get(0);
-            p1 = new LatLng(location.getLatitude(), location.getLongitude());
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return p1;
-    }
 }
 
 
