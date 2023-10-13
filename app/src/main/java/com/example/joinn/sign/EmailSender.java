@@ -32,8 +32,8 @@ public class EmailSender extends AsyncTask<String, Void, Void> {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(username));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail));
-            message.setSubject("Email Verification");
-            message.setText("Your verification code is: " + verificationCode);
+            message.setSubject("이메일 인증코드");
+            message.setText("사용자의 이메일 인증 코드6자리: " + verificationCode);
 
             Transport.send(message);
 

@@ -21,8 +21,8 @@ import java.util.Random;
 
 public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
-    private EditText emailText, passwordText, verifyEdit;
-    private Button verifyBtn;
+    private EditText emailText, passwordText,verifyEdit;
+    private Button verifyBtn, joinBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +33,7 @@ public class LoginActivity extends AppCompatActivity {
         passwordText = findViewById(R.id.PasswordText);
         verifyEdit=findViewById(R.id.verifyEdit);
         verifyBtn=findViewById(R.id.verifyBtn);
-
-        Button joinBtn = findViewById(R.id.joinBtn);
+        joinBtn=findViewById(R.id.joinBtn);
         joinBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,6 +69,7 @@ public class LoginActivity extends AppCompatActivity {
 
         verifyEdit.setVisibility(View.VISIBLE);
         verifyBtn.setVisibility(View.VISIBLE);
+        joinBtn.setVisibility(View.INVISIBLE);
         verifyBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
