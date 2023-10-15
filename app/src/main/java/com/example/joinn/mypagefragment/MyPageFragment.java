@@ -1,11 +1,9 @@
 package com.example.joinn.mypagefragment;
 
-import android.app.Activity;
-import android.content.DialogInterface;
+
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.net.Uri;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -81,8 +79,8 @@ public class MyPageFragment extends Fragment {
 
     private ImageButton edit;
 
-    // 현재 로그인한 사용자의 uid를 가져옵니다.
-    String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+
 
     private DatabaseReference usersRef;
 
@@ -90,9 +88,6 @@ public class MyPageFragment extends Fragment {
 
     private FirebaseUser currentUser;
 
-    private String mNickname;
-    private int mProfileImageResId;
-    private Uri mImageUri;
 
     private TextView email;
 
@@ -198,7 +193,7 @@ public class MyPageFragment extends Fragment {
                     case 2:
                         // 드라이버 등록 관련 동작
                         DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference().child("users");
-                        usersRef.child(uid).addValueEventListener(new ValueEventListener() {
+                        usersRef.child(currentUser.getUid()).addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
