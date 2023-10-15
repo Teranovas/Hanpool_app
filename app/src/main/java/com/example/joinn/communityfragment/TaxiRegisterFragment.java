@@ -1,5 +1,8 @@
 package com.example.joinn.communityfragment;
 
+import static androidx.fragment.app.FragmentManager.TAG;
+
+import android.nfc.Tag;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -7,6 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -131,6 +135,7 @@ public class TaxiRegisterFragment extends Fragment {
                             StorageReference imageRef = storageRef.child("images/" + postId + ".jpg");
 
                             long timestamp = System.currentTimeMillis();
+                            Log.d(TAG,"시간" +  timestamp);
                             Post post = new Post(postId, title, startData, arriveData, writer, imageUrl, timestamp, true);
 
                             postsRef.child(postId).setValue(post);

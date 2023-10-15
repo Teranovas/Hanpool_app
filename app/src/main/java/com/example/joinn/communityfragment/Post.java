@@ -32,7 +32,7 @@ public class Post implements Serializable, Parcelable {
         this.timestamp = timestamp;
     }
     public Post(String key, String title, String startpoint, String arrivepoint
-            ,String writer, String imageUrl, long timestampm, boolean taxi) {
+            ,String writer, String imageUrl, long timestamp, boolean taxi) {
         this.key = key;
         this.title = title;
         this.startpoint = startpoint;

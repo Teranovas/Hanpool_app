@@ -39,6 +39,8 @@ public class RegisterFragment extends Fragment {
 
     private Button beforeButton;
 
+    private Button taxiBtn;
+
     private DatabaseReference postsRef;
     private StorageReference storageRef;
     private DatabaseReference usersRef;
@@ -59,6 +61,7 @@ public class RegisterFragment extends Fragment {
         titleEditText = view.findViewById(R.id.title_et);
         afterButton = view.findViewById(R.id.after_Btn);
         beforeButton = view.findViewById(R.id.before_Btn);
+        taxiBtn = view.findViewById(R.id.taxi_Btn);
 
 
 
@@ -118,6 +121,39 @@ public class RegisterFragment extends Fragment {
 
                     // 출발지 정보 전달
                     Fragment newFragment = new ArriveRegisterFragment();
+                    newFragment.setArguments(bundle);
+
+                    // 프래그먼트 전환
+                    FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                    transaction.replace(R.id.container, newFragment);
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+                }
+
+            }
+        });
+
+
+        taxiBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String title = titleEditText.getText().toString();
+
+
+                if (title.isEmpty()) {
+                    Toast.makeText(getContext(), "모든 필드를 입력해주세요.", Toast.LENGTH_SHORT).show();
+                } else {
+                    String postId = postsRef.push().getKey();
+
+                    String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                    // 데이터 전달을 위한 Bundle 생성
+                    Bundle bundle = new Bundle();
+                    bundle.putString("postId", postId);
+                    bundle.putString("userId", userId);
+                    bundle.putString("title", title);
+
+                    // 출발지 정보 전달
+                    Fragment newFragment = new TaxiRegisterFragment();
                     newFragment.setArguments(bundle);
 
                     // 프래그먼트 전환
