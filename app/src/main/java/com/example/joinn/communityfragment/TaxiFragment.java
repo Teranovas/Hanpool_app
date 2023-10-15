@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -38,7 +39,7 @@ public class TaxiFragment extends Fragment {
     private Context context;
     private ListView listView;
     private PostAdapter postAdapter;
-    private Button regButton;
+    private ImageButton regButton;
     private FirebaseAuth mAuth;
 
     private FirebaseUser currentUser;

@@ -1,117 +1,275 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:padding="16dp"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/black"
     android:orientation="vertical"
+    android:padding="16dp"
     tools:context=".communityfragment.DetailFragment">
 
+    <!-- 사용자 정보 영역 -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center_horizontal"
-        >
-        <ImageView
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/detailProfileImageView"
-            android:layout_width="128dp"
-            android:layout_height="128dp"
-            android:src="@drawable/user"/>
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@android:color/transparent"
+            android:layout_marginLeft="10dp"
+            android:foreground="@drawable/circle"
+            android:scaleType="centerCrop"
+            android:src="@drawable/user"
+
+            app:civ_border_overlay="true" />
 
         <TextView
             android:id="@+id/nickname"
-            android:text="닉네임"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"/>
+            android:layout_marginStart="8dp"
+            android:layout_weight="1"
+            android:textColor="@color/white"
+            android:text="이름"
+            android:textSize="30sp" />
 
         <TextView
             android:id="@+id/time"
-            android:text="시간"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginBottom="30dp"/>
-
+            android:text="시간"
+            android:textColor="#837C7C"
+            android:layout_marginRight="10dp"
+            android:textSize="20sp" />
 
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/tmap"
+        android:padding="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:orientation="vertical" />
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:layout_marginTop="10dp"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/title_tv"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:text="제목" />
-
-            <TextView
-                android:id="@+id/title_tv"
-                android:padding="16dp"
-                android:background="#eeeeee"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="제목입니다." />
-        </LinearLayout>
+            android:layout_marginLeft="10dp"
+            android:text="제목"
+            android:textColor="@color/white"
+            android:textSize="25sp" />
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp">
 
             <TextView
-                android:layout_width="100dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:text="출발지" />
+                android:background="@android:color/holo_blue_light"
+                android:fontFamily="@font/fontbold"
+                android:paddingLeft="10dp"
+                android:paddingTop="5dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="5dp"
+                android:text="출발"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/start"
-                android:padding="16dp"
-                android:background="#eeeeee"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="출발지" />
+                android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
+                android:textColor="#D6D2D2"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp">
 
             <TextView
-                android:layout_width="100dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:text="도착지" />
+                android:background="@android:color/holo_red_light"
+                android:fontFamily="@font/fontbold"
+                android:paddingLeft="10dp"
+                android:paddingTop="5dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="5dp"
+                android:text="도착"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/arrive"
-                android:padding="16dp"
-                android:background="#eeeeee"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="도착지" />
-        </LinearLayout>
+                android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
+                android:textColor="#D6D2D2"
+                android:textSize="15sp"
+                android:textStyle="bold" />
 
-        <Button
-            android:text="신청하기"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/SummitBtn"/>
+
+        </LinearLayout>
 
 
     </LinearLayout>
 
+    <Button
+        android:id="@+id/SummitBtn"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="신청하기" />
+
+
+
 </LinearLayout>
+
+
+    <!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:tools="http://schemas.android.com/tools"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:padding="16dp"-->
+<!--    android:layout_height="match_parent"-->
+<!--    android:orientation="vertical"-->
+<!--    tools:context=".communityfragment.DetailFragment">-->
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="vertical"-->
+<!--        android:gravity="center_horizontal"-->
+<!--        >-->
+<!--        <ImageView-->
+<!--            android:id="@+id/detailProfileImageView"-->
+<!--            android:layout_width="128dp"-->
+<!--            android:layout_height="128dp"-->
+<!--            android:src="@drawable/user"/>-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/nickname"-->
+<!--            android:text="닉네임"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:gravity="center"/>-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/time"-->
+<!--            android:text="시간"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:gravity="center"-->
+<!--            android:layout_marginBottom="30dp"/>-->
+
+
+<!--    </LinearLayout>-->
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="vertical">-->
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="horizontal">-->
+
+<!--            <TextView-->
+<!--                android:layout_width="100dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:padding="16dp"-->
+<!--                android:text="제목" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/title_tv"-->
+<!--                android:padding="16dp"-->
+<!--                android:background="#eeeeee"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1"-->
+<!--                android:text="제목입니다." />-->
+<!--        </LinearLayout>-->
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="horizontal">-->
+
+<!--            <TextView-->
+<!--                android:layout_width="100dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:padding="16dp"-->
+<!--                android:text="출발지" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/start"-->
+<!--                android:padding="16dp"-->
+<!--                android:background="#eeeeee"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1"-->
+<!--                android:text="출발지" />-->
+<!--        </LinearLayout>-->
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="horizontal">-->
+
+<!--            <TextView-->
+<!--                android:layout_width="100dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:padding="16dp"-->
+<!--                android:text="도착지" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/arrive"-->
+<!--                android:padding="16dp"-->
+<!--                android:background="#eeeeee"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1"-->
+<!--                android:text="도착지" />-->
+<!--        </LinearLayout>-->
+
+<!--        <Button-->
+<!--            android:text="신청하기"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:id="@+id/SummitBtn"/>-->
+
+
+<!--    </LinearLayout>-->
+
+<!--</LinearLayout>-->

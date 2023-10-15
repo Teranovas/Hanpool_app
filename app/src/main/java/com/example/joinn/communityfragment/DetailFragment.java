@@ -2,6 +2,10 @@ package com.example.joinn.communityfragment;
 
 import static android.content.ContentValues.TAG;
 
+import android.graphics.Color;
+import android.graphics.PointF;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +32,7 @@ import com.example.joinn.chatfragment.ChatFragment;
 import com.example.joinn.chatfragment.ChatRoomFragment;
 import com.example.joinn.chatfragment.User;
 import com.example.joinn.mapfragment.AddSearchFragment;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -37,10 +43,16 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.skt.tmap.TMapData;
+import com.skt.tmap.TMapInfo;
+import com.skt.tmap.TMapPoint;
+import com.skt.tmap.TMapView;
+import com.skt.tmap.overlay.TMapPolyLine;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 public class DetailFragment extends Fragment {
@@ -70,6 +82,14 @@ public class DetailFragment extends Fragment {
     private StorageReference storageRef;
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
+
+    ArrayList<TMapPoint> pointList = new ArrayList<TMapPoint>();
+
+    private String address1;
+
+    private String address2;
+
+
 
 
     String imageURL;
@@ -101,32 +121,92 @@ public class DetailFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
 
+        LinearLayout linearLayoutTmap = view.findViewById(R.id.tmap);
+        TMapView tMapView = new TMapView(getContext());
 
         Bundle arguments = getArguments();
-        if (arguments != null) {
-            String title = arguments.getString("title");
-            titleTextView.setText(title);
 
-            String start = arguments.getString("start");
-            startTextView.setText(start);
+        String title = arguments.getString("title");
+        titleTextView.setText(title);
 
-            String arrive = arguments.getString("arrive");
-            arriveTextView.setText(arrive);
+        address1 = arguments.getString("start");
+        startTextView.setText(address1);
 
-            String timestamp = arguments.getString("timestamp");
-            timestampTextView.setText(timestamp);
+        address2 = arguments.getString("arrive");
+        arriveTextView.setText(address2);
 
-            writer = arguments.getString("writer");
-            writerTextView.setText(writer);
+        String timestamp = arguments.getString("timestamp");
+        timestampTextView.setText(timestamp);
 
-            imageURL = arguments.getString("image");
+        writer = arguments.getString("writer");
+        writerTextView.setText(writer);
 
-            Glide.with(this)
-                    .load(imageURL)
-                    .into(detailProfileImageView);
+        imageURL = arguments.getString("image");
+
+        Glide.with(this)
+                .load(imageURL)
+                .into(detailProfileImageView);
+
+        linearLayoutTmap.addView(tMapView);
+        tMapView.setSKTMapApiKey("DXAHGOo2dXantyv0rMg371Lj8Bm8WzV7bhXjJHkh");
 
 
-        }
+
+
+        tMapView.setOnMapReadyListener(new TMapView.OnMapReadyListener() {
+            @Override
+            public void onMapReady() {
+
+                LatLng coordinatesStart = getLatLngFromAddress(address1);
+                LatLng coordinatesEnd = getLatLngFromAddress(address2);
+
+                if (coordinatesStart != null && coordinatesEnd != null) {
+                    TMapPoint startTMapPoint = new TMapPoint(coordinatesStart.latitude, coordinatesStart.longitude);
+                    TMapPoint endTMapPoint = new TMapPoint(coordinatesEnd.latitude, coordinatesEnd.longitude);
+
+                    TMapData tmapdata = new TMapData();
+
+                    tmapdata.findPathData(startTMapPoint, endTMapPoint, new TMapData.OnFindPathDataListener() {
+                        @Override
+                        public void onFindPathData(TMapPolyLine tMapPolyLine) {
+                            tMapPolyLine.setLineWidth(3);
+                            tMapPolyLine.setLineColor(Color.BLUE);
+                            tMapPolyLine.setLineAlpha(255);
+
+                            tMapPolyLine.setOutLineWidth(5);
+                            tMapPolyLine.setOutLineColor(Color.RED);
+                            tMapPolyLine.setOutLineAlpha(255);
+
+
+                            tMapView.addTMapPolyLine(tMapPolyLine);
+                            TMapInfo info = tMapView.getDisplayTMapInfo(tMapPolyLine.getLinePointList());
+                            tMapView.setZoomLevel(info.getZoom());
+                            tMapView.setCenterPoint(info.getPoint().getLatitude(), info.getPoint().getLongitude());
+
+                            tMapView.setZoomLevel(10);
+
+                        }
+                    });
+                } else {
+                    Toast.makeText(getContext(), "주소의 좌표를 찾을 수 없습니다.", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+
+        });
+
+        tMapView.setOnClickListenerCallback(new TMapView.OnClickListenerCallback() {
+            @Override
+            public void onPressDown(ArrayList arrayList, ArrayList arrayList1, TMapPoint tMapPoint, PointF pointF) {
+                Toast.makeText(getContext(), "onPressDown", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onPressUp(ArrayList arrayList, ArrayList arrayList1, TMapPoint tMapPoint, PointF pointF) {
+                Toast.makeText(getContext(), "onPressUp", Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
 
         submmitBtn.setOnClickListener(new View.OnClickListener() {
@@ -203,8 +283,31 @@ public class DetailFragment extends Fragment {
 
             }
         });
+
         return view;
     }
+    //경기 가평군 상면 돌아우길 14
+
+    public LatLng getLatLngFromAddress(String address){
+        Geocoder geocoder = new Geocoder(getContext());
+        List<Address> addresses;
+        LatLng p1 = null;
+
+        try {
+            addresses = geocoder.getFromLocationName(address, 5);
+            if (addresses == null || addresses.size() == 0) {
+                return null;
+            }
+            Address location = addresses.get(0);
+            p1 = new LatLng(location.getLatitude(), location.getLongitude());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return p1;
+    }
+
 
 
 }

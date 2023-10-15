@@ -113,8 +113,6 @@ public class SearchFragment extends Fragment{
     private EditText destinationEditText;
 
 
-    ArrayList<TMapPoint> pointList = new ArrayList<TMapPoint>();
-
 
 
 
