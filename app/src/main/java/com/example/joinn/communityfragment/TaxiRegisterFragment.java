@@ -38,10 +38,6 @@ public class TaxiRegisterFragment extends Fragment {
     String startData;
     String arriveData;
 
-    double startLatitude = 37.500830;
-    double startLongitude = 127.037216;
-    double endLatitude = 37.484235;
-    double endLongitude = 126.980546;
     private DatabaseReference postsRef;
 
     private StorageReference storageRef;

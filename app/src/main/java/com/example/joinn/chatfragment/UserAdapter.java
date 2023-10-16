@@ -37,6 +37,8 @@ public class UserAdapter extends ArrayAdapter<User> {
 
         ImageView imageView = convertView.findViewById(R.id.userImageView);
         TextView userTextView = convertView.findViewById(R.id.chatUserView);
+        TextView recentMessageView = convertView.findViewById(R.id.recent_message_tv);
+        TextView timestampView = convertView.findViewById(R.id.timestamp_tv);
 
         userTextView.setText(user.getWriter());
 

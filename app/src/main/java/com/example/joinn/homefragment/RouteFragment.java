@@ -23,6 +23,7 @@ import com.bumptech.glide.Glide;
 import com.example.joinn.R;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -53,12 +54,20 @@ public class RouteFragment extends Fragment {
 
     private String address2;
 
+    private FirebaseUser currentUser;
+
+    private FirebaseAuth mAuth;
+
+
+    private DatabaseReference usersRef;
+
+
     DatabaseReference routeRef = FirebaseDatabase.getInstance().getReference("route");
     DatabaseReference similarRoutesRef = FirebaseDatabase.getInstance().getReference("similarRoutes");
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        usersRef = FirebaseDatabase.getInstance().getReference().child("users");
     }
 
     @Override
@@ -81,6 +90,9 @@ public class RouteFragment extends Fragment {
         linearLayoutTmap.addView(tMapView);
         tMapView.setSKTMapApiKey("DXAHGOo2dXantyv0rMg371Lj8Bm8WzV7bhXjJHkh");
 
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
+        String currentUserName = currentUser.getUid();
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,32 +103,58 @@ public class RouteFragment extends Fragment {
                     // Save the user's route to the 'routes' reference
                     DatabaseReference currentUserRouteRef = routeRef.child(FirebaseAuth.getInstance().getUid());
 
-                    // Use nested maps to represent the hierarchy
-                    Map<String, Object> startMap = new HashMap<>();
-                    startMap.put("latitude", coordinatesStart.latitude);
-                    startMap.put("longitude", coordinatesStart.longitude);
-
-                    Map<String, Object> endMap = new HashMap<>();
-                    endMap.put("latitude", coordinatesEnd.latitude);
-                    endMap.put("longitude", coordinatesEnd.longitude);
-
-                    Map<String, Object> routeMap = new HashMap<>();
-                    routeMap.put("start", startMap);
-                    routeMap.put("end", endMap);
-
-                    currentUserRouteRef.setValue(routeMap);
-
-                    // Save similar routes to the 'similarRoutes' reference
-                    saveSimilarRoutes(coordinatesStart, coordinatesEnd);
+                    usersRef.child(currentUserName).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
 
 
-                    FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                    Fragment newFragment = new HomeFragment();
+                            HashMap<Object, String> hashMap = new HashMap<>();
 
-                    transaction.replace(R.id.container, newFragment);
+                            String nickname = snapshot.child("닉네임").getValue(String.class);
 
-                    transaction.addToBackStack(null);
-                    transaction.commit();
+
+
+                            hashMap.put("닉네임", nickname);
+
+
+                            currentUserRouteRef.setValue(hashMap);
+                            // Use nested maps to represent the hierarchy
+                            Map<String, Object> startMap = new HashMap<>();
+                            startMap.put("latitude", coordinatesStart.latitude);
+                            startMap.put("longitude", coordinatesStart.longitude);
+                            startMap.put("address", address1);
+
+                            Map<String, Object> endMap = new HashMap<>();
+                            endMap.put("latitude", coordinatesEnd.latitude);
+                            endMap.put("longitude", coordinatesEnd.longitude);
+                            endMap.put("address", address2);
+
+                            Map<String, Object> routeMap = new HashMap<>();
+                            routeMap.put("start", startMap);
+                            routeMap.put("end", endMap);
+
+                            currentUserRouteRef.setValue(routeMap);
+
+                            // Save similar routes to the 'similarRoutes' reference
+                            saveSimilarRoutes(coordinatesStart, coordinatesEnd);
+
+
+                            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                            Fragment newFragment = new HomeFragment();
+
+                            transaction.replace(R.id.container, newFragment);
+
+                            transaction.addToBackStack(null);
+                            transaction.commit();
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
                 } else {
                     Toast.makeText(getContext(), "주소의 좌표를 찾을 수 없습니다.", Toast.LENGTH_SHORT).show();
                 }

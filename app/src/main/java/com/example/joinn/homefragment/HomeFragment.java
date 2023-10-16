@@ -85,18 +85,58 @@ public class HomeFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 routeList.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    com.example.joinn.homefragment.LatLng startLatLng = new com.example.joinn.homefragment.LatLng(
-                            snapshot.child("start").child("latitude").getValue(Double.class),
-                            snapshot.child("start").child("longitude").getValue(Double.class)
-                    );
-                    com.example.joinn.homefragment.LatLng endLatLng = new com.example.joinn.homefragment.LatLng(
-                            snapshot.child("end").child("latitude").getValue(Double.class),
-                            snapshot.child("end").child("longitude").getValue(Double.class)
-                    );
-                    Route route = new Route(startLatLng, endLatLng);
-                    routeList.add(route);
+                    String partnerUserId = snapshot.getKey();  // 상대방의 UID를 가져옵니다.
+
+                    // 상대방의 사용자 정보를 가져옵니다.
+                    DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("users").child(partnerUserId);
+                    userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot userSnapshot) {
+                            String uid = userSnapshot.child("uid").getValue(String.class);
+                            String nickname = userSnapshot.child("닉네임").getValue(String.class);
+                            String imageURL = userSnapshot.child("photoUrl").getValue(String.class);
+                            String level = userSnapshot.child("드라이버 레벨").getValue(String.class);
+                            String spottxt = userSnapshot.child("직위").getValue(String.class);
+                            // 여기서 상대방의 정보를 사용하세요.
+
+                            // 상대방의 경로 정보를 가져옵니다.
+                            DatabaseReference routeRef = FirebaseDatabase.getInstance().getReference("route").child(partnerUserId);
+                            routeRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot routeSnapshot) {
+                                    // 여기서 상대방의 경로 정보를 활용합니다. 예를 들면, 경로 데이터를 화면에 출력하는 작업을 할 수 있습니다.
+                                    // 경로 정보를 routeList에 추가하는 코드를 작성합니다.
+
+                                    String startAddress = routeSnapshot.child("start").child("address").getValue(String.class);
+                                    String endAddress = routeSnapshot.child("end").child("address").getValue(String.class);
+
+                                    com.example.joinn.homefragment.LatLng startLatLng = new com.example.joinn.homefragment.LatLng(
+                                            routeSnapshot.child("start").child("latitude").getValue(Double.class),
+                                            routeSnapshot.child("start").child("longitude").getValue(Double.class)
+                                    );
+                                    com.example.joinn.homefragment.LatLng endLatLng = new com.example.joinn.homefragment.LatLng(
+                                            routeSnapshot.child("end").child("latitude").getValue(Double.class),
+                                            routeSnapshot.child("end").child("longitude").getValue(Double.class)
+                                    );
+                                    Route route = new Route(startLatLng, endLatLng, nickname, imageURL, level, spottxt, startAddress, endAddress);  // Route 객체에 userName도 추가했다고 가정합니다.
+                                    routeList.add(route);
+
+                                    routeAdapter.notifyDataSetChanged(); // 데이터 변경 알림
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+                                    // 에러 처리
+                                }
+                            });
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            // 에러 처리
+                        }
+                    });
                 }
-                routeAdapter.notifyDataSetChanged(); // 데이터 변경 알림
             }
 
             @Override
@@ -105,7 +145,5 @@ public class HomeFragment extends Fragment {
             }
         });
     }
-
-
 
 }
