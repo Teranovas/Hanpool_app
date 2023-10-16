@@ -58,6 +58,7 @@
         android:layout_width="240dp"
         android:layout_height="60dp"
         android:hint="인증번호를 입력하세요"
+        android:textColorHint="@color/white"
         android:textColor="@color/white"
         android:visibility="invisible"
         app:layout_constraintStart_toStartOf="@+id/PasswordText"
