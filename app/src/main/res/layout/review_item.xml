@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/gradient_background2"
     android:padding="16dp">
 
     <!-- Date Text -->
@@ -12,7 +13,25 @@
         android:layout_height="wrap_content"
         android:text="2023.10.04"
         android:textSize="18sp"
+        android:textColor="@color/white"
+        android:layout_marginLeft="10dp"
         android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+
+        android:layout_marginRight="10dp">
+
+        <ImageView
+            android:id="@+id/dottedLineImageView"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+
+            android:gravity="center"
+            android:src="@drawable/line3" />
+    </LinearLayout>
 
 
     <LinearLayout
@@ -21,10 +40,14 @@
         android:orientation="horizontal"
         android:layout_marginTop="16dp">
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profile"
             android:layout_width="80dp"
-            android:layout_height="80dp"/>
+            android:layout_height="80dp"
+            android:background="@android:color/transparent"
+            android:foreground="@drawable/circle"
+            android:layout_marginLeft="10dp"
+            android:scaleType="centerCrop"/>
 
         <LinearLayout
             android:layout_width="0dp"
@@ -43,12 +66,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="닉네임"
+                    android:textColor="@color/white"
                     android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
+                    android:textColor="@color/white"
                     android:text="님의 카풀"/>
 
             </LinearLayout>
@@ -62,12 +87,19 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="리뷰남기기" />
+                    android:background="@android:color/transparent"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:text="리뷰남기기"
+                    android:id="@+id/reviewButton"/>
 
                 <Button
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
                     android:text="내역 삭제" />
 
             </LinearLayout>

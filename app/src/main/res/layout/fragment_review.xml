@@ -5,22 +5,44 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/gradient_background"
     tools:context=".mypagefragment.ReviewFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-        <Button
-            android:text="리뷰내역"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+        <ImageView
+            android:layout_width="30sp"
+            android:layout_height="30sp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="40dp"
+            android:src="@drawable/logo" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/fontbold"
+            android:layout_marginLeft="-35dp"
+            android:gravity="center"
+            android:padding="40dp"
+            android:text="카풀내역"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="30sp" />
     </LinearLayout>
+
 
     <ListView
         android:id="@+id/reviewlistView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent"
+        android:layout_marginBottom="7dp"/>
 
 </LinearLayout>

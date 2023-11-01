@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 
+import android.os.Handler;
 import android.renderscript.ScriptGroup;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -294,11 +295,18 @@ public class ChatRoomFragment extends Fragment {
                 String Nickname = snapshot.child("닉네임").getValue(String.class);
                 String imageUrl = snapshot.child("photoUrl").getValue(String.class);
 
-                carpoolReview.child(receiverUid).child("nickname").setValue(Nickname);
-                carpoolReview.child(receiverUid).child("date").setValue(now);
-                carpoolReview.child(receiverUid).child("photoUrl").setValue(imageUrl);
+                // 24시간 후에 실행될 코드를 정의합니다.
+                Runnable saveReviewRunnable = new Runnable() {
+                    @Override
+                    public void run() {
+                        carpoolReview.child(receiverUid).child("nickname").setValue(Nickname);
+                        carpoolReview.child(receiverUid).child("date").setValue(now);
+                        carpoolReview.child(receiverUid).child("photoUrl").setValue(imageUrl);
+                    }
+                };
 
-
+                // 24시간 후에 saveReviewRunnable을 실행합니다.
+                new Handler().postDelayed(saveReviewRunnable, 86400000);
 
             }
 
@@ -307,7 +315,6 @@ public class ChatRoomFragment extends Fragment {
 
             }
         });
-
 
     }
 

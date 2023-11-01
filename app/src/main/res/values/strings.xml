@@ -6,6 +6,9 @@
     <string name="title_activity_hello">HelloActivity</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="base_url">https://maps.googleapis.com</string>
+    <string name="dialog_title">별점 리뷰</string>
+    <string name="rate">평가하기</string>
+    <string name="cancel">취소</string>
 
 
 </resources>
