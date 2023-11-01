@@ -101,6 +101,8 @@ public class DetailFragment extends Fragment {
         opponentChatListRef = FirebaseDatabase.getInstance().getReference().child("chatlist");
         storageRef = FirebaseStorage.getInstance().getReference();
         usersRef = FirebaseDatabase.getInstance().getReference().child("users");
+
+
     }
 
     @Override

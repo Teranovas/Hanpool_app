@@ -9,6 +9,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 
@@ -32,8 +33,10 @@ import com.example.joinn.chatfragment.ChatRoomFragment.*;
 
 import com.bumptech.glide.Glide;
 import com.example.joinn.R;
+import com.example.joinn.communityfragment.RegisterFragment;
 import com.example.joinn.databinding.FragmentChatRoomBinding;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -72,11 +75,16 @@ public class ChatRoomFragment extends Fragment {
 
     private Button inviteBtn;
 
+    private FirebaseAuth Auth;
+
+    private FirebaseUser currentUser;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         usersRef = FirebaseDatabase.getInstance().getReference().child("users");
+
 
     }
 
@@ -98,6 +106,7 @@ public class ChatRoomFragment extends Fragment {
 
         inviteBtn = view.findViewById(R.id.inviteBtn);
 
+
         Bundle arguments = getArguments();
         if (arguments != null) {
             receiverName = arguments.getString("opponentNickname");
@@ -118,6 +127,7 @@ public class ChatRoomFragment extends Fragment {
         mDbRef = FirebaseDatabase.getInstance().getReference();
 
         String senderUid = mAuth.getCurrentUser().getUid();
+
 
         // 보낸이방
         senderRoom = receiverUid + senderUid;
@@ -151,6 +161,7 @@ public class ChatRoomFragment extends Fragment {
                                             .setValue(messageObject)
                                             .addOnSuccessListener(aVoid2 -> {
                                                 // 받는 쪽에도 저장 성공하면 어댑터 갱신
+                                                binding.chatRecyclerView.scrollToPosition(messageList.size() - 1);
                                             });
                                 });
 
@@ -179,6 +190,8 @@ public class ChatRoomFragment extends Fragment {
                             messageList.add(message);
                         }
                         messageAdapter.notifyDataSetChanged();
+
+                        binding.chatRecyclerView.scrollToPosition(messageList.size() - 1);
                     }
 
                     @Override
@@ -190,7 +203,27 @@ public class ChatRoomFragment extends Fragment {
         inviteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDateSelectionDialog();
+                usersRef.child(senderUid).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        String position = snapshot.child("직위").getValue(String.class);
+
+                        if ("드라이버".equals(position)) { // 직위 "드라이버"인 경우만 추가
+
+                            showDateSelectionDialog();
+
+                        }
+                        else{
+                            Toast.makeText(getContext(), "드라이버 등록을 해주세요!", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
 
             }
         });
@@ -261,6 +294,7 @@ public class ChatRoomFragment extends Fragment {
                                     .setValue(messageObject)
                                     .addOnSuccessListener(aVoid2 -> {
                                         // 받는 쪽에도 저장 성공하면 어댑터 갱신
+                                        binding.chatRecyclerView.scrollToPosition(messageList.size() - 1);
                                     });
                         });
 

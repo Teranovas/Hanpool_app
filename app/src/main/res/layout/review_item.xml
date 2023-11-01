@@ -6,6 +6,8 @@
     android:background="@drawable/gradient_background2"
     android:padding="16dp">
 
+
+
     <!-- Date Text -->
     <TextView
         android:id="@+id/date"
@@ -90,17 +92,18 @@
                     android:background="@android:color/transparent"
                     android:textColor="@color/white"
                     android:textStyle="bold"
-                    android:text="리뷰남기기"
+                    android:text="리뷰"
                     android:id="@+id/reviewButton"/>
 
                 <Button
+                    android:id="@+id/deleteButton"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@android:color/transparent"
                     android:textColor="@color/white"
                     android:textStyle="bold"
-                    android:text="내역 삭제" />
+                    android:text="삭제" />
 
             </LinearLayout>
 

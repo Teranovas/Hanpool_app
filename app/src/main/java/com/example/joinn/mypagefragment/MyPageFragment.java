@@ -1,6 +1,8 @@
 package com.example.joinn.mypagefragment;
 
 
+import static androidx.fragment.app.FragmentManager.TAG;
+
 import android.content.Intent;
 import android.content.pm.PackageManager;
 
@@ -15,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -95,6 +98,8 @@ public class MyPageFragment extends Fragment {
     private List<ListItem> items;
 
     private TextView spotTxt;
+
+    private TextView scoreTxt;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -119,6 +124,9 @@ public class MyPageFragment extends Fragment {
                 String imageURL = snapshot.child("photoUrl").getValue(String.class);
                 String level = snapshot.child("드라이버 레벨").getValue(String.class);
                 String spottxt = snapshot.child("직위").getValue(String.class);
+                String score = snapshot.child("평점").getValue(String.class);
+
+
                 String userEmail = currentUser.getEmail();
                 Glide.with(getContext()).load(imageURL).into(mProfileImageView);
 
@@ -127,6 +135,7 @@ public class MyPageFragment extends Fragment {
                 spotTxt.setText(spottxt);
 
                 email.setText(userEmail);
+                scoreTxt.setText(score);
             }
 
             @Override
@@ -156,6 +165,8 @@ public class MyPageFragment extends Fragment {
         email = view.findViewById(R.id.email);
         spotTxt = view.findViewById(R.id.spotTxt);
 
+        scoreTxt = view.findViewById(R.id.scoreTxt);
+
         CustomRecyclerViewAdapter adapter = new CustomRecyclerViewAdapter(items);
 
         final Animation buttonClickAnimation = AnimationUtils.loadAnimation(getContext(), R.anim.button_click_animation);
@@ -179,7 +190,7 @@ public class MyPageFragment extends Fragment {
                         break;
                     case 1:
                         // 카풀 내역 관련 동작
-                        Toast.makeText(getActivity(), "일정", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), "내역", Toast.LENGTH_LONG).show();
 
 
                         FragmentTransaction transaction1 = getActivity().getSupportFragmentManager().beginTransaction();

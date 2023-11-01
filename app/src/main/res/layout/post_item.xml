@@ -42,16 +42,27 @@
             android:text="시간"
             android:textColor="#837C7C"
             android:layout_marginLeft="10dp"
+            android:layout_marginRight="20dp"
             android:textSize="10sp" />
 
-        <RatingBar
-            android:id="@+id/ratingBar"
+        <ImageView
+
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+
+            android:gravity="center"
+            android:src="@drawable/star2" />
+
+        <TextView
+            android:id="@+id/scoreText"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:numStars="5"
-            android:rating="0"
-            style="?android:attr/ratingBarStyleSmall" />
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:text="0.0"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginRight="20dp"/>
     </LinearLayout>
 
     <LinearLayout

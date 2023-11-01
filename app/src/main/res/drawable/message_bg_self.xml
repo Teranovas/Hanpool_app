@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
-    <solid android:color="#2196F3" /> <!-- 본인 메시지 배경색 -->
+    <solid android:color="#5684A8" /> <!-- 본인 메시지 배경색 -->
     <corners android:radius="8dp" />
 </shape>

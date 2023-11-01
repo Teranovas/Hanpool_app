@@ -61,11 +61,7 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 viewHolder.acceptButton.setVisibility(View.GONE);
             }
 
-            if (currentMessage.isRejectButtonVisible()) {
-                viewHolder.rejectButton.setVisibility(View.VISIBLE);
-            } else {
-                viewHolder.rejectButton.setVisibility(View.GONE);
-            }
+
         } else {
             ReceiveViewHolder viewHolder = (ReceiveViewHolder) holder;
             viewHolder.timeReceive.setText(currentMessage.getTime());
@@ -79,11 +75,6 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 viewHolder.acceptButton.setVisibility(View.GONE);
             }
 
-            if (currentMessage.isRejectButtonVisible()) {
-                viewHolder.rejectButton.setVisibility(View.VISIBLE);
-            } else {
-                viewHolder.rejectButton.setVisibility(View.GONE);
-            }
         }
     }
 
@@ -118,7 +109,7 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             timeSend = itemView.findViewById(R.id.timeSender);
             sendName = itemView.findViewById(R.id.senderName);
             acceptButton = itemView.findViewById(R.id.accept_button_send);
-            rejectButton = itemView.findViewById(R.id.reject_button_send);
+//            rejectButton = itemView.findViewById(R.id.reject_button_send);
 
             acceptButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -147,7 +138,9 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             timeReceive = itemView.findViewById(R.id.timeReceiver);
             receiveName = itemView.findViewById(R.id.receiverName);
             acceptButton = itemView.findViewById(R.id.accept_button);
-            rejectButton = itemView.findViewById(R.id.reject_button);
+//            rejectButton = itemView.findViewById(R.id.reject_button);
+
+
 
             acceptButton.setOnClickListener(new View.OnClickListener() {
                 @Override

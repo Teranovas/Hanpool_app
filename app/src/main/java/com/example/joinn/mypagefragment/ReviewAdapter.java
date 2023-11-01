@@ -80,6 +80,17 @@ public class ReviewAdapter extends ArrayAdapter<Review> {
             }
         });
 
+        Button deleteButton = convertView.findViewById(R.id.deleteButton);
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 아이템 제거
+                reviews.remove(position);
+                // 어댑터에게 아이템이 변경되었다고 알림
+                notifyDataSetChanged();
+            }
+        });
+
         return convertView;
     }
 

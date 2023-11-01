@@ -163,7 +163,7 @@
                     android:src="@drawable/star2" />
 
                 <TextView
-                    android:id="@+id/scopeTxt"
+                    android:id="@+id/scoreTxt"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:gravity="center"

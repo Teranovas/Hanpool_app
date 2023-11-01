@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.joinn.R;
 import com.example.joinn.communityfragment.DetailFragment;
@@ -34,7 +35,7 @@ import java.util.List;
 public class MapFragment extends Fragment {
 
     private MapView mapView;
-    private EditText mEditTextLocation;
+    private TextView mEditTextLocation;
     private Button locationBtn;
 
     private String data;

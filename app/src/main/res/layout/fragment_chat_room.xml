@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:id="@+id/dateFragmentContainer"
+    android:background="@drawable/gradient_background"
     tools:context=".chatfragment.ChatRoomFragment">
 
     <LinearLayout
@@ -30,6 +31,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="상대방 닉네임"
+                android:fontFamily="@font/fontbold"
+                android:textColor="@color/white"
                 android:textSize="16sp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="8dp"/>
@@ -62,6 +65,7 @@
         android:layout_weight="1"
         android:divider="@android:color/transparent"
         android:dividerHeight="0dp"
+        android:layout_marginTop="-8dp"
         android:padding="8dp"
         android:transcriptMode="alwaysScroll"
         android:layout_above="@id/input_layout" />
@@ -80,7 +84,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:hint="메시지를 입력하세요."
+                android:textColorHint="#8A8787"
                 android:maxLines="3"
+                android:textColor="@color/white"
                 android:imeOptions="actionSend"
                 android:background="@null" />
 
@@ -102,7 +108,7 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@android:color/white"
+            android:background="@android:color/transparent"
             android:layout_marginBottom="7dp"/>
     </LinearLayout>
 

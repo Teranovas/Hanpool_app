@@ -1,40 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/map_layout"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@drawable/gradient_background">
+
 
     <net.daum.mf.map.api.MapView
         android:id="@+id/map_container"
+        android:padding="10dp"
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginBottom="50dp"/>
 
-    <!-- 텍스트 입력란 -->
-    <EditText
-        android:id="@+id/location_edit_text"
-        android:layout_width="400dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:hint="Enter location" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/map_container"
+        android:background="@drawable/gradient_background">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_weight="0.5"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="15sp"
+                android:layout_height="15sp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:src="@drawable/logo" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+
+                android:fontFamily="@font/fontbold"
+                android:id="@+id/location_edit_text"
+                android:gravity="center"
+                android:text="한풀"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:fontFamily="@font/fontbold"
+
+                android:gravity="right"
+                android:text="지도검색"
+                android:layout_marginRight="20dp"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+<!--    <EditText-->
+<!--        android:id="@+id/location_edit_text"-->
+<!--        android:layout_width="400dp"-->
+<!--        android:layout_height="45dp"-->
+<!--        android:layout_marginStart="16dp"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:layout_marginEnd="16dp"-->
+<!--        android:layout_marginBottom="16dp"-->
+<!--        android:hint="Enter location" />-->
 
     <!-- 지도 검색 버튼 -->
     <Button
         android:id="@+id/search_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/location_edit_text"
-        android:layout_alignParentEnd="true"
-        android:text="Search" />
+        android:layout_width="75dp"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom|center_horizontal"
+
+        android:layout_marginBottom="50dp"
+        android:text="찾기" />
     <Button
         android:id="@+id/location_search_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/search_button"
-        android:layout_alignParentEnd="true"
-        android:text="도로명주소" />
+        android:layout_width="75dp"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom|right"
+        android:layout_marginRight="4dp"
+        android:layout_marginBottom="50dp"
+        android:text="검색" />
 
 
-</RelativeLayout>
+</FrameLayout>
