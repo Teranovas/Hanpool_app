@@ -30,10 +30,11 @@ import java.util.List;
 
 public class HomeFragment extends Fragment {
 
-    private Button loadSearchBtn;
+    private TextView loadSearchBtn;
 
     private RecyclerView routeRecyclerView;
     private RouteAdapter routeAdapter;
+
     private List<Route> routeList;
 
     DatabaseReference similarRoutesRef = FirebaseDatabase.getInstance().getReference("similarRoutes");
@@ -44,7 +45,7 @@ public class HomeFragment extends Fragment {
         loadSearchBtn = view.findViewById(R.id.loadSearch_btn);
 
         routeRecyclerView = view.findViewById(R.id.recycler_view);
-        routeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        routeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false));
 
         routeList = new ArrayList<>();
         // 예제 데이터 추가 (실제 앱에서는 데이터베이스나 API에서 데이터를 가져올 수 있습니다.)

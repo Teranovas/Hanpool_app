@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -146,7 +147,9 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 @Override
                 public void onClick(View v) {
                     String carpoolDate = extractCarpoolDateFromMessage(receiveMessage.getText().toString());
+                    Toast.makeText(context, "신청되었습니다.", Toast.LENGTH_SHORT).show();
                     if (carpoolDate != null) {
+
                         onCarpoolDateAcceptedListener.onDateAccepted(carpoolDate);
                     }
 

@@ -247,7 +247,7 @@ public class DetailFragment extends Fragment {
 
 
                                                 DatabaseReference chatListRef = FirebaseDatabase.getInstance().getReference().child("chatList").child(opponentUID); // 상대방의 chatList 레퍼런스
-                                                Toast.makeText(getContext(), "게시물이 등록되었습니다.", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(getContext(), "신청하였습니다.", Toast.LENGTH_SHORT).show();
                                                 User user = new User(postId, userNickname, userImageUrl); // 현재 사용자의 닉네임과 이미지 저장
                                                 chatListRef.child(postId).setValue(user); // 상대방의 chatList에 저장
 

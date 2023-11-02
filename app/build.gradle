@@ -9,7 +9,7 @@ plugins {
 
 android {
     namespace 'com.example.joinn'
-    compileSdk 34
+    compileSdk 33
 
     viewBinding {
         enabled = true
@@ -24,6 +24,7 @@ android {
     defaultConfig {
         applicationId "com.example.joinn"
         minSdk 26
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 

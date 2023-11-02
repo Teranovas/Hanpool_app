@@ -3,16 +3,26 @@ package com.example.joinn.homefragment;
 import static android.content.ContentValues.TAG;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.location.Address;
+import android.location.Geocoder;
 import android.util.Log;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,6 +32,7 @@ import com.example.joinn.chatfragment.ChatFragment;
 import com.example.joinn.chatfragment.User;
 import com.example.joinn.homefragment.Route;
 import com.example.joinn.R;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -31,7 +42,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.skt.tmap.TMapData;
+import com.skt.tmap.TMapInfo;
+import com.skt.tmap.TMapPoint;
+import com.skt.tmap.TMapView;
+import com.skt.tmap.overlay.TMapMarkerItem;
+import com.skt.tmap.overlay.TMapPolyLine;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RouteAdapter extends RecyclerView.Adapter<RouteAdapter.RouteViewHolder> {
@@ -52,6 +70,10 @@ public class RouteAdapter extends RecyclerView.Adapter<RouteAdapter.RouteViewHol
 
     private StorageReference storageRef;
 
+    private DatabaseReference similarRoutesRef;
+
+    private DatabaseReference routesRef;
+
     String imageURL;
 
 
@@ -70,7 +92,9 @@ public class RouteAdapter extends RecyclerView.Adapter<RouteAdapter.RouteViewHol
         chatlistRef = FirebaseDatabase.getInstance().getReference().child("chatlist");
         opponentChatListRef = FirebaseDatabase.getInstance().getReference().child("chatlist");
         storageRef = FirebaseStorage.getInstance().getReference();
-        usersRef = FirebaseDatabase.getInstance().getReference().child("users");
+
+        similarRoutesRef = FirebaseDatabase.getInstance().getReference().child("similarRoutes");
+
         return new RouteViewHolder(view);
     }
 
@@ -80,12 +104,90 @@ public class RouteAdapter extends RecyclerView.Adapter<RouteAdapter.RouteViewHol
         holder.startTextView.setText(route.getStartAddress());
         holder.endTextView.setText(route.getEndAddress());
         holder.nicknameTextView.setText(route.getNickname());
-        holder.spotTextView.setText("직위: " + route.getSpottxt());
+        holder.spotTextView.setText("" + route.getSpottxt());
         holder.levelTextView.setText("레벨: " + route.getLevel());
 
 
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
+        String uid = currentUser.getUid();
+
+        String nickname = route.getNickname();
+
+
+        usersRef = FirebaseDatabase.getInstance().getReference().child("users");
+        routesRef = FirebaseDatabase.getInstance().getReference().child("route");
+        TMapView tMapView = new TMapView(context);
+
+        holder.tmapLayout.addView(tMapView);
+        tMapView.setSKTMapApiKey("DXAHGOo2dXantyv0rMg371Lj8Bm8WzV7bhXjJHkh");
+
+
+        Log.d(TAG, "이름 : " + nickname);
+
+        tMapView.setOnMapReadyListener(new TMapView.OnMapReadyListener() {
+            @Override
+            public void onMapReady() {
+                usersRef.orderByChild("닉네임").equalTo(nickname).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot userSnapshot : snapshot.getChildren()) {
+                            String uid = userSnapshot.getKey(); // 각 사용자의 UID를 가져옵니다.
+                            Log.d(TAG, "로그 : " + uid);
+
+
+
+                            routesRef.child(uid).child("start").addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot startSnapshot) {
+                                    if (startSnapshot.exists()) {
+                                        String address = startSnapshot.child("address").getValue(String.class);
+                                        double latitude = startSnapshot.child("latitude").getValue(Double.class);
+                                        double longitude = startSnapshot.child("longitude").getValue(Double.class);
+
+                                        Log.d(TAG, "위치 : " + address);
+
+                                        LatLng coordinatesStart = new LatLng(latitude, longitude);
+
+                                        if (coordinatesStart != null) {
+                                            TMapMarkerItem marker = new TMapMarkerItem();
+                                            TMapPoint tMapPoint1 = new TMapPoint(coordinatesStart.latitude, coordinatesStart.longitude);
+
+
+
+
+                                            Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.marker_foreground);
+
+                                            marker.setIcon(bitmap); // 마커 아이콘 지정
+                                            marker.setPosition(0.5f, 1.0f);
+                                            marker.setTMapPoint( tMapPoint1 );
+
+
+                                            marker.setName("출발");
+
+                                            tMapView.setCenterPoint(coordinatesStart.latitude, coordinatesStart.longitude);
+
+                                        }
+                                    } else {
+                                        Log.d(TAG, "에러");
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+                                    // 오류 처리
+                                }
+                            });
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        // 오류 처리
+                    }
+                });
+            }
+        });
 
         holder.submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,7 +225,7 @@ public class RouteAdapter extends RecyclerView.Adapter<RouteAdapter.RouteViewHol
 
 
                                                 DatabaseReference chatListRef = FirebaseDatabase.getInstance().getReference().child("chatList").child(opponentUID); // 상대방의 chatList 레퍼런스
-                                                Toast.makeText(context, "게시물이 등록되었습니다.", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(context, "신청되었습니다.", Toast.LENGTH_SHORT).show();
                                                 User user = new User(postId, userNickname, userImageUrl); // 현재 사용자의 닉네임과 이미지 저장
                                                 chatListRef.child(postId).setValue(user); // 상대방의 chatList에 저장
 
@@ -181,6 +283,8 @@ public class RouteAdapter extends RecyclerView.Adapter<RouteAdapter.RouteViewHol
 
         Button submitBtn;
 
+        LinearLayout tmapLayout;
+
         public RouteViewHolder(@NonNull View itemView) {
             super(itemView);
             startTextView = itemView.findViewById(R.id.route_start);
@@ -194,9 +298,33 @@ public class RouteAdapter extends RecyclerView.Adapter<RouteAdapter.RouteViewHol
 
             submitBtn = itemView.findViewById(R.id.SummitBtn);
 
+            tmapLayout = itemView.findViewById(R.id.tmap);
+
+
 
 
             Glide.with(context).load(Route.getImageURL()).into(imageView);
         }
     }
+
+    public LatLng getLatLngFromAddress(String address){
+        Geocoder geocoder = new Geocoder(context);
+        List<Address> addresses;
+        LatLng p1 = null;
+
+        try {
+            addresses = geocoder.getFromLocationName(address, 5);
+            if (addresses == null || addresses.size() == 0) {
+                return null;
+            }
+            Address location = addresses.get(0);
+            p1 = new LatLng(location.getLatitude(), location.getLongitude());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return p1;
+    }
+
 }
