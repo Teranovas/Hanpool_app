@@ -131,8 +131,8 @@ public class TaxiRegisterFragment extends Fragment {
                             StorageReference imageRef = storageRef.child("images/" + postId + ".jpg");
 
                             long timestamp = System.currentTimeMillis();
-                            Log.d(TAG,"시간" +  timestamp);
-                            Post post = new Post(postId, title, startData, arriveData, writer, imageUrl, timestamp, true);
+//                            Log.d(TAG,"시간" +  timestamp);
+                            Post post = new Post(postId, title, startData, arriveData, writer, imageUrl, timestamp, true,0.0,0.0);
 
                             postsRef.child(postId).setValue(post);
                             Toast.makeText(getContext(), "게시물이 등록되었습니다.", Toast.LENGTH_SHORT).show();
