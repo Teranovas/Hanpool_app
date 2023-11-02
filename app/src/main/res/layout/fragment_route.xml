@@ -4,7 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="@drawable/gradient_background"
     tools:context=".homefragment.RouteFragment">
+
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,25 +16,46 @@
         android:orientation="vertical">
 
         <!-- 상단 툴바 -->
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:title="경로 검색">
+            android:layout_height="wrap_content">
 
-            <!-- 뒤로가기 버튼 -->
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginEnd="16dp" />
 
-        </androidx.appcompat.widget.Toolbar>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="30sp"
+                    android:layout_height="30sp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20dp"
+                    android:src="@drawable/logo" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+
+                    android:fontFamily="@font/fontbold"
+
+                    android:gravity="center"
+                    android:text="경로설정"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="30sp" />
+            </LinearLayout>
+
+        </LinearLayout>
 
         <!-- 지도 뷰 -->
         <LinearLayout
             android:id="@+id/tmap"
             android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
             android:layout_height="300dp"
             android:layout_weight="1"
             android:orientation="vertical" />
@@ -47,6 +72,8 @@
                 android:id="@+id/tv_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:layout_marginBottom="20dp"
                 android:text="시간 및 기타 정보"
                 android:textSize="16sp" />
 
@@ -60,12 +87,16 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/white"
                     android:text="시간 설정:"/>
 
                 <TimePicker
                     android:id="@+id/timePicker"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:numbersTextColor="@color/white"
+                    android:numbersBackgroundColor="@color/white"
+                    style="@style/WhiteBackground"
                     android:timePickerMode="spinner" />
 
 
@@ -76,13 +107,16 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:textColor="@color/white"
                 android:text="날짜 설정:"/>
 
             <DatePicker
                 android:id="@+id/datePicker"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:calendarViewShown="false" />
+                android:calendarViewShown="false"
+                style="@style/WhiteBackground"/>
 
         </LinearLayout>
 
@@ -91,7 +125,7 @@
             android:id="@+id/btnSave"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/black"
+            android:background="@android:color/transparent"
             android:text="확인"
             android:textColor="@android:color/white" />
 

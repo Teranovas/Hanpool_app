@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 흰색 텍스트 스타일 -->
+    <style name="WhiteText">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <!-- 흰색 배경 스타일 -->
+    <style name="WhiteBackground">
+        <item name="android:background">@color/white</item>
+    </style>
+
+</resources>
