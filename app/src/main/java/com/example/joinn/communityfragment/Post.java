@@ -16,6 +16,8 @@ public class Post implements Serializable, Parcelable {
     private long timestamp;
 
     private boolean taxi;
+    private double latitude; // 게시물의 위치 위도
+    private double longitude; // 게시물의 위치 경도
 
     public Post() {
         // Firebase Realtime Database에서 객체를 deserialize할 때 필요한 빈 생성자
@@ -32,7 +34,7 @@ public class Post implements Serializable, Parcelable {
         this.timestamp = timestamp;
     }
     public Post(String key, String title, String startpoint, String arrivepoint
-            ,String writer, String imageUrl, long timestamp, boolean taxi) {
+            ,String writer, String imageUrl, long timestamp, boolean taxi, double latitude, double longitude) {
         this.key = key;
         this.title = title;
         this.startpoint = startpoint;
@@ -41,6 +43,8 @@ public class Post implements Serializable, Parcelable {
         this.imageUrl = imageUrl;
         this.timestamp = timestamp;
         this.taxi = taxi;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     // getter/setter 메서드들
@@ -103,6 +107,12 @@ public class Post implements Serializable, Parcelable {
         this.timestamp = timestamp;
     }
 
+    public double getLatitude(){return latitude;}
+    public void setLatitude(double latitude){this. latitude = latitude;}
+
+    public double getLongitude(){return longitude;}
+    public void setLongitude(double longitude){this. longitude = longitude;}
+
     // Parcelable 인터페이스 구현 메서드들
     public int describeContents() {
         return 0;
@@ -116,6 +126,9 @@ public class Post implements Serializable, Parcelable {
         dest.writeString(writer);
         dest.writeString(imageUrl);
         dest.writeLong(timestamp);
+        dest.writeByte((byte) (taxi ? 1 : 0)); // 0이면 false, 1이면 true
+        dest.writeDouble(latitude);
+        dest.writeDouble(longitude);
     }
 
     protected Post(Parcel in) {
@@ -126,6 +139,9 @@ public class Post implements Serializable, Parcelable {
         writer = in.readString();
         imageUrl = in.readString();
         timestamp = in.readLong();
+        taxi = in.readByte() != 0; // 0이면 false, 1이면 true
+        latitude = in.readDouble();
+        longitude = in.readDouble();
     }
 
     public static final Creator<Post> CREATOR = new Creator<Post>() {

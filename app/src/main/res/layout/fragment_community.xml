@@ -14,7 +14,20 @@
         android:layout_marginBottom="70dp"
         android:layout_marginTop="35dp"
         android:padding="10dp"
-        android:dividerHeight="15dp"/>
+        android:dividerHeight="15dp">
+
+
+    </ListView>
+    <ImageButton
+        android:id="@+id/reg_button"
+        android:layout_width="75dp"
+        android:layout_height="50dp"
+        android:layout_above="@+id/listView"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="80dp"
+        android:background="@drawable/save2"
+
+        android:textColor="#FFFFFF" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -26,7 +39,6 @@
         android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="bold" />
-
 
 
     <com.polyak.iconswitch.IconSwitch
@@ -41,17 +53,6 @@
         app:isw_icon_size="25dp"
         android:layout_above="@+id/listView"
         app:isw_default_selection="right"/>
-
-    <ImageButton
-        android:id="@+id/reg_button"
-        android:layout_width="75dp"
-        android:layout_height="50dp"
-        android:layout_gravity="bottom|center_horizontal"
-        android:layout_marginBottom="80dp"
-        android:background="@drawable/save2"
-        android:layout_above="@+id/listView"
-
-        android:textColor="#FFFFFF" />
 
     <TextView
         android:id="@+id/after_button"
