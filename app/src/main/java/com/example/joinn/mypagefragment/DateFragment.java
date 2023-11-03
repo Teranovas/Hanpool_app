@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -22,6 +23,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
 
 import java.time.LocalDate;
@@ -40,6 +42,8 @@ public class DateFragment extends Fragment{
     ArrayList<String> carpoolDates;
 
     private TextView selectedDateText;
+
+    private TextView backBtn;
 
 
     @Override
@@ -67,6 +71,22 @@ public class DateFragment extends Fragment{
         CalendarUtil.selectedDate = Calendar.getInstance();
 
         carpoolDates = new ArrayList<>();
+
+        backBtn = view.findViewById(R.id.back_btn);
+
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+                Fragment newFragment = new MyPageFragment();
+
+                transaction.replace(R.id.container, newFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+
+            }
+        });
 
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();

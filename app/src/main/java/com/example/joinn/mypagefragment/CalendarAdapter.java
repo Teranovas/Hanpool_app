@@ -64,10 +64,10 @@ public class CalendarAdapter extends  RecyclerView.Adapter<CalendarAdapter.Calen
         if(displayMonth == currentMonth && displayYear == currentYear){
             holder.parentView.setBackgroundColor(Color.parseColor("#D5D5D5"));
 
-            holder.itemView.setBackgroundColor(Color.parseColor("#CEFBC9"));
+            holder.itemView.setBackgroundColor(Color.parseColor("#000000"));
         }
         else{
-            holder.parentView.setBackgroundColor(Color.parseColor("#F6F6F6"));
+            holder.parentView.setBackgroundColor(Color.parseColor("#5A5A5A"));
         }
 
         int dayNo = dateCalendar.get(Calendar.DAY_OF_MONTH);

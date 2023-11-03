@@ -5,12 +5,14 @@ import static android.content.ContentValues.TAG;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.joinn.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -30,11 +32,26 @@ public class ReviewFragment extends Fragment {
     private ReviewAdapter reviewAdapter;
     private List<Review> reviewList = new ArrayList<>();
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+    private TextView backBtn;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_review, container, false);
         reviewListView = view.findViewById(R.id.reviewlistView);
+        backBtn = view.findViewById(R.id.back_btn);
+
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+                Fragment newFragment = new MyPageFragment();
+                transaction.replace(R.id.container, newFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
 
         loadReviews();
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
