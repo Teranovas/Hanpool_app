@@ -4,25 +4,63 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/gradient_background"
+    android:padding="16dp"
     tools:context=".mypagefragment.DriverLicensePlateFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.2"
+        android:layout_height="wrap_content">
 
-        >
-        <TextView
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="드라이버 등록"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:typeface="normal" />
+            android:layout_weight="1"
+            android:orientation="horizontal">
 
+            <ImageView
+                android:layout_width="30sp"
+                android:layout_height="30sp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:src="@drawable/logo" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+
+                android:fontFamily="@font/fontbold"
+
+                android:gravity="center"
+                android:text="한풀"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="30sp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/loadSearch_btn"
+                android:fontFamily="@font/fontbold"
+
+                android:gravity="right"
+                android:text="드라이버등록"
+                android:layout_marginRight="30dp"
+                android:textColor="@color/white"
+                android:textSize="30sp" />
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -37,7 +75,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="40sp"
             android:text="2. 차량번호를 입력해주세요."
-            android:textColor="@color/black"
+            android:fontFamily="@font/fontbold"
+            android:textColor="@color/white"
             android:textStyle="bold"
             android:textSize="30dp"
             android:layout_gravity="center_horizontal"
@@ -50,6 +89,7 @@
             android:layout_marginTop="40sp"
             android:hint="번호입력(12다 3456)"
             android:text=""
+            android:textColorHint="@color/white"
             android:gravity="center"
             android:layout_gravity="center"
             />
@@ -58,7 +98,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="30sp"
+            android:layout_marginTop="200dp"
+
+            android:background="@android:color/transparent"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            android:textStyle="bold|bold"
             android:text="차량번호 저장"
             />
 
@@ -68,7 +113,11 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="다음"
-            android:layout_marginTop="200sp"
+            android:background="@android:color/transparent"
+            android:textColor="@color/white"
+            android:textStyle="bold|bold"
+            android:textSize="20dp"
+            android:layout_marginTop="20dp"
 
             />
 

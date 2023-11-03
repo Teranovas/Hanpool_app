@@ -4,25 +4,63 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@drawable/gradient_background"
     tools:context=".mypagefragment.DriverRegistrationFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.2"
+        android:layout_height="wrap_content">
 
-        >
-        <TextView
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="드라이버 등록"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:typeface="normal" />
+            android:layout_weight="1"
+            android:orientation="horizontal">
 
+            <ImageView
+                android:layout_width="30sp"
+                android:layout_height="30sp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:src="@drawable/logo" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+
+                android:fontFamily="@font/fontbold"
+
+                android:gravity="center"
+                android:text="한풀"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="30sp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/loadSearch_btn"
+                android:fontFamily="@font/fontbold"
+
+                android:gravity="right"
+                android:text="드라이버등록"
+                android:layout_marginRight="30dp"
+                android:textColor="@color/white"
+                android:textSize="30sp" />
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -38,7 +76,8 @@
             android:gravity="center"
             android:layout_marginTop="40sp"
             android:text="1. 면허증 사진을 등록해주세요"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
+            android:fontFamily="@font/fontbold"
             android:layout_margin="40sp"
             android:textAlignment="center"
             android:textSize="25dp"
@@ -58,6 +97,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30sp"
             android:text="면허증 사진 저장"
+            android:background="@android:color/transparent"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            android:textStyle="bold|bold"
             android:layout_gravity="center"
             />
 
@@ -65,8 +108,14 @@
             android:id="@+id/nextBtn"
             android:layout_width="350sp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40sp"
+            android:layout_marginTop="20sp"
+
+
             android:text="다음"
+            android:background="@android:color/transparent"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            android:textStyle="bold|bold"
             android:layout_gravity="center"
 
             />
