@@ -1,3 +1,5 @@
+<center><img src="/images/HANPOOLPOSTER.png" width="100%" height="100%"></center>
+
 # 이앱설레 - 동계 프로젝트
  `팀원` : `팀장` 이창세, 이우진, 박준성, 심재원
 
@@ -86,6 +88,7 @@
 - 카풀 일정 구현
   - 해당 날짜에 카풀이 있으면 노란색으로 표시
 - 프로필 변경 기능 구현
+- 카풀내역 및 탑승객 별점 매기기 기능 구현
 - 로그아웃 기능 구현
 
 ### 12주차 ~ 13주차
@@ -93,22 +96,29 @@
 - 어플리케이션 테스트
 
 # 회원 가입화면, 로그인화면
-<img src="/images/Signup.png" width="70%" height="45%">&nbsp;&nbsp;&nbsp;
+<img src="/images/Singup.png" width="40%" height="40%">
 
 # 회원 가입화면(인증번호 화면)
-<img src="/images/join.png" width="30%" height="30%">&nbsp;&nbsp;&nbsp;
-<img src="/images/login.png" width="30%" height="30%">&nbsp;&nbsp;&nbsp;
-<img src="/images/mypage.png" width="30%" height="30%">
+<img src="/images/auth.png" width="40%" height="40%">
 
-# 메인 화면, 호감 리스트 화면, 쪽지 리스트 화면
-<img src="/images/setting.png" width="30%" height="30%">&nbsp;&nbsp;&nbsp;
-<img src="/images/hogam.png" width="30%" height="30%">&nbsp;&nbsp;&nbsp;
-<img src="/images/letter.png" width="30%" height="30%">
+# 게시판 리스트, 등록화면
+<img src="/images/Community1.png" width="40%" height="40%">&nbsp;&nbsp;&nbsp;
+<img src="/images/Community2.png" width="40%" height="40%">
 
-# 메시지 보내기 화면, 채팅창 화면, 채팅 화면
-<img src="/images/mylistlistdialog.png" width="30%" height="30%">&nbsp;&nbsp;&nbsp;
-<img src="/images/mylikelistmsg.png" width="30%" height="30%">&nbsp;&nbsp;&nbsp;
-<img src="/images/messagechat.png" width="30%" height="30%">
+# 경로설정, 추천카풀화면
+<img src="/images/Home1.png" width="40%" height="40%">&nbsp;&nbsp;&nbsp;
+<img src="/images/Home2.png" width="40%" height="40%">
+
+# 지도화면
+<img src="/images/Map.png" width="40%" height="40%">
+
+# 마이페이지화면(드라이버등록)
+<img src="/images/MyPage.png" width="40%" height="40%">&nbsp;&nbsp;&nbsp;
+<img src="/images/Driver.png" width="40%" height="40%">
+
+# 마이페이지화면(카풀일정, 카풀내역)
+<img src="/images/Date.png" width="40%" height="40%">&nbsp;&nbsp;&nbsp;
+<img src="/images/history.png" width="40%" height="40%">
 
 # 마무리
 3학년 2학기 안드로이드 프로그래밍 수업(A+)을 듣고, 관심이 생겨 자바를 기반으로 진행했던 학교 수업과는 달리 동계 방학 동안은 코틀린을 공부하고 적용해보기 위해 프로젝트를 시작했습니다.<br>
