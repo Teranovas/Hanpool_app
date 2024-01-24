@@ -9,11 +9,11 @@
 
 ## 프로젝트 소개
 
-한풀 한신대학교 졸업프로젝트인 캡스톤 디자인 프로젝트로써, 메인 슬라이딩 화면, 회원가입, 매칭 로직, 푸시 메시지 등 다양한 기능을 포함한 안드로이드 어플리케이션입니다. 10주 동안의 개발 기간 동안 각 주차별로 구현된 기능들이 담겨있습니다.
+한풀은 한신대학교 졸업프로젝트인 캡스톤 디자인 프로젝트로써, 회원가입, 게시판, 카풀 지도 확인, 거리 매칭 로직, 카풀 채팅방, 프로필 변경 등 다양한 기능을 포함한 안드로이드 카풀 어플리케이션입니다. 12주 동안의 개발 기간 동안 각 주차별로 구현된 기능들이 포함이 되어있습니다.
 
 ## 개발툴 / 사용언어
 
-![Kotlin](https://skillicons.dev/icons?i=kotlin)
+![Java](https://skillicons.dev/icons?i=java)
 ![Firebase](https://skillicons.dev/icons?i=firebase)
 ![Android Studio](https://skillicons.dev/icons?i=androidstudio)
 
