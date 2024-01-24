@@ -93,7 +93,7 @@
 - 어플리케이션 테스트
 
 # 회원 가입화면, 로그인화면
-<img src="/images/Signup.png" width="70%" height="45%">;
+<img src="/images/Signup.png" width="30%" height="45%">;
 
 # 회원 가입화면(인증번호 화면)
 <img src="/images/join.png" width="30%" height="30%">&nbsp;&nbsp;&nbsp;
