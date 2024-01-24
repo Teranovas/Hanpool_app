@@ -71,28 +71,33 @@
 ### 7주차 ~ 9주차
 
 - 지도를 검색하는 화면구현
- 
-
-- 토큰 정보 사용자 정보에 저장하기
-- FCM 보내기
-- 새로운 사용자 생성
+  - 도로명검색을 통해 주소를 설정하면 해당 지점으로 지도가 이동
+- 지도상으로 Community의 게시판들의 출발지가 마커표시되도록 설정
+  - 해당 마커를 누르면 해당 게시판으로 이동하여 카풀을 신청할수 있게 구현
+- 추천카풀 화면 구현
+  - 사용자 본인의 경로를 설정하는 기능 구현
+  - 유클리디언 거리 알고리즘을 이용하여 비슷한 경로를 가진 사용자를 본인 추천카풀에 띄우도록 설정
 
 ### 10주차 ~ 11주차
 
-- 라이브러리 추가
-- Firebase 서비스에서 메시지 받기
-- RetroFit 사용하기
-- 다른 사람에게 Push 날리기
-- Invalid 캐쉬 삭제하기
+- 내 정보 화면 구현
+- 드라이버등록 기능 구현
+  - 차량번호,운전면허증,차량 사진 3장 Firebase Storage에 저장
+- 카풀 일정 구현
+  - 해당 날짜에 카풀이 있으면 노란색으로 표시
+- 프로필 변경 기능 구현
+- 로그아웃 기능 구현
 
-### 12주차
+### 12주차 ~ 13주차
 
-# 스플래시 화면, 인트로 화면, 스와이프 화면
+- 어플리케이션 테스트
+
+# 회원 가입화면, 로그인화면
 <img src="/images/splash.png" width="30%" height="30%">&nbsp;&nbsp;&nbsp;
 <img src="/images/intro.png" width="30%" height="30%">&nbsp;&nbsp;&nbsp;
 <img src="/images/mainActivity.png" width="30%" height="30%">
 
-# 회원 가입화면, 로그인 화면, 마이페이지 화면
+# 회원 가입화면(인증번호 화면)
 <img src="/images/join.png" width="30%" height="30%">&nbsp;&nbsp;&nbsp;
 <img src="/images/login.png" width="30%" height="30%">&nbsp;&nbsp;&nbsp;
 <img src="/images/mypage.png" width="30%" height="30%">
