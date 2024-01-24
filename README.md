@@ -1,3 +1,5 @@
+<center><img src="/images/HANPOOLPOSTER.png" width="100%" height="100%"></center>
+
 # 이앱설레 - 동계 프로젝트
  `팀원` : `팀장` 이창세, 이우진, 박준성, 심재원
 
